@@ -21,6 +21,7 @@ type ProductItem = {
   href: string;
   description: string;
   image: string;
+  badge?: string;
 };
 
 type NavItem = {
@@ -34,8 +35,8 @@ type NavItem = {
 const PRODUCTS: ProductItem[] = [
   { label: "Charging Network",    href: "/charging-network", description: "Ultra-fast charging infrastructure across Africa",              image: "/product-ev-charger.png" },
   { label: "PCE App",             href: "/pce-app",          description: "Manage charging, payments, navigation and energy usage",        image: "/product-ev-app.png" },
-  { label: "EV Power Banks",      href: "/contact",          description: "Portable emergency charging solutions for EV drivers",          image: "/product-power-bank.png" },
-  { label: "Energy Storage Units",href: "/contact",          description: "Grid-scale battery systems for homes, businesses and operators", image: "/product-storage-unit.png" },
+  { label: "EV Power Banks",      href: "/contact",          description: "Portable emergency charging solutions for EV drivers",          image: "/product-power-bank.png",   badge: "Coming Soon" },
+  { label: "Energy Storage Units",href: "/contact",          description: "Grid-scale battery systems for homes, businesses and operators", image: "/product-storage-unit.png", badge: "Coming Soon" },
 ];
 
 const NAV: NavItem[] = [
@@ -127,6 +128,27 @@ function ProductCard({ product, onClose }: { product: ProductItem; onClose: () =
             sizes="(max-width: 1200px) 25vw, 280px"
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,18,36,0.65) 0%, transparent 55%)" }} />
+          {product.badge && (
+            <div style={{
+              position: "absolute", top: 10, right: 10,
+              padding: "3px 9px",
+              borderRadius: 999,
+              background: "rgba(6,18,36,0.55)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              border: hovered ? "1px solid rgba(48,231,237,0.55)" : "1px solid rgba(48,231,237,0.28)",
+              boxShadow: hovered ? "0 0 10px rgba(48,231,237,0.20)" : "none",
+              transition: "border-color 0.22s ease, box-shadow 0.22s ease",
+              color: "#fff",
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase" as const,
+              whiteSpace: "nowrap" as const,
+            }}>
+              {product.badge}
+            </div>
+          )}
         </div>
         <div style={{ padding: "18px 20px 20px" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -201,7 +223,7 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
           style={{ position: "relative", display: "inline-flex", alignItems: "center", padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: active ? "#0058B3" : "rgba(0,0,0,0.55)", textDecoration: "none", transition: "color 0.15s" }}
         >
           {item.label}
-          {active && <motion.span layoutId="nav-underline" style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} transition={{ type: "spring", bounce: 0.2, duration: 0.4 }} />}
+          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
         </Link>
       </li>
     );
@@ -213,7 +235,7 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
         <button style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: isOpen || active ? "#0058B3" : "rgba(0,0,0,0.55)", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s", position: "relative" }}>
           {item.label}
           <ChevronDown size={13} style={{ transition: "transform 0.2s ease", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", opacity: 0.7 }} />
-          {active && <motion.span layoutId="nav-underline" style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} transition={{ type: "spring", bounce: 0.2, duration: 0.4 }} />}
+          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
         </button>
         {item.dropdown && (
           <AnimatePresence>
@@ -273,8 +295,8 @@ export function Navbar() {
         }}
       >
         <div className="section-padding max-w-[1440px] mx-auto flex items-center justify-between" style={{ height: 72 }}>
-          <Link href="/" aria-label="Phoenix Creed Energy home" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-            <Logo height={40} priority />
+          <Link href="/" aria-label="Phoenix Creed Energy home" style={{ display: "flex", alignItems: "center", flexShrink: 0, padding: "4px 0" }}>
+            <Logo height={64} priority />
           </Link>
 
           <ul className="flex items-center" style={{ gap: 2, listStyle: "none", margin: 0, padding: 0 }}>

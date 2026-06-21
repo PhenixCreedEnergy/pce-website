@@ -18,8 +18,10 @@ export function Logo({ height = 48, className, priority = false }: LogoProps) {
     <Image
       src="/pce-logo.png"
       alt="Phoenix Creed Energy"
-      width={height}   // square source — width === height
+      width={height}
       height={height}
+      quality={100}
+      sizes={`${height * 2}px`}
       priority={priority}
       className={cn("object-contain", className)}
       style={{ height, width: "auto" }}

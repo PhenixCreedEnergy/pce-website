@@ -90,7 +90,7 @@ export function Footer() {
         {/* Bottom row */}
         <div className="flex flex-wrap items-center justify-between gap-4"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28 }}>
-          <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.22)" }}>
+          <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.22)" }} suppressHydrationWarning>
             © {new Date().getFullYear()} Phoenix Creed Energy Ltd. RC 1843920.
           </p>
           <div className="flex items-center gap-7">
