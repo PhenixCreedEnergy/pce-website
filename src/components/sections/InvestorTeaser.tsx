@@ -48,7 +48,7 @@ export function InvestorTeaser() {
         }}
       />
 
-      <div className="relative section-padding max-w-[1440px] mx-auto py-20 md:py-28 lg:py-36">
+      <div className="relative section-padding max-w-[1440px] mx-auto py-32 md:py-44 lg:py-56">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           {/* Text */}
           <AnimatedSection className="lg:w-2/5" direction="left">

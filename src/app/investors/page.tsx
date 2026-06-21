@@ -1,241 +1,411 @@
-import type { Metadata } from "next";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { StatCard } from "@/components/ui/StatCard";
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { CTASection } from "@/components/sections/CTASection";
-import { TrendingUp, Globe2, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
+import { TrendingUp, Globe2, ShieldCheck, Leaf, ArrowRight, Zap, DollarSign, BarChart3, MapPin, Target, Users, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Investors",
-  description: "Phoenix Creed Energy investor relations — financials, ESG, and partnership opportunities.",
-};
+/* ─── Section wrapper ───────────────────────────────────────── */
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-6%" });
+  return (
+    <motion.div ref={ref} className={className}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.72, delay, ease: [0.16, 1, 0.3, 1] }}>
+      {children}
+    </motion.div>
+  );
+}
 
-const highlights = [
-  { icon: TrendingUp, title: "42% CAGR", desc: "Projected African EV market growth rate through 2035" },
-  { icon: Globe2, title: "18 Active Markets", desc: "Government-backed concessions in 18 countries" },
-  { icon: ShieldCheck, title: "Series B", desc: "$85M raised across two rounds from tier-1 investors" },
-  { icon: Leaf, title: "Net-Zero 2030", desc: "100% renewable-powered network" },
-];
-
+/* ─── Data ──────────────────────────────────────────────────── */
 const keyMetrics = [
-  { numericValue: 85, suffix: "M", label: "Total Raised", description: "USD — Series A & B" },
-  { numericValue: 42, suffix: "%", label: "YoY Revenue Growth", description: "Three consecutive quarters" },
-  { numericValue: 18, suffix: "", label: "Active Markets", description: "Pan-African footprint" },
-  { value: "2030", label: "Net-Zero Target", description: "100% renewable powered" },
+  { value: "2026",  label: "Year Founded",         sub: "Lagos, Nigeria" },
+  { value: "$0",    label: "Operating Revenue",     sub: "Pre-revenue stage" },
+  { value: "0",     label: "Active Markets",        sub: "Deployment commencing" },
+  { value: "$0",    label: "Revenue / Station",     sub: "Operations not yet commenced" },
 ];
 
 const revenueData = [
-  { year: "2022", revenue: 2.1, label: "$2.1M" },
-  { year: "2023", revenue: 8.4, label: "$8.4M" },
-  { year: "2024", revenue: 24.7, label: "$24.7M" },
-  { year: "2025E", revenue: 58.3, label: "$58.3M" },
-  { year: "2026E", revenue: 120, label: "$120M" },
+  { year: "2026", revenue: 0, label: "$0", actual: true },
+  { year: "2027", revenue: 0, label: "$0", actual: false },
+  { year: "2028", revenue: 0, label: "$0", actual: false },
+  { year: "2029", revenue: 0, label: "$0", actual: false },
+  { year: "2030", revenue: 0, label: "$0", actual: false },
 ];
 
-const milestones = [
-  { year: "2021", event: "Founded in Lagos, Nigeria" },
-  { year: "2022", event: "First 50 stations deployed — Lagos, Accra, Nairobi" },
-  { year: "2023", event: "Series A: $25M raised. Expanded to 8 countries" },
-  { year: "2024", event: "Series B: $60M raised. 1,000 station milestone" },
-  { year: "2025", event: "2,500 stations live. PCE App launched. 1M sessions" },
-  { year: "2026", event: "IPO preparation. Target: 5,000 stations, 30 countries" },
+const unitEconomics = [
+  { label: "Avg revenue per station/month", value: "$0",    note: "Commercial operations not yet commenced" },
+  { label: "Gross margin per session",       value: "—",    note: "No sessions recorded" },
+  { label: "Payback period",                value: "TBD",   note: "Subject to deployment timeline" },
+  { label: "EBITDA at scale",               value: "TBD",   note: "Pre-revenue projections pending" },
+  { label: "Station lifetime",               value: "15 yrs",note: "ISO-certified hardware specification" },
+  { label: "Software attach rate",           value: "0%",   note: "Platform in development" },
+];
+
+const breakEvenData = [
+  { label: "Station CAPEX (350kW)", value: "$48K",  icon: DollarSign },
+  { label: "Monthly OpEx",          value: "$420",  icon: BarChart3 },
+  { label: "Revenue at 40% util.",  value: "TBD",   icon: TrendingUp },
+  { label: "Gross profit/mo",       value: "TBD",   icon: Target },
+  { label: "Cash payback",          value: "TBD",   icon: ShieldCheck },
+  { label: "10-yr IRR",             value: "TBD",   icon: Zap },
+];
+
+const marketData = [
+  { label: "Africa EV TAM (2030E)",    value: "$28B",  sub: "Total addressable market" },
+  { label: "PCE SAM",                  value: "$6.2B", sub: "Target deployment markets" },
+  { label: "EV sales growth (CAGR)",   value: "42%",   sub: "2024–2035 projection" },
+  { label: "EV charging gap",          value: "94%",   sub: "Underserved demand today" },
+];
+
+const roadmapItems = [
+  { year: "2026", event: "Founded in Lagos, Nigeria. Infrastructure planning and technology development begins.", done: true },
+  { year: "Q3 2026", event: "Strategic partnerships and site acquisition across West Africa", done: false },
+  { year: "Q4 2026", event: "Pilot station deployment — Lagos, Accra, Nairobi", done: false },
+  { year: "2027", event: "Network expansion. PCE App beta launch. Seed revenue generation", done: false },
+  { year: "2028", event: "Multi-country rollout. Energy storage integration begins", done: false },
+  { year: "2029+", event: "Pan-African network. Fleet API platform. Carbon credit programme", done: false },
+];
+
+const whyPCE = [
+  { icon: TrendingUp,  title: "42% CAGR",           desc: "Projected African EV market growth through 2035 — the largest energy transition in history." },
+  { icon: Globe2,      title: "Pan-African Vision",  desc: "Strategic infrastructure deployment planned across multiple African markets with government engagement underway." },
+  { icon: ShieldCheck, title: "Early-Stage Entry",   desc: "Positioned at the ground floor of Africa's EV revolution — infrastructure first, before the demand curve peaks." },
+  { icon: Leaf,        title: "Net-Zero by Design",  desc: "100% renewable-powered network architecture, built for carbon credit eligibility from day one." },
+  { icon: Users,       title: "Operator Model",      desc: "Platform designed for independent operators and fleet partnerships — a recurring revenue model for scale." },
+  { icon: MapPin,      title: "First-Mover Moat",    desc: "Founding now positions PCE ahead of competition before dominant players establish a foothold in Africa." },
+];
+
+const revenueStreams = [
+  { label: "Charging revenue",     pct: 0, color: "#0058B3" },
+  { label: "SaaS & subscriptions", pct: 0, color: "#30E7ED" },
+  { label: "Carbon credits",       pct: 0, color: "#3b82f6" },
 ];
 
 export default function InvestorsPage() {
-  const maxRevenue = Math.max(...revenueData.map((d) => d.revenue));
+  // All bars render at a fixed minimum height to visually represent zero
+  const BAR_HEIGHT = 8;
 
   return (
     <>
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24"
-        style={{ background: "linear-gradient(135deg, #0058B3 0%, #003d80 100%)" }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
-        <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.15) 0%, transparent 70%)" }}
-        />
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden pt-24 pb-20 md:pt-36 md:pb-28"
+        style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 50%, #060d1f 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.08) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(0,88,179,0.12) 0%, transparent 70%)" }} />
+
         <div className="relative section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection>
-            <div className="chip-accent mb-5" style={{ background: "rgba(48,231,237,0.15)", color: "#30E7ED" }}>
+          <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold tracking-widest uppercase"
+              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.28)", color: "#30E7ED" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
               Investor Relations
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 max-w-3xl leading-tight">
-              The infrastructure play of the decade.
+            <h1 className="font-bold text-white leading-[1.02] tracking-tight mb-6"
+              style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", maxWidth: 760 }}>
+              The infrastructure play<br />
+              <span className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #0058B3 100%)" }}>
+                of the decade.
+              </span>
             </h1>
-            <p className="text-blue-100 text-lg md:text-xl max-w-xl leading-relaxed mb-8">
-              Phoenix Creed Energy is building the connective tissue of Africa's electric economy.
+            <p className="text-base md:text-lg leading-relaxed mb-10"
+              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 520 }}>
+              Phoenix Creed Energy is building the connective tissue of Africa&apos;s electric
+              economy — a $28B TAM with a 94% supply gap and no dominant player.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-deep-blue font-semibold text-sm hover:bg-blue-50 transition-all duration-200"
-            >
-              Request Investor Access <ArrowRight size={15} />
-            </Link>
-          </AnimatedSection>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm"
+                style={{ background: "linear-gradient(135deg,#0058B3,#003d7a)", color: "white", boxShadow: "0 8px 32px rgba(0,88,179,0.35)" }}>
+                Request Investor Access <ArrowRight size={15} />
+              </Link>
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-sm"
+                style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)" }}>
+                Download Pitch Deck <ChevronRight size={15} />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Key metrics */}
-      <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-20">
+      {/* ── Key metrics ── */}
+      <section className="section-padding max-w-[1440px] mx-auto py-16 md:py-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {keyMetrics.map((m, i) => (
-            <AnimatedSection key={m.label} delay={i * 0.08}>
-              <StatCard {...m} />
-            </AnimatedSection>
+            <Reveal key={m.label} delay={i * 0.08}>
+              <div className="rounded-2xl p-6 md:p-8 group cursor-default transition-all duration-300"
+                style={{ background: "#F5F7FA", border: "0.5px solid #E5E7EB" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,88,179,0.25)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,88,179,0.08)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E5E7EB"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
+                <div className="text-4xl md:text-5xl font-bold mb-1 tracking-tight" style={{ color: "#0058B3" }}>{m.value}</div>
+                <div className="font-semibold text-pce-dark mb-1">{m.label}</div>
+                <div className="text-pce-gray text-xs">{m.sub}</div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Revenue chart */}
-      <section className="bg-pce-gray-light py-20 md:py-28">
+      {/* ── Revenue section ── */}
+      <section id="revenue-growth" className="bg-pce-gray-light py-20 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
-            <AnimatedSection className="lg:w-2/5" direction="left">
-              <div className="chip mb-5">Revenue Growth</div>
+            <Reveal className="lg:w-2/5">
+              <div className="chip mb-5">Financial Overview</div>
               <h2 className="text-3xl md:text-4xl font-bold text-pce-dark mb-4 leading-tight">
-                Consistent hypergrowth across every market.
+                Building Africa&apos;s EV Infrastructure Foundation
               </h2>
               <p className="text-pce-gray leading-relaxed mb-6">
-                Revenue grew 195% in FY2024. We project $120M ARR by end of 2026,
-                driven by network expansion and fleet contract signings.
+                Phoenix Creed Energy was founded in 2026 and is currently focused on infrastructure deployment,
+                technology development, strategic partnerships, and network expansion across Africa.
               </p>
-              <div className="space-y-3">
-                {[
-                  { label: "Charging revenue", pct: 68 },
-                  { label: "SaaS & subscriptions", pct: 22 },
-                  { label: "Carbon credits", pct: 10 },
-                ].map((r) => (
+              <div className="space-y-4 mb-8">
+                {revenueStreams.map(r => (
                   <div key={r.label}>
-                    <div className="flex justify-between text-sm mb-1">
+                    <div className="flex justify-between text-sm mb-1.5">
                       <span className="text-pce-gray">{r.label}</span>
                       <span className="font-semibold text-pce-dark">{r.pct}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-white overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{ width: `${r.pct}%`, background: "linear-gradient(90deg, #0058B3, #30E7ED)" }}
-                      />
+                    <div className="h-2 rounded-full bg-white overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: `${r.pct}%`, background: `linear-gradient(90deg, ${r.color}, #30E7ED)` }} />
                     </div>
                   </div>
                 ))}
               </div>
-            </AnimatedSection>
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(0,88,179,0.06)", border: "1px solid rgba(0,88,179,0.15)" }}>
+                <p className="text-sm font-semibold text-pce-dark mb-1">Revenue per station: $0</p>
+                <p className="text-xs text-pce-gray">Commercial operations have not yet commenced.</p>
+              </div>
+            </Reveal>
 
-            <AnimatedSection className="lg:w-3/5" direction="right">
+            <Reveal className="lg:w-3/5" delay={0.1}>
               <div className="surface rounded-2xl p-6 md:p-8">
                 <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-6">Annual Revenue (USD)</p>
-                <div className="flex items-end gap-4 h-48">
-                  {revenueData.map((d) => (
+                <div className="flex items-end gap-4 h-48 mb-3">
+                  {revenueData.map(d => (
                     <div key={d.year} className="flex-1 flex flex-col items-center gap-2">
                       <span className="text-xs font-bold text-pce-dark">{d.label}</span>
-                      <div
-                        className="w-full rounded-t-lg"
-                        style={{
-                          height: `${(d.revenue / maxRevenue) * 160}px`,
-                          background: d.year.includes("E")
-                            ? "linear-gradient(180deg, #30E7ED, #0058B3)"
-                            : "#0058B3",
-                          opacity: d.year.includes("E") ? 0.7 : 1,
-                        }}
-                      />
+                      <div className="w-full rounded-t-lg relative overflow-hidden" style={{
+                        height: `${BAR_HEIGHT}px`,
+                        background: d.actual ? "#0058B3" : "linear-gradient(180deg, #30E7ED, #0058B3)",
+                        opacity: d.actual ? 1 : 0.75,
+                      }}>
+                        {!d.actual && (
+                          <div className="absolute inset-0" style={{ background: "repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.08) 4px, rgba(255,255,255,0.08) 8px)" }} />
+                        )}
+                      </div>
                       <span className="text-[10px] text-pce-gray font-medium">{d.year}</span>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-pce-gray mt-4">E = Estimated. FY ending Dec 31.</p>
+                <div className="flex items-center gap-4 text-xs text-pce-gray">
+                  <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm" style={{background:"#0058B3"}} /> Actual</div>
+                  <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-sm opacity-75" style={{background:"linear-gradient(135deg,#30E7ED,#0058B3)"}} /> Projected</div>
+                </div>
               </div>
-            </AnimatedSection>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Investment highlights */}
+      {/* ── Network economics / Break-even ── */}
       <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Why PCE</h2>
-          <p className="text-pce-gray text-lg max-w-xl mx-auto">Four structural advantages that compound over time.</p>
-        </AnimatedSection>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {highlights.map((h, i) => (
-            <AnimatedSection key={h.title} delay={i * 0.1}>
+        <Reveal className="text-center mb-12">
+          <div className="chip mx-auto mb-4">Unit Economics</div>
+          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Network economics</h2>
+          <p className="text-pce-gray text-lg max-w-xl mx-auto">Projections are based on hardware specifications and market analysis. Commercial operations have not yet commenced.</p>
+        </Reveal>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {/* Unit economics table */}
+          <Reveal>
+            <div className="surface rounded-2xl p-6 md:p-8 h-full">
+              <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-5">Per-Station Metrics</p>
+              <div className="space-y-4">
+                {unitEconomics.map((u, i) => (
+                  <div key={u.label} className="flex items-center justify-between py-3 border-b" style={{ borderColor: "#F0F2F5" }}>
+                    <div>
+                      <p className="font-medium text-pce-dark text-sm">{u.label}</p>
+                      <p className="text-xs text-pce-gray">{u.note}</p>
+                    </div>
+                    <span className="font-bold text-lg shrink-0 ml-4" style={{ color: i % 2 === 0 ? "#0058B3" : "#30E7ED" }}>{u.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Break-even analysis */}
+          <Reveal delay={0.1}>
+            <div className="rounded-2xl p-6 md:p-8 h-full" style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 100%)", border: "1px solid rgba(48,231,237,0.15)" }}>
+              <p className="text-xs font-bold tracking-[0.15em] uppercase mb-5" style={{ color: "#30E7ED" }}>350kW Station — Projected Model</p>
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {breakEvenData.map((b, i) => (
+                  <div key={b.label} className="rounded-xl p-3" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(48,231,237,0.10)" }}>
+                    <b.icon size={14} style={{ color: "#30E7ED", marginBottom: 4 }} />
+                    <p className="text-white font-bold text-base">{b.value}</p>
+                    <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.45)" }}>{b.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs font-bold mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>Cash Payback Timeline — Projected</p>
+              <div className="h-3 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                <div className="h-full rounded-full" style={{ width: "0%", background: "linear-gradient(90deg, #30E7ED, #0058B3)" }} />
+              </div>
+              <div className="flex justify-between text-[9px] mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+                <span>Pre-revenue</span><span>Operations pending</span>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Africa EV market opportunity ── */}
+      <section className="bg-pce-gray-light py-20 md:py-28">
+        <div className="section-padding max-w-[1440px] mx-auto">
+          <Reveal className="text-center mb-12">
+            <div className="chip mx-auto mb-4">Market Opportunity</div>
+            <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Africa EV market opportunity</h2>
+            <p className="text-pce-gray text-lg max-w-2xl mx-auto">
+              1.4 billion people. 54 countries. A $28B charging market by 2030 — and today,
+              94% of demand is completely unserved. PCE is positioning now, before the curve peaks.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            {marketData.map((m, i) => (
+              <Reveal key={m.label} delay={i * 0.08}>
+                <div className="surface rounded-2xl p-6 text-center group cursor-default transition-all duration-300"
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,88,179,0.1)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
+                  <div className="text-4xl font-bold mb-1" style={{ color: "#0058B3" }}>{m.value}</div>
+                  <div className="font-semibold text-pce-dark mb-1 text-sm">{m.label}</div>
+                  <div className="text-pce-gray text-xs">{m.sub}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* TAM/SAM/SOM visual */}
+          <Reveal>
+            <div className="surface rounded-2xl p-8 md:p-10">
+              <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-8 text-center">Market Sizing — TAM / SAM / SOM</p>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                {[
+                  { label: "TAM", value: "$28B",  sub: "Africa EV charging 2030E", size: 160, opacity: 1 },
+                  { label: "SAM", value: "$6.2B", sub: "PCE target markets",       size: 120, opacity: 0.8 },
+                  { label: "SOM", value: "TBD",   sub: "PCE serviceable market",   size: 88,  opacity: 1 },
+                ].map(m => (
+                  <div key={m.label} className="flex flex-col items-center gap-3">
+                    <div className="rounded-full flex flex-col items-center justify-center" style={{
+                      width: m.size, height: m.size,
+                      background: `rgba(0,88,179,${m.opacity * 0.12})`,
+                      border: `2px solid rgba(0,88,179,${m.opacity * 0.3})`,
+                    }}>
+                      <span className="font-bold text-pce-dark" style={{ fontSize: m.size > 130 ? 20 : 16 }}>{m.value}</span>
+                      <span className="text-[10px] text-pce-gray font-bold">{m.label}</span>
+                    </div>
+                    <p className="text-xs text-pce-gray text-center max-w-28">{m.sub}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Why PCE ── */}
+      <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
+        <Reveal className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Why PCE wins</h2>
+          <p className="text-pce-gray text-lg max-w-xl mx-auto">Six structural advantages that compound over time.</p>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {whyPCE.map((h, i) => (
+            <Reveal key={h.title} delay={i * 0.08}>
               <div className="surface surface-hover rounded-2xl p-8 flex gap-5 h-full">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0"
-                  style={{ background: "rgba(0,88,179,0.08)", border: "0.5px solid rgba(0,88,179,0.12)" }}
-                >
-                  <h.icon size={24} style={{ color: "#0058B3" }} />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+                  style={{ background: "rgba(0,88,179,0.08)", border: "0.5px solid rgba(0,88,179,0.12)" }}>
+                  <h.icon size={22} style={{ color: "#0058B3" }} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-pce-dark mb-2">{h.title}</h3>
-                  <p className="text-pce-gray leading-relaxed">{h.desc}</p>
+                  <h3 className="text-base font-bold text-pce-dark mb-2">{h.title}</h3>
+                  <p className="text-pce-gray text-sm leading-relaxed">{h.desc}</p>
                 </div>
               </div>
-            </AnimatedSection>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="bg-pce-gray-light py-20 md:py-28">
-        <div className="section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Expansion roadmap</h2>
-          </AnimatedSection>
+      {/* ── Expansion roadmap ── */}
+      <section className="relative overflow-hidden py-20 md:py-28"
+        style={{ background: "linear-gradient(180deg, #060d1f 0%, #0a1628 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+        <div className="relative section-padding max-w-[1440px] mx-auto">
+          <Reveal className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold tracking-widest uppercase"
+              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.25)", color: "#30E7ED" }}>
+              Roadmap
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Expansion roadmap</h2>
+            <p className="text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From founding to a pan-African network.</p>
+          </Reveal>
+
           <div className="relative max-w-2xl mx-auto">
-            <div
-              className="absolute left-8 top-0 bottom-0 w-px"
-              style={{ background: "linear-gradient(to bottom, #0058B3, rgba(0,88,179,0.1))" }}
-            />
-            <div className="flex flex-col gap-7">
-              {milestones.map((m, i) => (
-                <AnimatedSection key={m.year} delay={i * 0.08}>
+            <div className="absolute left-8 top-0 bottom-0 w-px"
+              style={{ background: "linear-gradient(to bottom, rgba(48,231,237,0.6), rgba(0,88,179,0.2))" }} />
+            <div className="flex flex-col gap-6">
+              {roadmapItems.map((m, i) => (
+                <Reveal key={m.year} delay={i * 0.07}>
                   <div className="flex gap-8 items-start pl-16 relative">
-                    <div
-                      className="absolute left-6 top-1 w-4 h-4 rounded-full border-2 border-white -translate-x-1/2 shrink-0"
-                      style={{ background: "#0058B3", boxShadow: "0 0 0 3px rgba(0,88,179,0.15)" }}
-                    />
-                    <div
-                      className="px-3 py-1 rounded-lg shrink-0"
-                      style={{ background: "rgba(0,88,179,0.08)", border: "0.5px solid rgba(0,88,179,0.15)" }}
-                    >
-                      <span className="text-deep-blue font-bold text-sm">{m.year}</span>
+                    <div className="absolute left-6 top-1.5 w-4 h-4 rounded-full border-2 -translate-x-1/2 shrink-0"
+                      style={{
+                        background: m.done ? "#30E7ED" : "#0058B3",
+                        borderColor: m.done ? "rgba(48,231,237,0.4)" : "rgba(0,88,179,0.4)",
+                        boxShadow: m.done ? "0 0 8px rgba(48,231,237,0.5)" : "none",
+                      }} />
+                    <div className="px-3 py-1 rounded-lg shrink-0"
+                      style={{ background: m.done ? "rgba(48,231,237,0.10)" : "rgba(0,88,179,0.15)", border: `0.5px solid ${m.done ? "rgba(48,231,237,0.25)" : "rgba(0,88,179,0.3)"}` }}>
+                      <span className="font-bold text-sm" style={{ color: m.done ? "#30E7ED" : "rgba(255,255,255,0.7)" }}>{m.year}</span>
                     </div>
-                    <p className="text-pce-dark pt-1">{m.event}</p>
+                    <p className="pt-1 text-sm" style={{ color: m.done ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.5)" }}>{m.event}</p>
                   </div>
-                </AnimatedSection>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* IR contact */}
+      {/* ── IR contact ── */}
       <section className="section-padding max-w-[1440px] mx-auto py-14">
-        <AnimatedSection>
-          <div
-            className="rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
-            style={{ background: "#0058B3", boxShadow: "0 8px 32px rgba(0,88,179,0.20)" }}
-          >
+        <Reveal>
+          <div className="rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
+            style={{ background: "#0058B3", boxShadow: "0 8px 32px rgba(0,88,179,0.25)" }}>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Speak with our IR team</h2>
-              <p className="text-blue-200">Access our data room, financial reports, and ESG disclosures.</p>
+              <p className="text-blue-200">Access our data room, pitch deck, and early-stage disclosures.</p>
+              <p className="text-blue-300 text-sm mt-2">ir@phoenixcreedenergy.com · Lagos, Nigeria</p>
             </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-deep-blue font-semibold shrink-0 hover:bg-blue-50 transition-all duration-200"
-            >
+            <Link href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-deep-blue font-semibold shrink-0 hover:bg-blue-50 transition-all duration-200">
               Request Access <ArrowRight size={16} />
             </Link>
           </div>
-        </AnimatedSection>
+        </Reveal>
       </section>
 
       <CTASection />

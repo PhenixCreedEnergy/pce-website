@@ -95,7 +95,7 @@ export function NetworkMapSection() {
         <div className="absolute right-0 top-1/3 w-[600px] h-[600px] rounded-full" style={{ background: "radial-gradient(circle, rgba(48,231,237,0.06) 0%, transparent 70%)", filter: "blur(80px)" }} />
       </div>
 
-      <div className="relative section-padding max-w-[1440px] mx-auto py-24 md:py-32">
+      <div className="relative section-padding max-w-[1440px] mx-auto py-36 md:py-48 lg:py-60">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
 
           {/* ── LEFT: Copy + feature cards ── */}
@@ -116,7 +116,7 @@ export function NetworkMapSection() {
             <h2 className="font-bold text-white leading-[1.02] tracking-tight mb-5" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3.5rem)" }}>
               Powering every<br />
               <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #0058B3 100%)" }}>
-                major route in Africa.
+                route in Africa.
               </span>
             </h2>
 

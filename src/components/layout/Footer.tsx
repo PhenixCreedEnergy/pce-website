@@ -1,106 +1,112 @@
 import Link from "next/link";
-import { Twitter, Linkedin, Instagram, Youtube } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 
-const footerLinks = {
-  Products: [
-    { label: "Charging Network", href: "/charging-network" },
-    { label: "PCE App", href: "/pce-app" },
-    { label: "Fleet Solutions", href: "/fleet" },
-    { label: "Home Charging", href: "/home-charging" },
-  ],
-  Company: [
-    { label: "About Us", href: "/about" },
-    { label: "Careers", href: "/careers" },
-    { label: "Press", href: "/press" },
-    { label: "Blog", href: "/blog" },
-  ],
-  Investors: [
-    { label: "Overview", href: "/investors" },
-    { label: "Financial Reports", href: "/investors/reports" },
-    { label: "ESG", href: "/investors/esg" },
-    { label: "Contact IR", href: "/investors/contact" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
-  ],
-};
+const columns = [
+  {
+    heading: "Products",
+    links: [
+      { label: "Charging Network", href: "/charging-network" },
+      { label: "PCE App",          href: "/pce-app" },
+      { label: "EV Power Banks",   href: "/contact" },
+      { label: "Energy Storage",   href: "/contact" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About Us", href: "/about" },
+      { label: "Blog",     href: "/blog" },
+      { label: "Careers",  href: "/careers" },
+      { label: "Press",    href: "/press" },
+    ],
+  },
+  {
+    heading: "Investors",
+    links: [
+      { label: "Overview",          href: "/investors" },
+      { label: "Financial Reports", href: "/investors" },
+      { label: "ESG",               href: "/investors" },
+    ],
+  },
+  {
+    heading: "Contact",
+    links: [
+      { label: "Get in Touch",    href: "/contact" },
+      { label: "Partnerships",    href: "/contact" },
+      { label: "Fleet Solutions", href: "/contact" },
+      { label: "Support",         href: "/contact" },
+    ],
+  },
+];
 
-const socials = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+const legal = [
+  { label: "Privacy Policy",   href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Cookie Policy",    href: "/cookies" },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-pce-gray-light border-t border-pce-border">
-      <div className="section-padding max-w-[1440px] mx-auto py-16 md:py-20">
-        {/* Top */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-0 justify-between mb-14">
-          {/* Brand */}
-          <div className="max-w-xs">
-            <Link href="/" className="inline-block mb-5">
-              <Logo height={48} />
+    <footer style={{ background: "#060d1f", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="section-padding max-w-[1440px] mx-auto" style={{ paddingTop: 96, paddingBottom: 72 }}>
+
+        {/* Main grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-12 lg:gap-8 mb-20">
+
+          {/* Column 1 — Brand */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+            <Link href="/" className="inline-block mb-6">
+              <Logo height={38} />
             </Link>
-            <p className="text-pce-gray text-sm leading-relaxed">
-              Powering Africa's electric future with world-class charging
-              infrastructure and clean energy solutions.
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.38)", maxWidth: 280, lineHeight: 1.8 }}>
+              Building Africa's next-generation electric vehicle charging infrastructure — cleaner roads, smarter energy.
             </p>
-            <div className="flex items-center gap-2 mt-6">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-pce-border bg-white hover:border-deep-blue hover:text-deep-blue text-pce-gray transition-all duration-200"
-                >
-                  <Icon size={14} />
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
-                <h4 className="text-[11px] font-bold tracking-[0.15em] text-pce-dark uppercase mb-4">
-                  {category}
-                </h4>
-                <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-pce-gray hover:text-deep-blue transition-colors duration-150"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          {/* Link columns */}
+          {columns.map(col => (
+            <div key={col.heading}>
+              <p className="text-[11px] font-semibold tracking-[0.14em] uppercase mb-5"
+                style={{ color: "rgba(255,255,255,0.28)" }}>
+                {col.heading}
+              </p>
+              <ul className="space-y-3.5 list-none m-0 p-0">
+                {col.links.map(link => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm transition-colors duration-150 hover:text-white/90"
+                      style={{ color: "rgba(255,255,255,0.48)", textDecoration: "none" }}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row */}
+        <div className="flex flex-wrap items-center justify-between gap-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28 }}>
+          <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.22)" }}>
+            © {new Date().getFullYear()} Phoenix Creed Energy Ltd. RC 1843920.
+          </p>
+          <div className="flex items-center gap-7">
+            {legal.map(l => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="text-[13px] transition-colors duration-150 hover:text-white/60"
+                style={{ color: "rgba(255,255,255,0.28)", textDecoration: "none" }}
+              >
+                {l.label}
+              </Link>
             ))}
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-pce-border">
-          <p className="text-pce-gray text-xs">
-            © {new Date().getFullYear()} Phoenix Creed Energy. All rights reserved.
-          </p>
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-pce-gray/60">Powering a cleaner continent.</span>
-            <div
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "#30E7ED", boxShadow: "0 0 6px #30E7ED" }}
-            />
-          </div>
-        </div>
       </div>
     </footer>
   );

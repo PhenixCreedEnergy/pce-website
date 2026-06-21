@@ -113,7 +113,7 @@ export function CTASection() {
   ];
 
   return (
-    <section ref={ref} className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
+    <section ref={ref} className="section-padding max-w-[1440px] mx-auto py-32 md:py-44">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -156,7 +156,7 @@ export function CTASection() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(48,231,237,0.6) 30%, rgba(0,88,179,0.8) 70%, transparent 100%)" }} />
 
         {/* ── Content ── */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-16 py-20 md:py-24" style={{ minHeight: 650 }}>
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-16 py-28 md:py-36" style={{ minHeight: 750 }}>
 
           {/* Badge */}
           <motion.div

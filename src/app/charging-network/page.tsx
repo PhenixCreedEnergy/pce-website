@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { StatCard } from "@/components/ui/StatCard";
 import { CTASection } from "@/components/sections/CTASection";
-import { Zap, Clock, Shield, Wifi, ArrowRight } from "lucide-react";
+import { NetworkMapSection } from "@/components/sections/NetworkMapSection";
+import { Zap, Clock, Shield, Wifi, ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Charging Network",
+  title: "Charging Network — PCE",
   description: "Africa's largest EV charging network — 2,500+ stations across 18 countries with 350kW ultra-fast charging.",
 };
 
@@ -19,6 +19,7 @@ const tiers = [
     ideal: "Hotels & offices",
     style: { background: "#F5F7FA", border: "0.5px solid #E5E7EB" },
     badge: null,
+    dark: false,
   },
   {
     name: "PCE Fast",
@@ -28,6 +29,7 @@ const tiers = [
     ideal: "Shopping centres",
     style: { background: "#EEF5FF", border: "0.5px solid rgba(0,88,179,0.2)" },
     badge: "Popular",
+    dark: false,
   },
   {
     name: "PCE SuperCharge",
@@ -42,97 +44,130 @@ const tiers = [
 ];
 
 const features = [
-  { icon: Zap, title: "350kW Peak Power", desc: "Add 100 km of range in under 5 minutes" },
-  { icon: Clock, title: "24/7 Operations", desc: "Round-the-clock support and live monitoring" },
-  { icon: Shield, title: "ISO Certified", desc: "Meets international EV charging safety standards" },
-  { icon: Wifi, title: "Always Connected", desc: "Real-time diagnostics and OTA firmware updates" },
+  { icon: Zap,    title: "350kW Peak Power",   desc: "Add 100 km of range in under 5 minutes" },
+  { icon: Clock,  title: "24/7 Operations",     desc: "Round-the-clock support and live monitoring" },
+  { icon: Shield, title: "ISO Certified",       desc: "Meets international EV charging safety standards" },
+  { icon: Wifi,   title: "Always Connected",    desc: "Real-time diagnostics and OTA firmware updates" },
+];
+
+const liveStats = [
+  { value: "2,487", label: "Stations Online", dot: "#30E7ED" },
+  { value: "1,204", label: "Active Sessions",  dot: "#22d3ee" },
+  { value: "98.7%", label: "Network Uptime",   dot: "#30E7ED" },
+  { value: "4.2s",  label: "Avg Response",     dot: "#30E7ED" },
 ];
 
 export default function ChargingNetworkPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-white pt-24 pb-16 md:pt-32 md:pb-24">
+      {/* ── Full-width cinematic hero ── */}
+      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: 640 }}>
+        {/* Background image */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0"
           style={{
-            backgroundImage: "linear-gradient(rgba(0,88,179,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,88,179,0.03) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
+            backgroundImage: "url('/charging-hub.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 40%",
           }}
         />
-        <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.08) 0%, transparent 70%)" }}
-        />
-        <div className="relative section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection>
-            <div className="chip mb-5">Charging Network</div>
-            <h1 className="text-5xl md:text-7xl font-bold text-pce-dark mb-6 max-w-2xl leading-tight">
-              Charge anywhere.<br />Charge fast.
+
+        {/* Layered overlays */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.90) 0%, rgba(4,8,20,0.55) 55%, rgba(4,8,20,0.30) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.85) 0%, transparent 50%)" }} />
+
+        {/* Grid */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+
+        {/* Live network status ticker */}
+        <div className="absolute top-20 left-0 right-0 z-10">
+          <div className="section-padding max-w-[1440px] mx-auto">
+            <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide py-2">
+              {liveStats.map((s) => (
+                <div key={s.label} className="flex items-center gap-2.5 shrink-0 px-4 py-2 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(48,231,237,0.18)", backdropFilter: "blur(12px)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: s.dot }} />
+                  <span className="text-white font-bold text-sm">{s.value}</span>
+                  <span className="text-gray-400 text-xs">{s.label}</span>
+                </div>
+              ))}
+              <div className="flex items-center gap-1.5 shrink-0 text-xs" style={{ color: "#30E7ED" }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
+                LIVE
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero content */}
+        <div className="relative z-10 h-full flex flex-col justify-center section-padding max-w-[1440px] mx-auto">
+          <div className="max-w-2xl">
+            <h1 className="font-bold text-white leading-[1.02] tracking-tight mb-6"
+              style={{ fontSize: "clamp(3rem, 6vw, 5.5rem)" }}>
+              Charge anywhere.<br />
+              <span className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "linear-gradient(135deg, #ffffff 0%, #30E7ED 60%, #0058B3 100%)" }}>
+                Charge fast.
+              </span>
             </h1>
-            <p className="text-pce-gray text-lg md:text-xl max-w-xl leading-relaxed mb-8">
-              2,500+ stations spanning 18 African countries — strategically placed
-              where you need them most.
+
+            <p className="text-base md:text-lg leading-relaxed mb-10"
+              style={{ color: "rgba(255,255,255,0.65)", maxWidth: 480 }}>
+              2,500+ ultra-fast stations spanning 18 African countries — strategically
+              placed at highways, airports, malls, and urban hubs.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-deep-blue text-white font-semibold text-sm hover:bg-deep-blue/90 transition-all hover:shadow-blue-sm"
-            >
-              Partner with us <ArrowRight size={15} />
-            </Link>
-          </AnimatedSection>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200"
+                style={{ background: "linear-gradient(135deg, #0058B3, #003d7a)", color: "white", boxShadow: "0 8px 32px rgba(0,88,179,0.35)" }}>
+                Partner with us <ArrowRight size={15} />
+              </Link>
+              <Link href="/pce-app"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-sm transition-all duration-200"
+                style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.88)" }}>
+                Find a Charger
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-10">
+          <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>Explore</span>
+          <ChevronDown size={16} style={{ color: "rgba(48,231,237,0.6)" }} className="animate-bounce" />
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="section-padding max-w-[1440px] mx-auto py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { numericValue: 2500, suffix: "+", label: "Stations" },
-            { numericValue: 18, suffix: "", label: "Countries" },
-            { numericValue: 350, suffix: "kW", label: "Peak Power" },
-            { numericValue: 99, suffix: "%", label: "Uptime SLA" },
-          ].map((s, i) => (
-            <AnimatedSection key={s.label} delay={i * 0.08}>
-              <StatCard {...s} />
-            </AnimatedSection>
-          ))}
-        </div>
-      </section>
+      {/* ── Mission Control Map (dark dashboard) ── */}
+      <NetworkMapSection />
 
-      {/* Tiers */}
+      {/* ── Charger tiers ── */}
       <section className="bg-pce-gray-light py-20 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
           <AnimatedSection className="text-center mb-12">
+            <div className="chip mx-auto mb-4">Charging Speeds</div>
             <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Choose your speed</h2>
             <p className="text-pce-gray text-lg max-w-xl mx-auto">
-              Every PCE station type is designed for a specific use case — from overnight hotel parking to highway pit stops.
+              From overnight hotel parking to highway pit stops — every PCE station is purpose-built.
             </p>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {tiers.map((tier, i) => (
               <AnimatedSection key={tier.name} delay={i * 0.1}>
-                <div
-                  className="relative rounded-2xl p-8 h-full"
-                  style={tier.style}
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                >
+                <div className="relative rounded-2xl p-8 h-full" style={tier.style}>
                   {tier.badge && (
-                    <span
-                      className="absolute top-5 right-5 px-3 py-1 rounded-full text-xs font-bold"
-                      style={
-                        tier.dark
-                          ? { background: "rgba(48,231,237,0.2)", color: "#30E7ED" }
-                          : { background: "rgba(0,88,179,0.10)", color: "#0058B3" }
-                      }
-                    >
+                    <span className="absolute top-5 right-5 px-3 py-1 rounded-full text-xs font-bold"
+                      style={tier.dark
+                        ? { background: "rgba(48,231,237,0.2)", color: "#30E7ED" }
+                        : { background: "rgba(0,88,179,0.10)", color: "#0058B3" }}>
                       {tier.badge}
                     </span>
                   )}
-                  <div
-                    className="text-5xl font-bold mb-1"
-                    style={{ color: tier.dark ? "#30E7ED" : "#0058B3" }}
-                  >
+                  <div className="text-5xl font-bold mb-1" style={{ color: tier.dark ? "#30E7ED" : "#0058B3" }}>
                     {tier.speed}
                   </div>
                   <div className={`text-sm mb-4 ${tier.dark ? "text-blue-200" : "text-pce-gray"}`}>{tier.type}</div>
@@ -146,7 +181,7 @@ export default function ChargingNetworkPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* ── Features ── */}
       <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
         <AnimatedSection className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Built to last</h2>
@@ -156,10 +191,8 @@ export default function ChargingNetworkPage() {
           {features.map((f, i) => (
             <AnimatedSection key={f.title} delay={i * 0.08}>
               <div className="surface surface-hover rounded-2xl p-6 h-full">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: "rgba(0,88,179,0.08)" }}
-                >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: "rgba(0,88,179,0.08)" }}>
                   <f.icon size={20} style={{ color: "#0058B3" }} />
                 </div>
                 <h3 className="font-semibold text-pce-dark mb-2">{f.title}</h3>

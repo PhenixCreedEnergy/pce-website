@@ -6,12 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
-    src: "/hero/hero-1.png",
-    alt: "PCE Energy Storage System — 20MWh capacity with wind and solar infrastructure",
+    src: "/fuel-station.png",
+    alt: "PCE charging station — ultra-fast EV charging bays with electric-blue canopy lighting",
+    objectPosition: "center 55%",
   },
   {
-    src: "/hero/hero-2.png",
-    alt: "PCE ultra-fast EV charging station — 350kW, 100% renewable, nationwide coverage",
+    src: "/energy-source.png",
+    alt: "PCE Energy Storage System — 20MWh grid-scale battery with wind and solar infrastructure",
+    objectPosition: "center 60%",
   },
 ];
 
@@ -63,6 +65,7 @@ export function HeroCarousel() {
               alt={slides[current].alt}
               fill
               className="object-cover"
+              style={{ objectPosition: slides[current].objectPosition }}
               priority={current === 0}
               sizes="100vw"
             />
