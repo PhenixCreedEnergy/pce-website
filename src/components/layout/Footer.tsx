@@ -66,8 +66,8 @@ export function Footer() {
           {/* Link columns */}
           {columns.map(col => (
             <div key={col.heading}>
-              <p className="text-[11px] font-semibold tracking-[0.14em] uppercase mb-5"
-                style={{ color: "rgba(255,255,255,0.28)" }}>
+              <p className="text-[11px] tracking-[0.14em] uppercase mb-5"
+                style={{ color: "#30E7ED", fontWeight: 600 }}>
                 {col.heading}
               </p>
               <ul className="space-y-3.5 list-none m-0 p-0">
