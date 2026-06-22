@@ -78,7 +78,7 @@
   }
 
   .section-y {
-    @apply py-32 md:py-44 lg:py-56;
+    @apply py-20 md:py-40 lg:py-52;
   }
 
   /* Electric accent */

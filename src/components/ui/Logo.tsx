@@ -2,26 +2,26 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
-  /** Rendered height in px — width scales proportionally from the 1254×1254 source */
+  /** Rendered height in px — width scales automatically from the 796×254 source */
   height?: number;
   className?: string;
   priority?: boolean;
 }
 
-/**
- * Official Phoenix Creed Energy logo.
- * Source: public/pce-logo.png (1254×1254 px)
- * Never substitute with an SVG approximation.
- */
-export function Logo({ height = 48, className, priority = false }: LogoProps) {
+export function Logo({ height = 44, className, priority = false }: LogoProps) {
+  // Source is 796×254 — aspect ratio 3.134:1
+  const intrinsicWidth = 796;
+  const intrinsicHeight = 254;
+  const displayWidth = Math.round((height / intrinsicHeight) * intrinsicWidth);
+
   return (
     <Image
-      src="/pce-logo.png"
+      src="/pce-logo-new.png"
       alt="Phoenix Creed Energy"
-      width={height}
-      height={height}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
       quality={100}
-      sizes={`${height * 2}px`}
+      sizes={`${displayWidth * 2}px`}
       priority={priority}
       className={cn("object-contain", className)}
       style={{ height, width: "auto" }}

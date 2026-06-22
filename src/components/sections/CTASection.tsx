@@ -113,7 +113,7 @@ export function CTASection() {
   ];
 
   return (
-    <section ref={ref} className="section-padding max-w-[1440px] mx-auto py-32 md:py-44">
+    <section ref={ref} className="section-padding max-w-[1440px] mx-auto py-16 md:py-36">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

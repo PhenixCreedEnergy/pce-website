@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, BarChart2, Users, Info, UserCircle, BookOpen } from "lucide-react";
+import { ChevronDown, BarChart2, Users, Info, UserCircle, BookOpen, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 
 /* ─── Types ──────────────────────────────────────────────────── */
@@ -69,7 +69,6 @@ function ProductsMegaMenu({ onClose, onEnter, onLeave }: {
   return (
     <>
       <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 97 }} />
-      {/* Bridge over the gap between nav and panel */}
       <div onMouseEnter={onEnter} onMouseLeave={onLeave}
         style={{ position: "fixed", top: 72, left: 0, right: 0, height: 12, zIndex: 99 }} />
 
@@ -131,20 +130,14 @@ function ProductCard({ product, onClose }: { product: ProductItem; onClose: () =
           {product.badge && (
             <div style={{
               position: "absolute", top: 10, right: 10,
-              padding: "3px 9px",
-              borderRadius: 999,
+              padding: "3px 9px", borderRadius: 999,
               background: "rgba(6,18,36,0.55)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
+              backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
               border: hovered ? "1px solid rgba(48,231,237,0.55)" : "1px solid rgba(48,231,237,0.28)",
               boxShadow: hovered ? "0 0 10px rgba(48,231,237,0.20)" : "none",
               transition: "border-color 0.22s ease, box-shadow 0.22s ease",
-              color: "#fff",
-              fontSize: 10,
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase" as const,
-              whiteSpace: "nowrap" as const,
+              color: "#fff", fontSize: 10, fontWeight: 600,
+              letterSpacing: "0.08em", textTransform: "uppercase" as const, whiteSpace: "nowrap" as const,
             }}>
               {product.badge}
             </div>
@@ -204,7 +197,7 @@ function DropdownPanel({ items, onEnter, onLeave }: { items: DropdownItem[]; onE
   );
 }
 
-/* ─── Nav item ───────────────────────────────────────────────── */
+/* ─── Nav item (desktop) ─────────────────────────────────────── */
 function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
   item: NavItem;
   active: boolean;
@@ -219,11 +212,11 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
       <li>
         <Link
           href={item.href!}
-          onMouseEnter={() => onEnter("")}   // entering a plain link closes all dropdowns
-          style={{ position: "relative", display: "inline-flex", alignItems: "center", padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: active ? "#0058B3" : "rgba(0,0,0,0.55)", textDecoration: "none", transition: "color 0.15s" }}
+          onMouseEnter={() => onEnter("")}
+          style={{ position: "relative", display: "inline-flex", alignItems: "center", padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: active ? "#30E7ED" : "rgba(255,255,255,0.80)", textDecoration: "none", transition: "color 0.15s" }}
         >
           {item.label}
-          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
+          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#7ab8ff)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
         </Link>
       </li>
     );
@@ -232,10 +225,10 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
   return (
     <li style={{ position: "relative" }}>
       <div onMouseEnter={() => onEnter(item.label)} onMouseLeave={onLeave}>
-        <button style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: isOpen || active ? "#0058B3" : "rgba(0,0,0,0.55)", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s", position: "relative" }}>
+        <button style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 14px", fontSize: 13.5, fontWeight: 500, letterSpacing: "0.01em", color: isOpen || active ? "#30E7ED" : "rgba(255,255,255,0.80)", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s", position: "relative" }}>
           {item.label}
           <ChevronDown size={13} style={{ transition: "transform 0.2s ease", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", opacity: 0.7 }} />
-          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#0058B3)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
+          {active && <span style={{ position: "absolute", bottom: -2, left: 14, right: 14, height: 2, borderRadius: 1, background: "linear-gradient(90deg,#30E7ED,#7ab8ff)", boxShadow: "0 0 8px rgba(48,231,237,0.6)" }} />}
         </button>
         {item.dropdown && (
           <AnimatePresence>
@@ -247,10 +240,237 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
   );
 }
 
+/* ─── Mobile sub-link (dark overlay) ────────────────────────── */
+function MobileSubLink({ href, label, badge, onClose }: { href: string; label: string; badge?: string; onClose: () => void }) {
+  return (
+    <Link
+      href={href}
+      onClick={onClose}
+      style={{
+        display: "flex", alignItems: "center", gap: 10,
+        padding: "14px 20px 14px 28px", textDecoration: "none",
+        fontSize: 16, fontWeight: 400, letterSpacing: "-0.005em",
+        color: "rgba(255,255,255,0.55)",
+        minHeight: 52,
+      }}
+    >
+      <span style={{ flex: 1 }}>{label}</span>
+      {badge && (
+        <span style={{
+          fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
+          padding: "3px 8px", borderRadius: 999,
+          background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.30)",
+          color: "#30E7ED", whiteSpace: "nowrap",
+        }}>
+          {badge}
+        </span>
+      )}
+    </Link>
+  );
+}
+
+/* ─── Mobile accordion (dark overlay) ───────────────────────── */
+function MobileAccordion({ label, isOpen, onToggle, active, children }: {
+  label: string; isOpen: boolean; onToggle: () => void; active: boolean; children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <button
+        onClick={onToggle}
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          width: "100%", padding: "20px 24px", borderRadius: 0,
+          background: "transparent", border: "none", cursor: "pointer",
+          fontSize: 22, fontWeight: 300, letterSpacing: "-0.02em",
+          color: isOpen || active ? "#ffffff" : "rgba(255,255,255,0.65)",
+          transition: "color 0.2s",
+        }}
+      >
+        {label}
+        <ChevronDown
+          size={20}
+          style={{
+            transition: "transform 0.3s ease",
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+            color: isOpen ? "#30E7ED" : "rgba(255,255,255,0.30)",
+            flexShrink: 0,
+          }}
+        />
+      </button>
+
+      {/* Simple CSS max-height transition — avoids Framer Motion height:"auto" ResizeObserver on Safari */}
+      <div
+        style={{
+          overflow: "hidden",
+          maxHeight: isOpen ? 400 : 0,
+          transition: "max-height 0.32s cubic-bezier(0.16,1,0.3,1)",
+        }}
+      >
+        <div style={{ paddingBottom: 8, borderLeft: "2px solid rgba(48,231,237,0.30)", marginLeft: 24 }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Full-screen Tesla-style mobile overlay ─────────────────── */
+function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  useEffect(() => { onClose(); }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (!isOpen) setExpandedSection(null);
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  const mobileProducts = [
+    { label: "Charging Stations",    href: "/charging-network" },
+    { label: "PCE App",              href: "/pce-app" },
+    { label: "EV Power Banks",       href: "/contact", badge: "Coming Soon" },
+    { label: "Energy Storage Units", href: "/contact", badge: "Coming Soon" },
+  ];
+  const mobileCompany = [
+    { label: "About Us", href: "/about" },
+    { label: "Team",     href: "/about#leadership-team" },
+  ];
+
+  function toggle(section: string) {
+    setExpandedSection(prev => prev === section ? null : section);
+  }
+
+  const navLinks: { label: string; href?: string; sub?: typeof mobileProducts; subKey?: string; active?: boolean }[] = [
+    { label: "Home",      href: "/",          active: pathname === "/" },
+    { label: "Products",  subKey: "Products", sub: mobileProducts, active: ["/charging-network", "/pce-app"].some(p => pathname.startsWith(p)) },
+    { label: "Investors", href: "/investors", active: pathname.startsWith("/investors") },
+    { label: "Company",   subKey: "Company",  sub: mobileCompany,  active: pathname.startsWith("/about") },
+    { label: "Contact",   href: "/contact",   active: pathname === "/contact" },
+  ];
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="mobile-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 200,
+            background: "linear-gradient(160deg, #060d1f 0%, #091528 55%, #040c1a 100%)",
+            display: "flex", flexDirection: "column",
+            overflowY: "auto", WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {/* Ambient glow */}
+          <div style={{ position: "absolute", top: -80, right: -80, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(48,231,237,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: 80, left: -60, width: 260, height: 260, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,88,179,0.09) 0%, transparent 70%)", pointerEvents: "none" }} />
+
+          {/* Header bar */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            padding: "20px 24px",
+            flexShrink: 0,
+          }}>
+            <Link href="/" onClick={onClose} style={{ display: "flex", alignItems: "center" }}>
+              <Logo height={40} />
+            </Link>
+            <button
+              onClick={onClose}
+              aria-label="Close menu"
+              style={{
+                display: "flex", alignItems: "center", justifyContent: "center",
+                width: 48, height: 48, borderRadius: 14,
+                background: "rgba(255,255,255,0.07)",
+                border: "1px solid rgba(255,255,255,0.10)",
+                cursor: "pointer", color: "rgba(255,255,255,0.80)",
+                flexShrink: 0,
+              }}
+            >
+              <X size={22} />
+            </button>
+          </div>
+
+          {/* Electric accent line */}
+          <div style={{ height: 1, background: "linear-gradient(90deg, transparent 0%, rgba(48,231,237,0.35) 30%, rgba(0,88,179,0.35) 70%, transparent 100%)", margin: "0 24px", flexShrink: 0 }} />
+
+          {/* Nav links */}
+          <nav style={{ flex: 1, paddingTop: 16 }}>
+            {navLinks.map(item => {
+              if (item.sub && item.subKey) {
+                return (
+                  <div key={item.label} style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <MobileAccordion
+                      label={item.label}
+                      isOpen={expandedSection === item.subKey}
+                      onToggle={() => toggle(item.subKey!)}
+                      active={!!item.active}
+                    >
+                      {item.sub.map(p => (
+                        <MobileSubLink key={p.label} href={p.href} label={p.label} badge={(p as { badge?: string }).badge} onClose={onClose} />
+                      ))}
+                    </MobileAccordion>
+                  </div>
+                );
+              }
+              return (
+                <div key={item.label} style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                  <Link
+                    href={item.href!}
+                    onClick={onClose}
+                    style={{
+                      display: "flex", alignItems: "center",
+                      padding: "20px 24px",
+                      textDecoration: "none",
+                      fontSize: 22, fontWeight: 300, letterSpacing: "-0.02em",
+                      color: item.active ? "#ffffff" : "rgba(255,255,255,0.65)",
+                    }}
+                  >
+                    {item.label}
+                    {item.active && (
+                      <span style={{ marginLeft: 10, width: 6, height: 6, borderRadius: "50%", background: "#30E7ED", flexShrink: 0, boxShadow: "0 0 8px #30E7ED" }} />
+                    )}
+                  </Link>
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* CTA */}
+          <div style={{ padding: "28px 24px 48px", flexShrink: 0 }}>
+            <Link
+              href="/contact"
+              onClick={onClose}
+              style={{
+                display: "block", textAlign: "center",
+                padding: "18px 24px", borderRadius: 999,
+                background: "linear-gradient(135deg, #0058B3 0%, #0070e0 100%)",
+                color: "#fff", fontSize: 16, fontWeight: 600,
+                letterSpacing: "0.01em", textDecoration: "none",
+                boxShadow: "0 8px 32px rgba(0,88,179,0.50), 0 1px 0 rgba(255,255,255,0.12) inset",
+              }}
+            >
+              Get Started
+            </Link>
+            <p style={{ textAlign: "center", marginTop: 16, fontSize: 12, color: "rgba(255,255,255,0.22)", letterSpacing: "0.02em" }}>
+              Phoenix Creed Energy
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 /* ─── Navbar ─────────────────────────────────────────────────── */
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
@@ -262,13 +482,11 @@ export function Navbar() {
 
   useEffect(() => { setActiveMenu(null); }, [pathname]);
 
-  // Entering any menu item — cancel pending close and open that menu immediately
   const onEnter = useCallback((label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setActiveMenu(label || null);
   }, []);
 
-  // Leaving — start close timer; entering another item will cancel it
   const onLeave = useCallback(() => {
     closeTimer.current = setTimeout(() => setActiveMenu(null), 200);
   }, []);
@@ -288,37 +506,62 @@ export function Navbar() {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          background: "rgba(255,255,255,0.97)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
-          borderBottom: "1px solid rgba(0,0,0,0.07)",
-          boxShadow: scrolled ? "0 4px 32px rgba(0,0,0,0.08)" : "none",
-          transition: "box-shadow 0.3s",
+          background: scrolled ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
+          backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)",
+          borderBottom: "none",
+          boxShadow: "none",
+          transition: "background 0.4s ease",
         }}
       >
-        <div className="section-padding max-w-[1440px] mx-auto flex items-center justify-between" style={{ height: 72 }}>
-          <Link href="/" aria-label="Phoenix Creed Energy home" style={{ display: "flex", alignItems: "center", flexShrink: 0, padding: "4px 0" }}>
-            <Logo height={64} priority />
+        {/* Asymmetric padding: logo hugs the left edge; right side keeps room for the CTA */}
+        <div className="pl-3 pr-5 lg:pl-5 lg:pr-10 max-w-[1440px] mx-auto flex items-center justify-between h-[72px] lg:h-[68px]">
+
+          {/* Single Logo instance — responsive height via className to avoid React 19 preload deduplication */}
+          <Link href="/" aria-label="Phoenix Creed Energy home" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+            <Logo height={36} className="lg:!h-[48px]" priority />
           </Link>
 
-          <ul className="flex items-center" style={{ gap: 2, listStyle: "none", margin: 0, padding: 0 }}>
+          {/* Desktop nav */}
+          <ul className="hidden lg:flex items-center" style={{ gap: 2, listStyle: "none", margin: 0, padding: 0 }}>
             {NAV.map(item => (
               <NavItemComponent key={item.label} item={item} active={isActive(item)}
                 activeMenu={activeMenu} onEnter={onEnter} onLeave={onLeave} />
             ))}
           </ul>
 
+          {/* Desktop CTA */}
           <Link
             href="/contact"
-            className="inline-flex items-center"
-            style={{ padding: "9px 22px", borderRadius: 999, background: "#0058B3", border: "1px solid #0058B3", color: "white", fontSize: 13, fontWeight: 600, letterSpacing: "0.01em", textDecoration: "none", transition: "background 0.15s, box-shadow 0.15s" }}
-            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#004a9a"; el.style.boxShadow = "0 4px 16px rgba(0,88,179,0.30)"; }}
-            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#0058B3"; el.style.boxShadow = "none"; }}
+            className="hidden lg:inline-flex items-center"
+            style={{ padding: "9px 22px", borderRadius: 999, background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", fontSize: 13, fontWeight: 600, letterSpacing: "0.01em", textDecoration: "none", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", transition: "background 0.2s, border-color 0.2s" }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.22)"; el.style.borderColor = "rgba(255,255,255,0.45)"; }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.12)"; el.style.borderColor = "rgba(255,255,255,0.25)"; }}
           >
             Get Started
           </Link>
+
+          {/* Mobile menu button — flex+lg:hidden on className so Tailwind's display:none wins over inline styles */}
+          <button
+            className="flex lg:hidden items-center justify-center"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open navigation menu"
+            style={{
+              height: 44, padding: "0 22px", borderRadius: 9999,
+              background: "rgba(255,255,255,0.13)",
+              backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid rgba(255,255,255,0.22)",
+              boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
+              cursor: "pointer", color: "rgba(255,255,255,0.92)",
+              fontSize: 13, fontWeight: 600, letterSpacing: "0.02em",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Menu
+          </button>
         </div>
       </motion.header>
 
-      {/* Products mega menu — outside motion.header to avoid transform containing-block */}
+      {/* Desktop mega menu */}
       <AnimatePresence>
         {activeMenu === "Products" && (
           <ProductsMegaMenu
@@ -328,6 +571,9 @@ export function Navbar() {
           />
         )}
       </AnimatePresence>
+
+      {/* Mobile drawer */}
+      <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );
 }

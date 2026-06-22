@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Phoenix Creed Energy" }],
   creator: "Phoenix Creed Energy",
+  // Prevent Safari/iOS from auto-detecting numbers as phone links,
+  // which causes DOM mutation after SSR and triggers hydration mismatch.
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+    url: false,
+  },
   icons: {
     icon: "/pce-logo.png",
     apple: "/pce-logo.png",

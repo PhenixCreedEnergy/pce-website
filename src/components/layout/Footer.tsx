@@ -48,7 +48,7 @@ const legal = [
 export function Footer() {
   return (
     <footer style={{ background: "#060d1f", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-      <div className="section-padding max-w-[1440px] mx-auto" style={{ paddingTop: 96, paddingBottom: 72 }}>
+      <div className="section-padding max-w-[1440px] mx-auto pt-16 pb-12 md:pt-24 md:pb-20">
 
         {/* Main grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-12 lg:gap-8 mb-20">
@@ -90,8 +90,12 @@ export function Footer() {
         {/* Bottom row */}
         <div className="flex flex-wrap items-center justify-between gap-4"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 28 }}>
-          <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.22)" }} suppressHydrationWarning>
-            © {new Date().getFullYear()} Phoenix Creed Energy Ltd. RC 1843920.
+          <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.22)" }}>
+            {/* Year is static — Footer is a Server Component, baked at build time. */}
+            © {new Date().getFullYear()} Phoenix Creed Energy Ltd.{" "}
+            {/* U+200B zero-width space inside the digit run breaks Safari's ≥7-digit phone
+                detector regex without affecting visual rendering or copy-paste output. */}
+            <span>RC&#8239;1843&#8203;920</span>.
           </p>
           <div className="flex items-center gap-7">
             {legal.map(l => (

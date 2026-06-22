@@ -154,7 +154,11 @@ export default function ContactPage() {
                       <Mail size={11} className="shrink-0" />{office.email}
                     </div>
                     <div className="flex items-center gap-2 text-xs text-pce-gray">
-                      <Phone size={11} className="shrink-0" />{office.phone}
+                      <Phone size={11} className="shrink-0" />
+                      {/* Explicit tel: link prevents Safari from wrapping plain digits in its own <a> tag */}
+                      <a href={`tel:${office.phone.replace(/\s/g, "")}`} className="hover:text-pce-dark transition-colors">
+                        {office.phone}
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -309,14 +309,14 @@ export function AppPreviewSection() {
         background: "radial-gradient(ellipse 40% 40% at 72% 50%, rgba(48,231,237,0.04) 0%, transparent 70%)",
       }} />
 
-      <div className="relative max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 py-40 md:py-52 lg:py-64">
+      <div className="relative max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 py-20 md:py-44 lg:py-56">
 
         {/* ── Section header — centred ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-20 md:mb-24"
+          className="text-center mb-12 md:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold tracking-widest uppercase"
             style={{ background: "rgba(48,231,237,0.08)", border: "1px solid rgba(48,231,237,0.20)", color: "#30E7ED" }}>

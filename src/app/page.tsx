@@ -3,6 +3,7 @@ import { StatsSection } from "@/components/sections/StatsSection";
 import { AppPreviewSection } from "@/components/sections/AppPreviewSection";
 import { InvestorTeaser } from "@/components/sections/InvestorTeaser";
 import { CTASection } from "@/components/sections/CTASection";
+import { FinalCTASection } from "@/components/sections/FinalCTASection";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <AppPreviewSection />
       <InvestorTeaser />
       <CTASection />
+      <FinalCTASection />
     </>
   );
 }
