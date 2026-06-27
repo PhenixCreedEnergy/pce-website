@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.pceenergies.com"),
   title: {
     default: "Phoenix Creed Energy | Powering Africa's Electric Future",
     template: "%s | Phoenix Creed Energy",
