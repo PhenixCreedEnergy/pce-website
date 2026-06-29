@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle2, Wrench, Battery, Cpu, Zap } from "lucide-react";
 
 const offices = [
   { city: "Lagos", country: "Nigeria", address: "Victoria Island, Lagos", email: "lagos@phoenixcreedenergy.com", phone: "+234 1 123 4567" },
@@ -12,7 +12,7 @@ const offices = [
 ];
 
 const inquiryTypes = [
-  "General inquiry", "Fleet partnership", "Property partnership",
+  "General inquiry", "EV Service & Maintenance", "Fleet partnership", "Property partnership",
   "Investor relations", "Press & media", "Support",
 ];
 
@@ -166,6 +166,69 @@ export default function ContactPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ── Need EV Service? ── */}
+      <section className="section-padding max-w-[1440px] mx-auto pb-20 md:pb-28">
+        <AnimatedSection>
+          <div
+            className="rounded-3xl overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #060d1f 0%, #091528 60%, #040c1a 100%)", padding: "56px 48px" }}
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center gap-10">
+              {/* Left */}
+              <div className="flex-1">
+                <p className="text-[11px] font-bold tracking-[0.18em] uppercase mb-4" style={{ color: "#30E7ED", opacity: 0.8 }}>
+                  Professional EV Care
+                </p>
+                <h2 className="font-bold text-white leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
+                  Need EV Service?
+                </h2>
+                <p className="leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.55)", maxWidth: 480, fontSize: "1rem" }}>
+                  From battery diagnostics to full fleet maintenance — our certified technicians keep your EVs running at peak performance.
+                  Book a service appointment or speak to our EV care team today.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="/products/ev-service"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white text-sm"
+                    style={{ background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 28px rgba(0,88,179,0.45)", textDecoration: "none" }}
+                  >
+                    <Wrench size={15} /> View EV Services
+                  </a>
+                  <a
+                    href="mailto:service@phoenixcreedenergy.com"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm"
+                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.20)", color: "rgba(255,255,255,0.85)", textDecoration: "none" }}
+                  >
+                    <Mail size={15} /> Email Service Team
+                  </a>
+                </div>
+              </div>
+
+              {/* Right — service highlights */}
+              <div className="grid grid-cols-2 gap-3 lg:w-[340px] shrink-0">
+                {[
+                  { icon: Battery, label: "Battery Diagnostics" },
+                  { icon: Cpu,     label: "Software Updates" },
+                  { icon: Zap,     label: "Charging System Repair" },
+                  { icon: Wrench,  label: "Fleet Maintenance" },
+                ].map(({ icon: Icon, label }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-3 rounded-2xl px-4 py-3"
+                    style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(48,231,237,0.14)" }}
+                  >
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(48,231,237,0.10)" }}>
+                      <Icon size={15} style={{ color: "#30E7ED" }} />
+                    </div>
+                    <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
       </section>
     </>
   );

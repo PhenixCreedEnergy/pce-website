@@ -33,10 +33,11 @@ type NavItem = {
 
 /* ─── Data ───────────────────────────────────────────────────── */
 const PRODUCTS: ProductItem[] = [
-  { label: "Charging Network",    href: "/charging-network", description: "Ultra-fast charging infrastructure across Africa",              image: "/product-ev-charger.png" },
-  { label: "PCE App",             href: "/pce-app",          description: "Manage charging, payments, navigation and energy usage",        image: "/product-ev-app.png" },
-  { label: "EV Power Banks",      href: "/contact",          description: "Portable emergency charging solutions for EV drivers",          image: "/product-power-bank.png",   badge: "Coming Soon" },
-  { label: "Energy Storage Units",href: "/contact",          description: "Grid-scale battery systems for homes, businesses and operators", image: "/product-storage-unit.png", badge: "Coming Soon" },
+  { label: "Charging Network",     href: "/charging-network",      description: "Ultra-fast charging infrastructure across Africa",               image: "/product-ev-charger.png" },
+  { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
+  { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Professional diagnostics, battery care and full EV servicing", image: "/product-ev-service.png" },
+  { label: "EV Power Banks",       href: "/contact",               description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon" },
+  { label: "Energy Storage Units", href: "/contact",               description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon" },
 ];
 
 const NAV: NavItem[] = [
@@ -94,7 +95,7 @@ function ProductsMegaMenu({ onClose, onEnter, onLeave }: {
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", margin: "0 0 24px" }}>
             Products
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}>
             {PRODUCTS.map(product => <ProductCard key={product.label} product={product} onClose={onClose} />)}
           </div>
         </div>
@@ -328,10 +329,11 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   }, [isOpen]);
 
   const mobileProducts = [
-    { label: "Charging Stations",    href: "/charging-network" },
-    { label: "PCE App",              href: "/pce-app" },
-    { label: "EV Power Banks",       href: "/contact", badge: "Coming Soon" },
-    { label: "Energy Storage Units", href: "/contact", badge: "Coming Soon" },
+    { label: "Charging Stations",        href: "/charging-network" },
+    { label: "PCE App",                  href: "/pce-app" },
+    { label: "EV Service & Maintenance", href: "/products/ev-service" },
+    { label: "EV Power Banks",           href: "/contact", badge: "Coming Soon" },
+    { label: "Energy Storage Units",     href: "/contact", badge: "Coming Soon" },
   ];
   const mobileCompany = [
     { label: "About Us", href: "/about" },
@@ -344,7 +346,7 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   const navLinks: { label: string; href?: string; sub?: typeof mobileProducts; subKey?: string; active?: boolean }[] = [
     { label: "Home",      href: "/",          active: pathname === "/" },
-    { label: "Products",  subKey: "Products", sub: mobileProducts, active: ["/charging-network", "/pce-app"].some(p => pathname.startsWith(p)) },
+    { label: "Products",  subKey: "Products", sub: mobileProducts, active: ["/charging-network", "/pce-app", "/products"].some(p => pathname.startsWith(p)) },
     { label: "Investors", href: "/investors", active: pathname.startsWith("/investors") },
     { label: "Company",   subKey: "Company",  sub: mobileCompany,  active: pathname.startsWith("/about") },
     { label: "Contact",   href: "/contact",   active: pathname === "/contact" },
@@ -493,7 +495,7 @@ export function Navbar() {
 
   const isActive = (item: NavItem) => {
     if (item.href) return pathname === item.href;
-    if (item.products) return ["/charging-network", "/pce-app"].some(p => pathname.startsWith(p));
+    if (item.products) return ["/charging-network", "/pce-app", "/products"].some(p => pathname.startsWith(p));
     if (item.dropdown) return item.dropdown.some(d => d.href !== "/contact" && pathname.startsWith(d.href));
     return false;
   };

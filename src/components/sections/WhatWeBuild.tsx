@@ -2,23 +2,33 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Zap, BatteryCharging, LayoutGrid } from "lucide-react";
+import { Zap, BatteryCharging, LayoutGrid, Wrench } from "lucide-react";
+import Link from "next/link";
 
 const cards = [
   {
     icon: Zap,
     title: "Charging Infrastructure",
     desc: "Reliable fast-charging networks across Africa.",
+    href: "/charging-network",
   },
   {
     icon: BatteryCharging,
     title: "Energy Storage",
     desc: "Battery systems supporting clean energy deployment.",
+    href: "/contact",
   },
   {
     icon: LayoutGrid,
     title: "Intelligent Software",
     desc: "Digital tools connecting drivers, operators, and energy assets.",
+    href: "/pce-app",
+  },
+  {
+    icon: Wrench,
+    title: "EV Service & Maintenance",
+    desc: "Professional diagnostics, battery care, and full EV servicing across Africa.",
+    href: "/products/ev-service",
   },
 ];
 
@@ -34,6 +44,7 @@ function GlassCard({ card, index }: { card: typeof cards[0]; index: number }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
     >
+      <Link href={card.href} style={{ textDecoration: "none", display: "block" }}>
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -113,6 +124,7 @@ function GlassCard({ card, index }: { card: typeof cards[0]; index: number }) {
           {card.desc}
         </p>
       </div>
+      </Link>
     </motion.div>
   );
 }
@@ -177,7 +189,7 @@ export function WhatWeBuild() {
         {/* Cards */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           gap: 24,
         }}>
           {cards.map((card, i) => (

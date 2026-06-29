@@ -27,8 +27,7 @@ export default function AboutPage() {
             className="text-pce-gray leading-relaxed mx-auto"
             style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)", maxWidth: 600 }}
           >
-            Phoenix Creed Energy is developing EV charging infrastructure,
-            energy storage systems, and intelligent mobility software for Africa.
+            Phoenix Creed Energy is building Africa&apos;s electric mobility ecosystem through EV charging infrastructure, battery energy storage, fleet solutions, intelligent software, and professional EV servicing.
           </p>
         </div>
       </section>
