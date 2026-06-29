@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Battery, Zap, Cpu, Wrench, Wind, ShieldCheck,
   Truck, Activity, ArrowRight, CheckCircle2,
@@ -175,56 +176,73 @@ export default function EVServicePage() {
 
   return (
     <>
-      {/* ── Hero ── */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "linear-gradient(160deg, #060d1f 0%, #091528 55%, #040c1a 100%)", paddingTop: "clamp(100px, 16vh, 160px)", paddingBottom: "clamp(64px, 10vh, 100px)" }}
-      >
-        {/* Ambient glow */}
-        <div style={{ position: "absolute", top: "-10%", right: "5%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(48,231,237,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: "-5%", left: "0%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,88,179,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
+      {/* ── Hero — cinematic full-width image ── */}
+      <section className="relative overflow-hidden" style={{ minHeight: "75vh", display: "flex", alignItems: "center" }}>
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/ev-service-hero.jpg"
+            alt="PCE EV Service & Maintenance — professional technician servicing an electric vehicle"
+            fill
+            className="object-cover"
+            style={{ objectPosition: "center 45%" }}
+            priority
+            sizes="100vw"
+          />
+        </div>
 
-        <div className="section-padding max-w-[1440px] mx-auto relative z-10" ref={heroRef}>
+        {/* Layered dark overlays for text legibility */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.88) 0%, rgba(4,8,20,0.55) 55%, rgba(4,8,20,0.25) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.75) 0%, transparent 60%)" }} />
+
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }} />
+
+        {/* Content */}
+        <div className="section-padding max-w-[1440px] mx-auto relative z-10 w-full" ref={heroRef} style={{ paddingTop: "clamp(100px, 16vh, 140px)", paddingBottom: "clamp(64px, 10vh, 100px)" }}>
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-2 mb-6">
-              <div style={{ height: 1, width: 32, background: "#30E7ED", opacity: 0.6 }} />
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#30E7ED", opacity: 0.8 }}>
+              <div style={{ height: 1, width: 32, background: "#30E7ED", opacity: 0.7 }} />
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#30E7ED", opacity: 0.9 }}>
                 Professional EV Care
               </p>
             </div>
 
             <h1
               className="font-bold text-white leading-tight mb-6"
-              style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.8rem)", letterSpacing: "-0.02em", maxWidth: 760 }}
+              style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.8rem)", letterSpacing: "-0.02em", maxWidth: 720 }}
             >
-              EV Service &<br />
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
-                Maintenance
+              Professional EV Service<br />
+              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #ffffff 0%, #30E7ED 55%, #7ab8ff 100%)" }}>
+                &amp; Maintenance
               </span>
             </h1>
 
-            <p style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)", color: "rgba(255,255,255,0.55)", maxWidth: 560, lineHeight: 1.75, marginBottom: 40 }}>
-              Certified technicians. Cutting-edge diagnostic equipment. Full-spectrum EV care — from routine inspections to complex battery replacements — for individual drivers and commercial fleets across Africa.
+            <p style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)", color: "rgba(255,255,255,0.60)", maxWidth: 540, lineHeight: 1.78, marginBottom: 44 }}>
+              Comprehensive diagnostics, battery health checks, preventive maintenance, repairs, software updates, and certified servicing for electric vehicles.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white text-sm"
-                style={{ padding: "14px 32px", background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 32px rgba(0,88,179,0.50)", textDecoration: "none" }}
+                style={{ padding: "15px 34px", background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 32px rgba(0,88,179,0.55)", textDecoration: "none" }}
               >
                 Book a Service <ArrowRight size={15} />
               </Link>
               <Link
                 href="#services"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm"
-                style={{ padding: "14px 32px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.85)", textDecoration: "none" }}
+                style={{ padding: "15px 34px", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.20)", color: "rgba(255,255,255,0.88)", textDecoration: "none" }}
               >
-                View All Services
+                View Services
               </Link>
             </div>
           </motion.div>

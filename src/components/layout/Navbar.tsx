@@ -35,7 +35,7 @@ type NavItem = {
 const PRODUCTS: ProductItem[] = [
   { label: "Charging Network",     href: "/charging-network",      description: "Ultra-fast charging infrastructure across Africa",               image: "/product-ev-charger.png" },
   { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
-  { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Professional diagnostics, battery care and full EV servicing", image: "/product-ev-service.png" },
+  { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Diagnostics, repairs & scheduled EV servicing.", image: "/product-ev-service.jpg" },
   { label: "EV Power Banks",       href: "/contact",               description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon" },
   { label: "Energy Storage Units", href: "/contact",               description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon" },
 ];
