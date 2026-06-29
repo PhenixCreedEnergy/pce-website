@@ -121,7 +121,7 @@ export function StatsSection() {
         }}
       />
 
-      <div className="relative section-padding max-w-[1440px] mx-auto py-20 md:py-40 lg:py-52">
+      <div className="relative section-padding max-w-[1440px] mx-auto py-16 md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
 
           {/* ── LEFT: Badge + Heading + 2×2 stat grid ── */}
