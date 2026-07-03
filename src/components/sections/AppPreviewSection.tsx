@@ -345,14 +345,21 @@ export function AppPreviewSection() {
 
           {/* ── LEFT: Phone mockup ── */}
           <motion.div
-            initial={{ opacity: 0, x: -32 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 150, scale: 0.95 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            transition={{ duration: 1.35, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="flex-shrink-0 relative"
             style={{ alignSelf: "center" }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
+            {/* Floating wrapper — starts only after the pop-up lands */}
+            <motion.div
+              animate={inView ? { y: [0, -10, 0] } : { y: 0 }}
+              transition={inView ? {
+                y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+              } : {}}
+            >
             {/* Electric-blue glow behind phone */}
             <div className="absolute pointer-events-none" style={{
               inset: "-48px -40px",
@@ -473,6 +480,7 @@ export function AppPreviewSection() {
                 />
               ))}
             </div>
+            </motion.div>
           </motion.div>
 
           {/* ── RIGHT: Feature cards ── */}
