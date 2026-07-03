@@ -11,7 +11,7 @@ const members = [
     name: "Onyeka Obiugo",
     role: "Founder & CEO",
     line: "Building Africa's electric mobility infrastructure.",
-    photo: "/team-onyeka.jpg",
+    photo: "/team-onyeka2.jpg",
     facePos: "center 18%",
     initials: "OO",
     color: "#30E7ED",
