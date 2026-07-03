@@ -1,9 +1,7 @@
 "use client";
 
-// Both badges render inside an identical fixed container (W × H).
-// object-fit: contain scales each badge's artwork to fill the box without
-// distortion, so both appear at exactly the same visual width and height.
-const BADGE_W = 160;
+// Both SVGs share the same viewBox (119.66 × 40) with zero internal padding,
+// so setting the same height on both produces identical visual sizes.
 const BADGE_H = 52;
 
 const BADGES = [
@@ -14,7 +12,7 @@ const BADGES = [
   },
   {
     label: "Get it on Google Play",
-    src: "/google-play-badge-official.png",
+    src: "/google-play-badge-official.svg",
     href: "#",
   },
 ];
@@ -36,11 +34,7 @@ export function StoreBadges({ gap = 24, className = "" }: StoreBadgesProps) {
           href={href}
           aria-label={label}
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: BADGE_W,
-            height: BADGE_H,
+            display: "inline-block",
             lineHeight: 0,
             transition: "transform 250ms ease",
             cursor: "pointer",
@@ -57,13 +51,7 @@ export function StoreBadges({ gap = 24, className = "" }: StoreBadgesProps) {
           <img
             src={src}
             alt={label}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              objectPosition: "center",
-              display: "block",
-            }}
+            style={{ height: BADGE_H, width: "auto", display: "block" }}
           />
         </a>
       ))}

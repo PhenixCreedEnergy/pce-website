@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="119.66407" height="40" viewBox="0 0 119.66407 40">
+  <title>Get_it_on_Google_Play_Badge_US-UK_RGB_blk</title>
+  <!-- Black rounded background -->
+  <rect width="119.66407" height="40" rx="5" fill="#000"/>
+  <!-- Subtle border matching Apple badge style -->
+  <rect x="0.5" y="0.5" width="118.66407" height="39" rx="4.5" fill="none" stroke="#A6A6A6" stroke-width="0.5"/>
+
+  <!-- Google Play triangle icon — 4-color segments -->
+  <!-- The play triangle sits at approx x=8..22, y=10..30 -->
+  <!-- Red (top-left segment) -->
+  <path d="M8.5 10.5 L8.5 20 L17 20 Z" fill="#EA4335"/>
+  <!-- Green (bottom-left segment) -->
+  <path d="M8.5 20 L8.5 29.5 L17 20 Z" fill="#34A853"/>
+  <!-- Blue (top-right segment) -->
+  <path d="M17 20 L8.5 10.5 L22.5 17.5 Z" fill="#4285F4"/>
+  <!-- Yellow (bottom-right segment) -->
+  <path d="M17 20 L8.5 29.5 L22.5 22.5 Z" fill="#FBBC05"/>
+
+  <!-- "GET IT ON" label -->
+  <text x="27" y="17.5" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="7.5" fill="#fff" letter-spacing="0.6">GET IT ON</text>
+  <!-- "Google Play" main text -->
+  <text x="26.5" y="30" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="13.5" font-weight="500" fill="#fff" letter-spacing="-0.1">Google Play</text>
+</svg>
