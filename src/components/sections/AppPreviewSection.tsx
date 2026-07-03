@@ -345,19 +345,19 @@ export function AppPreviewSection() {
 
           {/* ── LEFT: Phone mockup ── */}
           <motion.div
-            initial={{ opacity: 0, y: 150, scale: 0.95 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+            initial={{ opacity: 0, y: 160, scale: 0.95, rotateX: 8 }}
+            animate={inView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : {}}
             transition={{ duration: 1.35, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="flex-shrink-0 relative"
-            style={{ alignSelf: "center" }}
+            style={{ alignSelf: "center", perspective: 1000, transformStyle: "preserve-3d" }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            {/* Floating wrapper — starts only after the pop-up lands */}
+            {/* Floating wrapper — begins after entrance settles */}
             <motion.div
-              animate={inView ? { y: [0, -10, 0] } : { y: 0 }}
+              animate={inView ? { y: [0, -9, 0] } : { y: 0 }}
               transition={inView ? {
-                y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+                y: { duration: 5.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.6 },
               } : {}}
             >
             {/* Electric-blue glow behind phone */}
