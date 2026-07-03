@@ -592,7 +592,7 @@ export function AppPreviewSection() {
               transition={{ delay: 1.0 }}
               className="pt-2"
             >
-              <StoreBadges height={52} gap={24} />
+              <StoreBadges gap={24} />
             </motion.div>
           </motion.div>
         </div>

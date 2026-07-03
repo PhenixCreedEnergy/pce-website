@@ -68,7 +68,7 @@ export default function PCEAppPage() {
               Available now on iOS and Android.
             </p>
             <div className="flex justify-center">
-              <StoreBadges height={52} gap={24} />
+              <StoreBadges gap={24} />
             </div>
           </AnimatedSection>
         </div>
