@@ -345,29 +345,36 @@ export function AppPreviewSection() {
 
           {/* ── LEFT: Phone mockup ── */}
           <motion.div
-            initial={{ opacity: 0, y: 160, scale: 0.95, rotateX: 8 }}
+            initial={{ opacity: 0, y: 220, scale: 0.92, rotateX: 12 }}
             animate={inView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : {}}
-            transition={{ duration: 1.35, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.9 }}
             className="flex-shrink-0 relative"
-            style={{ alignSelf: "center", perspective: 1000, transformStyle: "preserve-3d" }}
+            style={{ alignSelf: "center", perspective: 1200, transformStyle: "preserve-3d" }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            {/* Floating wrapper — begins after entrance settles */}
+            {/* Floating wrapper — 0.8s pause then gentle y + rotateZ float */}
             <motion.div
-              animate={inView ? { y: [0, -9, 0] } : { y: 0 }}
+              animate={inView ? { y: [0, -8, 0], rotateZ: [0, 1, 0, -1, 0] } : {}}
               transition={inView ? {
-                y: { duration: 5.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.6 },
+                y:       { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
+                rotateZ: { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
               } : {}}
             >
-            {/* Electric-blue glow behind phone */}
-            <div className="absolute pointer-events-none" style={{
-              inset: "-48px -40px",
-              background: "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,88,179,0.22) 0%, rgba(48,231,237,0.06) 45%, transparent 72%)",
-              filter: "blur(24px)",
-              borderRadius: "50%",
-            }} />
-            {/* Secondary outer glow ring */}
+            {/* Glow — full intensity on entrance, settles to 40% */}
+            <motion.div
+              className="absolute pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: [0, 1, 0.4] } : {}}
+              transition={{ duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" }}
+              style={{
+                inset: "-48px -40px",
+                background: "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,88,179,0.42) 0%, rgba(48,231,237,0.12) 45%, transparent 72%)",
+                filter: "blur(28px)",
+                borderRadius: "50%",
+              }}
+            />
+            {/* Outer glow ring — always soft */}
             <div className="absolute pointer-events-none" style={{
               inset: "-80px -64px",
               background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(48,231,237,0.05) 0%, transparent 65%)",
