@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="564" height="168" viewBox="0 0 564 168">
+  <rect width="564" height="168" rx="22" fill="#000"/>
+  <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#A6A6A6" stroke-width="3"/>
+  <!-- Apple logo -->
+  <path d="M104.5 84.3c0-13.5 11-20 11.5-20.3-6.3-9.2-16-10.5-19.4-10.6-8.2-.8-16 4.8-20.2 4.8-4.2 0-10.6-4.7-17.4-4.6-8.9.1-17.2 5.2-21.7 13.2-9.3 16.2-2.4 40 6.6 53.1 4.5 6.4 9.7 13.6 16.6 13.3 6.7-.3 9.2-4.3 17.3-4.3 8 0 10.3 4.3 17.4 4.2 7.2-.1 11.7-6.5 16.1-12.9 5.1-7.4 7.2-14.6 7.3-14.9-.2-.1-14.1-5.4-14.1-21z" fill="#fff"/>
+  <path d="M91.6 45.5c3.7-4.5 6.2-10.7 5.5-17-5.3.2-11.8 3.6-15.6 8-3.4 3.9-6.4 10.3-5.6 16.4 5.9.5 11.9-3 15.7-7.4z" fill="#fff"/>
+  <!-- "Download on the" text -->
+  <text x="140" y="70" font-family="-apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#fff" letter-spacing="0">Download on the</text>
+  <!-- "App Store" text -->
+  <text x="138" y="118" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="600" fill="#fff">App Store</text>
+</svg>

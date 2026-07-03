@@ -584,42 +584,54 @@ export function AppPreviewSection() {
               </motion.div>
             ))}
 
-            {/* App store row */}
+            {/* App store badges */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 1.0 }}
-              className="flex items-center gap-3 pt-2"
+              className="flex items-center gap-3 pt-2 flex-wrap"
             >
               {[
-                { label: "App Store",   emoji: "📱" },
-                { label: "Google Play", emoji: "🤖" },
-              ].map(({ label, emoji }) => (
-                <div key={label}
-                  className="flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all duration-200"
+                { label: "App Store",   src: "/app-store-badge.svg",   href: "#" },
+                { label: "Google Play", src: "/google-play-badge.svg", href: "#" },
+              ].map(({ label, src, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.10)",
-                    color: "rgba(255,255,255,0.65)",
+                    display: "inline-block",
+                    borderRadius: 18,
+                    background: "rgba(255,255,255,0.09)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.30)",
+                    padding: "6px 10px",
+                    transition: "transform 250ms ease, background 250ms ease, box-shadow 250ms ease",
+                    cursor: "pointer",
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(48,231,237,0.30)";
-                    el.style.color = "white";
+                    el.style.transform = "translateY(-3px) scale(1.03)";
+                    el.style.background = "rgba(255,255,255,0.15)";
+                    el.style.boxShadow = "0 8px 32px rgba(0,0,0,0.40)";
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "rgba(255,255,255,0.10)";
-                    el.style.color = "rgba(255,255,255,0.65)";
+                    el.style.transform = "translateY(0) scale(1)";
+                    el.style.background = "rgba(255,255,255,0.09)";
+                    el.style.boxShadow = "0 4px 24px rgba(0,0,0,0.30)";
                   }}
                 >
-                  <span>{emoji}</span>
-                  {label}
-                </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={label}
+                    style={{ height: 44, width: "auto", display: "block" }}
+                  />
+                </a>
               ))}
-              <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.25)" }}>
-                iOS & Android
-              </span>
             </motion.div>
           </motion.div>
         </div>
