@@ -282,8 +282,39 @@ export function AppPreviewSection() {
   const inView = useInView(ref, { once: true, margin: "-8%" });
   const [active, setActive] = useState(0);
   const [hovering, setHovering] = useState(false);
+
+  // Sentinel ref: a zero-size div at the phone's NATURAL position (no y-offset).
+  // whileInView on the phone itself is unreliable because initial:{y:220} pushes
+  // the element outside the overflow:hidden clip, so IntersectionObserver never
+  // fires the threshold. The sentinel has no transform and triggers correctly.
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const sentinelInView = useInView(sentinelRef, { once: true, amount: 0 });
+
+  const entranceControls = useAnimation();
   const floatControls = useAnimation();
   const glowControls = useAnimation();
+
+  // Drive animation from sentinel visibility — runs once when column enters view
+  useEffect(() => {
+    if (!sentinelInView) return;
+    async function run() {
+      await entranceControls.start({
+        opacity: 1, y: 0, scale: 1, rotateX: 0,
+        transition: { type: "spring", stiffness: 90, damping: 18, mass: 0.9 },
+      });
+      // 0.8s pause baked into float delay
+      floatControls.start({
+        y: [0, -8, 0],
+        rotateZ: [0, 1, 0, -1, 0],
+        transition: { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
+      });
+      glowControls.start({
+        opacity: [0, 1, 0.4],
+        transition: { duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" },
+      });
+    }
+    run();
+  }, [sentinelInView, entranceControls, floatControls, glowControls]);
 
   useEffect(() => {
     if (hovering) return;
@@ -346,37 +377,20 @@ export function AppPreviewSection() {
           style={{ gap: "clamp(60px, 10vw, 160px)" }}>
 
           {/* ── LEFT: Phone mockup ── */}
-          {/* whileInView fires only when this element itself scrolls into view (amount:0.4).
-              Replaces animate={inView?...} which was firing immediately because the section
-              ref hit the viewport on initial page load before any scrolling. */}
-          <motion.div
-            initial={{ opacity: 0, y: 220, scale: 0.92, rotateX: 12 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.9 }}
-            onAnimationComplete={() => {
-              floatControls.start({
-                y: [0, -8, 0],
-                rotateZ: [0, 1, 0, -1, 0],
-                transition: {
-                  duration: 5,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                  delay: 0.8,
-                },
-              });
-              glowControls.start({
-                opacity: [0, 1, 0.4],
-                transition: { duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" },
-              });
-            }}
-            className="flex-shrink-0 relative"
-            style={{ alignSelf: "center", perspective: 1200, transformStyle: "preserve-3d" }}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            {/* Float — starts via useAnimation after spring completes */}
+          <div className="flex-shrink-0 relative" style={{ alignSelf: "center" }}>
+            {/* Sentinel: zero-size div at natural position, no transform.
+                IntersectionObserver fires reliably on this instead of the
+                phone which is offset 220px and clipped by overflow:hidden. */}
+            <div ref={sentinelRef} style={{ position: "absolute", top: 0, left: 0, width: 1, height: 1 }} />
+
+            <motion.div
+              initial={{ opacity: 0, y: 220, scale: 0.92, rotateX: 12 }}
+              animate={entranceControls}
+              style={{ perspective: 1200, transformStyle: "preserve-3d" }}
+              onMouseEnter={() => setHovering(true)}
+              onMouseLeave={() => setHovering(false)}
+            >
+            {/* Float wrapper — driven by useAnimation after entrance */}
             <motion.div animate={floatControls}>
             {/* Glow — peaks on entrance then fades to 40%, driven by useAnimation */}
             <motion.div
@@ -504,7 +518,8 @@ export function AppPreviewSection() {
               ))}
             </div>
             </motion.div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* ── RIGHT: Feature cards ── */}
           <motion.div
