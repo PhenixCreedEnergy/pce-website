@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence, useAnimation } from "framer-motion";
 import { MapPin, Zap, BarChart3, Wallet, Battery, Navigation, Star } from "lucide-react";
+import { StoreBadges } from "@/components/ui/StoreBadges";
 
 /* ─── Screen components ─────────────────────────────────────── */
 function MapScreen() {
@@ -589,59 +590,9 @@ export function AppPreviewSection() {
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 1.0 }}
-              className="flex items-center gap-3 pt-2 flex-wrap"
+              className="pt-2"
             >
-              {[
-                {
-                  label: "Download on the App Store",
-                  src: "/app-store-badge-official.svg",
-                  href: "#",
-                  height: 52,
-                },
-                {
-                  label: "Get it on Google Play",
-                  src: "/google-play-badge-official.png",
-                  href: "#",
-                  height: 52,
-                },
-              ].map(({ label, src, href, height }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  style={{
-                    display: "inline-block",
-                    borderRadius: 16,
-                    background: "rgba(255,255,255,0.10)",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
-                    border: "1px solid rgba(255,255,255,0.18)",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
-                    padding: "7px 12px",
-                    transition: "all 0.25s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.transform = "translateY(-3px) scale(1.03)";
-                    el.style.background = "rgba(255,255,255,0.18)";
-                    el.style.boxShadow = "0 8px 32px rgba(0,0,0,0.35), 0 0 30px rgba(48,231,237,0.25)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.transform = "translateY(0) scale(1)";
-                    el.style.background = "rgba(255,255,255,0.10)";
-                    el.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25)";
-                  }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt={label}
-                    style={{ height, width: "auto", display: "block" }}
-                  />
-                </a>
-              ))}
+              <StoreBadges height={52} gap={24} />
             </motion.div>
           </motion.div>
         </div>

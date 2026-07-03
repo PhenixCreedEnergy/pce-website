@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { AppPreviewSection } from "@/components/sections/AppPreviewSection";
 import { CTASection } from "@/components/sections/CTASection";
+import { StoreBadges } from "@/components/ui/StoreBadges";
 import { MapPin, Zap, Battery, CreditCard, Bell, BarChart3, Shield, Star } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -66,19 +67,8 @@ export default function PCEAppPage() {
               The PCE App is your co-pilot for Africa's electric roads.
               Available now on iOS and Android.
             </p>
-            <div className="flex items-center justify-center gap-4">
-              <div
-                className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-pce-dark cursor-default"
-                style={{ background: "#fff", border: "0.5px solid #E5E7EB", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
-              >
-                <span>📱</span> App Store
-              </div>
-              <div
-                className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-pce-dark cursor-default"
-                style={{ background: "#fff", border: "0.5px solid #E5E7EB", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
-              >
-                <span>🤖</span> Google Play
-              </div>
+            <div className="flex justify-center">
+              <StoreBadges height={52} gap={24} />
             </div>
           </AnimatedSection>
         </div>
