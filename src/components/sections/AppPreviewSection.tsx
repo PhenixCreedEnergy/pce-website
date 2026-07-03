@@ -300,7 +300,7 @@ export function AppPreviewSection() {
     async function run() {
       await entranceControls.start({
         opacity: 1, y: 0, scale: 1, rotateX: 0,
-        transition: { type: "spring", stiffness: 90, damping: 18, mass: 0.9 },
+        transition: { type: "spring", stiffness: 76, damping: 18, mass: 0.9 },
       });
       // 0.8s pause baked into float delay
       floatControls.start({
