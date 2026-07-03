@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, useAnimation } from "framer-motion";
 import { MapPin, Zap, BarChart3, Wallet, Battery, Navigation, Star } from "lucide-react";
 
 /* ─── Screen components ─────────────────────────────────────── */
@@ -282,6 +282,8 @@ export function AppPreviewSection() {
   const inView = useInView(ref, { once: true, margin: "-8%" });
   const [active, setActive] = useState(0);
   const [hovering, setHovering] = useState(false);
+  const floatControls = useAnimation();
+  const glowControls = useAnimation();
 
   useEffect(() => {
     if (hovering) return;
@@ -344,29 +346,43 @@ export function AppPreviewSection() {
           style={{ gap: "clamp(60px, 10vw, 160px)" }}>
 
           {/* ── LEFT: Phone mockup ── */}
+          {/* whileInView fires only when this element itself scrolls into view (amount:0.4).
+              Replaces animate={inView?...} which was firing immediately because the section
+              ref hit the viewport on initial page load before any scrolling. */}
           <motion.div
             initial={{ opacity: 0, y: 220, scale: 0.92, rotateX: 12 }}
-            animate={inView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
             transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.9 }}
+            onAnimationComplete={() => {
+              floatControls.start({
+                y: [0, -8, 0],
+                rotateZ: [0, 1, 0, -1, 0],
+                transition: {
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  ease: "easeInOut",
+                  delay: 0.8,
+                },
+              });
+              glowControls.start({
+                opacity: [0, 1, 0.4],
+                transition: { duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" },
+              });
+            }}
             className="flex-shrink-0 relative"
             style={{ alignSelf: "center", perspective: 1200, transformStyle: "preserve-3d" }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            {/* Floating wrapper — 0.8s pause then gentle y + rotateZ float */}
-            <motion.div
-              animate={inView ? { y: [0, -8, 0], rotateZ: [0, 1, 0, -1, 0] } : {}}
-              transition={inView ? {
-                y:       { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
-                rotateZ: { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
-              } : {}}
-            >
-            {/* Glow — full intensity on entrance, settles to 40% */}
+            {/* Float — starts via useAnimation after spring completes */}
+            <motion.div animate={floatControls}>
+            {/* Glow — peaks on entrance then fades to 40%, driven by useAnimation */}
             <motion.div
               className="absolute pointer-events-none"
               initial={{ opacity: 0 }}
-              animate={inView ? { opacity: [0, 1, 0.4] } : {}}
-              transition={{ duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" }}
+              animate={glowControls}
               style={{
                 inset: "-48px -40px",
                 background: "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,88,179,0.42) 0%, rgba(48,231,237,0.12) 45%, transparent 72%)",
