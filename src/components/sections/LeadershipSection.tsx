@@ -2,34 +2,47 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const members = [
   {
     name: "Onyeka Obiugo",
     role: "Founder & CEO",
     line: "Building Africa's electric mobility infrastructure.",
+    photo: "/team-onyeka.jpg",
     initials: "OO",
     color: "#30E7ED",
   },
   {
-    name: "Valentine Agodi",
+    name: "Shekwolo Myke",
     role: "Chief Technology Officer",
-    line: "Leading technology, software, and platform development.",
-    initials: "VA",
+    line: "Leading technology, software, AI, and platform innovation across Phoenix Creed Energy.",
+    photo: "/team-myke.png",
+    initials: "SM",
     color: "#7ab8ff",
   },
   {
-    name: "Mr John",
+    name: "Anyebe John",
     role: "Chief Operating Officer",
-    line: "Driving operations, execution, and strategic growth.",
-    initials: "MJ",
+    line: "Driving operations, execution, partnerships, and nationwide deployment.",
+    photo: "/team-john.png",
+    initials: "AJ",
     color: "#a78bfa",
   },
   {
-    name: "Engr Steven",
+    name: "Dirisu Favour",
+    role: "Chief Financial Officer",
+    line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
+    photo: "/team-favour.jpg",
+    initials: "DF",
+    color: "#f472b6",
+  },
+  {
+    name: "Mr Issac",
     role: "Lead Engineer",
-    line: "Overseeing engineering systems and deployment.",
-    initials: "ES",
+    line: "Leading engineering, infrastructure deployment, maintenance, and technical excellence.",
+    photo: null,
+    initials: "MI",
     color: "#34d399",
   },
 ];
@@ -79,26 +92,43 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             width: 72,
             height: 72,
             borderRadius: "50%",
+            overflow: "hidden",
+            border: hovered ? `2px solid ${member.color}70` : "2px solid rgba(255,255,255,0.10)",
+            marginBottom: 28,
+            transition: "border-color 0.35s ease",
+            flexShrink: 0,
+            position: "relative",
             background: hovered
               ? `linear-gradient(135deg, ${member.color}30 0%, ${member.color}10 100%)`
               : "rgba(255,255,255,0.06)",
-            border: hovered ? `2px solid ${member.color}70` : "2px solid rgba(255,255,255,0.10)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 28,
-            transition: "border-color 0.35s ease, background 0.35s ease",
-            flexShrink: 0,
           }}>
-            <span style={{
-              fontSize: "1.1rem",
-              fontWeight: 700,
-              letterSpacing: "0.02em",
-              color: hovered ? member.color : "rgba(255,255,255,0.4)",
-              transition: "color 0.35s ease",
-            }}>
-              {member.initials}
-            </span>
+            {member.photo ? (
+              <Image
+                src={member.photo}
+                alt={member.name}
+                fill
+                style={{ objectFit: "cover", objectPosition: "center top" }}
+                sizes="72px"
+              />
+            ) : (
+              <div style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <span style={{
+                  fontSize: "1.1rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.02em",
+                  color: hovered ? member.color : "rgba(255,255,255,0.4)",
+                  transition: "color 0.35s ease",
+                }}>
+                  {member.initials}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Name & role */}
@@ -210,8 +240,8 @@ export function LeadershipSection() {
           </p>
         </motion.div>
 
-        {/* Grid — 1 col mobile / 2 col tablet / 4 col desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+        {/* Grid — 1 col mobile / 2 col tablet / 3 col → 5 col desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 lg:gap-6">
           {members.map((member, i) => (
             <MemberCard key={member.name} member={member} index={i} />
           ))}
