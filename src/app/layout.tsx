@@ -1,19 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { defaultDescription, defaultOgImage, siteName, siteUrl } from "@/lib/seo";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const roboto = localFont({
+  src: [
+    {
+      path: "../../public/Roboto/Roboto-VariableFont_wdth,wght.ttf",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../../public/Roboto/Roboto-Italic-VariableFont_wdth,wght.ttf",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-roboto",
   display: "swap",
 });
 
@@ -69,7 +74,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-white text-pce-dark`}>
+      <body className={`${roboto.variable} font-sans antialiased bg-white text-pce-dark`}>
         <Navbar />
         <main>{children}</main>
         <Footer />
