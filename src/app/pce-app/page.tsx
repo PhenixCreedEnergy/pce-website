@@ -4,11 +4,15 @@ import { AppPreviewSection } from "@/components/sections/AppPreviewSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { StoreBadges } from "@/components/ui/StoreBadges";
 import { MapPin, Zap, Battery, CreditCard, Bell, BarChart3, Shield, Star } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "PCE App",
-  description: "The PCE App — your all-in-one EV charging companion for Africa.",
-};
+  description:
+    "Download the PCE App, an EV charging companion for Africa with live charger maps, one-tap charging, smart scheduling, PCE Wallet, alerts, and energy tracking.",
+  path: "/pce-app",
+  image: "/product-ev-app.png",
+});
 
 const allFeatures = [
   { icon: MapPin, title: "Live Map", desc: "See all nearby chargers with real-time availability, pricing, and amenities." },

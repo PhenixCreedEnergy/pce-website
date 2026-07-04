@@ -4,11 +4,15 @@ import { CTASection } from "@/components/sections/CTASection";
 import { NetworkMapSection } from "@/components/sections/NetworkMapSection";
 import { Zap, Clock, Shield, Wifi, ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Charging Network — PCE",
-  description: "Africa's largest EV charging network — 2,500+ stations across 18 countries with 350kW ultra-fast charging.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "EV Charging Network",
+  description:
+    "Explore Phoenix Creed Energy's planned EV charging network with standard, fast, and 350kW ultra-fast charging across strategic African highways, airports, malls, and urban hubs.",
+  path: "/charging-network",
+  image: "/charging-hub.png",
+});
 
 const tiers = [
   {
