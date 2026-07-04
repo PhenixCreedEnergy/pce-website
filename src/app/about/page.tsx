@@ -4,11 +4,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { WhatWeBuild } from "@/components/sections/WhatWeBuild";
 import { LeadershipSection } from "@/components/sections/LeadershipSection";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Phoenix Creed Energy — Building the infrastructure for Africa's electric future.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "About Phoenix Creed Energy",
+  description:
+    "Learn how Phoenix Creed Energy is building Africa's electric mobility ecosystem through EV charging infrastructure, battery storage, fleet solutions, software, and EV servicing.",
+  path: "/about",
+  image: "/about-us.png",
+});
 
 export default function AboutPage() {
   return (

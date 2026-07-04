@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { defaultDescription, defaultOgImage, siteName, siteUrl } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,19 +18,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.pceenergies.com"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Phoenix Creed Energy | Powering Africa's Electric Future",
-    template: "%s | Phoenix Creed Energy",
+    default: `${siteName} | Powering Africa's Electric Future`,
+    template: `%s | ${siteName}`,
   },
-  description:
-    "Phoenix Creed Energy is building Africa's largest electric vehicle charging network. Sustainable energy solutions for the continent's electric future.",
+  description: defaultDescription,
   keywords: [
     "electric vehicles", "EV charging", "Africa", "sustainable energy",
     "Phoenix Creed Energy", "PCE",
   ],
-  authors: [{ name: "Phoenix Creed Energy" }],
-  creator: "Phoenix Creed Energy",
+  authors: [{ name: siteName }],
+  creator: siteName,
   // Prevent Safari/iOS from auto-detecting numbers as phone links,
   // which causes DOM mutation after SSR and triggers hydration mismatch.
   formatDetection: {
@@ -40,24 +40,24 @@ export const metadata: Metadata = {
     url: false,
   },
   icons: {
-    icon: "/pce-logo.png",
-    apple: "/pce-logo.png",
-    shortcut: "/pce-logo.png",
+    icon: defaultOgImage,
+    apple: defaultOgImage,
+    shortcut: defaultOgImage,
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://phoenixcreedenergy.com",
-    siteName: "Phoenix Creed Energy",
-    title: "Phoenix Creed Energy | Powering Africa's Electric Future",
-    description: "Building Africa's largest electric vehicle charging network and clean energy infrastructure.",
-    images: [{ url: "/pce-logo.png", width: 1254, height: 1254 }],
+    url: siteUrl,
+    siteName,
+    title: `${siteName} | Powering Africa's Electric Future`,
+    description: defaultDescription,
+    images: [{ url: defaultOgImage, width: 1254, height: 1254, alt: `${siteName} logo` }],
   },
   twitter: {
-    card: "summary",
-    title: "Phoenix Creed Energy",
-    description: "Powering Africa's Electric Future",
-    images: ["/pce-logo.png"],
+    card: "summary_large_image",
+    title: `${siteName} | Powering Africa's Electric Future`,
+    description: defaultDescription,
+    images: [defaultOgImage],
   },
   robots: { index: true, follow: true },
 };
