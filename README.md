@@ -2,7 +2,7 @@
   <img src="public/pce-logo-new.png" alt="Phoenix Creed Energy logo" width="360" />
 </p>
 
-# Phoenix Creed Energy Website
+# Phoenix Creed Energy 
 
 Corporate website for Phoenix Creed Energy (PCE), built with Next.js, React, TypeScript, Tailwind CSS, Framer Motion, and local Roboto font assets.
 
