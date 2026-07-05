@@ -7,8 +7,6 @@ import { Mail, Phone, MapPin, CheckCircle2, Wrench, Battery, Cpu, Zap } from "lu
 
 const offices = [
   { city: "Lagos", country: "Nigeria", address: "Victoria Island, Lagos", email: "lagos@phoenixcreedenergy.com", phone: "+234 1 123 4567" },
-  { city: "Nairobi", country: "Kenya", address: "Westlands, Nairobi", email: "nairobi@phoenixcreedenergy.com", phone: "+254 20 123 4567" },
-  { city: "Johannesburg", country: "South Africa", address: "Sandton, Johannesburg", email: "jhb@phoenixcreedenergy.com", phone: "+27 11 123 4567" },
 ];
 
 const inquiryTypes = [
