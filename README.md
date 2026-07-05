@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/pce-logo-new.png" alt="Phoenix Creed Energy logo" width="360" />
+</p>
+
 # Phoenix Creed Energy Website
 
 Corporate website for Phoenix Creed Energy (PCE), built with Next.js, React, TypeScript, Tailwind CSS, Framer Motion, and local Roboto font assets.
@@ -543,4 +547,3 @@ Current repository focus:
 - Keep public routes real; avoid dead links.
 - Keep unavailable product experiences pointed to `/coming-soon`.
 - Keep navigation and footer behavior consistent across desktop and mobile.
-
