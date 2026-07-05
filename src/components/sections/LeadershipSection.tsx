@@ -39,7 +39,7 @@ const members = [
     role: "Chief Financial Officer",
     line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
     photo: "/team-favour.jpg",
-    facePos: "center 18%",
+    facePos: "center 35%",
     initials: "DF",
     color: "#f472b6",
   },
