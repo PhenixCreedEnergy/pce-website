@@ -4,28 +4,32 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { WhatWeBuild } from "@/components/sections/WhatWeBuild";
 import { LeadershipSection } from "@/components/sections/LeadershipSection";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Phoenix Creed Energy — Building the infrastructure for Africa's electric future.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "About Phoenix Creed Energy",
+  description:
+    "Learn how Phoenix Creed Energy is building Africa's electric mobility ecosystem through EV charging infrastructure, battery storage, fleet solutions, software, and EV servicing.",
+  path: "/about",
+  image: "/about-us.png",
+});
 
 export default function AboutPage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
-      <section className="bg-white pt-40 pb-28 md:pt-52 md:pb-36">
-        <div className="section-padding max-w-[1100px] mx-auto text-center">
+      <section className="bg-white pt-32 pb-20 md:pt-44 md:pb-28">
+        <div className="section-padding max-w-[1440px] mx-auto">
           <h1
-            className="font-bold text-pce-dark tracking-tight leading-[1.04] mb-8"
-            style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.6rem)" }}
+            className="font-bold text-pce-dark tracking-normal leading-[1.04] mb-6"
+            style={{ fontSize: "clamp(3rem, 5.6vw, 6.4rem)", maxWidth: 980 }}
           >
-            Building the infrastructure for<br />
-            Africa&apos;s electric future.
+            Building Africa&apos;s<br />
+            electric future.
           </h1>
           <p
-            className="text-pce-gray leading-relaxed mx-auto"
-            style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)", maxWidth: 600 }}
+            className="text-pce-gray leading-relaxed"
+            style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)", maxWidth: 720 }}
           >
             Phoenix Creed Energy is building Africa&apos;s electric mobility ecosystem through EV charging infrastructure, battery energy storage, fleet solutions, intelligent software, and professional EV servicing.
           </p>

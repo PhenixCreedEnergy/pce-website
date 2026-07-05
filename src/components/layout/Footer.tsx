@@ -7,15 +7,14 @@ const columns = [
     links: [
       { label: "Charging Network", href: "/charging-network" },
       { label: "PCE App",          href: "/pce-app" },
-      { label: "EV Power Banks",   href: "/contact" },
-      { label: "Energy Storage",   href: "/contact" },
+      { label: "EV Power Banks",   href: "/coming-soon" },
+      { label: "Energy Storage",   href: "/coming-soon" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Blog",     href: "/blog" },
       { label: "Careers",  href: "/careers" },
       { label: "Press",    href: "/press" },
     ],

@@ -4,11 +4,15 @@ import { AppPreviewSection } from "@/components/sections/AppPreviewSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { StoreBadges } from "@/components/ui/StoreBadges";
 import { MapPin, Zap, Battery, CreditCard, Bell, BarChart3, Shield, Star } from "lucide-react";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "PCE App",
-  description: "The PCE App — your all-in-one EV charging companion for Africa.",
-};
+  description:
+    "Download the PCE App, an EV charging companion for Africa with live charger maps, one-tap charging, smart scheduling, PCE Wallet, alerts, and energy tracking.",
+  path: "/pce-app",
+  image: "/product-ev-app.png",
+});
 
 const allFeatures = [
   { icon: MapPin, title: "Live Map", desc: "See all nearby chargers with real-time availability, pricing, and amenities." },
@@ -52,22 +56,22 @@ export default function PCEAppPage() {
   return (
     <>
       {/* Hero — Apple product style */}
-      <section className="relative bg-pce-gray-light overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
+      <section className="relative bg-pce-gray-light overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(48,231,237,0.07) 0%, transparent 60%)" }}
         />
-        <div className="relative section-padding max-w-[1440px] mx-auto text-center">
+        <div className="relative section-padding max-w-[1440px] mx-auto">
           <AnimatedSection>
-            <div className="chip mx-auto mb-5">PCE App</div>
-            <h1 className="text-5xl md:text-7xl font-bold text-pce-dark mb-6 leading-tight">
+            <div className="chip mb-5">PCE App</div>
+            <h1 className="font-bold text-pce-dark mb-5 leading-[1.04] tracking-normal" style={{ fontSize: "clamp(3rem, 5.6vw, 6.4rem)", maxWidth: 820 }}>
               Every charger.<br />One app.
             </h1>
-            <p className="text-pce-gray text-lg md:text-xl max-w-lg mx-auto leading-relaxed mb-8">
+            <p className="text-pce-gray max-w-2xl leading-relaxed mb-8" style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)" }}>
               The PCE App is your co-pilot for Africa's electric roads.
               Available now on iOS and Android.
             </p>
-            <div className="flex justify-center">
+            <div className="flex">
               <StoreBadges gap={24} />
             </div>
           </AnimatedSection>

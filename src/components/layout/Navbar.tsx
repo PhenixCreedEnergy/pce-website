@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, BarChart2, Users, Info, UserCircle, BookOpen, X } from "lucide-react";
+import { ChevronDown, BarChart2, Users, Info, UserCircle, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 
 /* ─── Types ──────────────────────────────────────────────────── */
@@ -36,8 +36,8 @@ const PRODUCTS: ProductItem[] = [
   { label: "Charging Network",     href: "/charging-network",      description: "Ultra-fast charging infrastructure across Africa",               image: "/product-ev-charger.png" },
   { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
   { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Diagnostics, repairs & scheduled EV servicing.", image: "/product-ev-service.jpg" },
-  { label: "EV Power Banks",       href: "/contact",               description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon" },
-  { label: "Energy Storage Units", href: "/contact",               description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon" },
+  { label: "EV Power Banks",       href: "/coming-soon",           description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon" },
+  { label: "Energy Storage Units", href: "/coming-soon",           description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon" },
 ];
 
 const NAV: NavItem[] = [
@@ -55,7 +55,6 @@ const NAV: NavItem[] = [
     dropdown: [
       { label: "About Us", href: "/about", description: "Mission, values, and the story behind PCE",  icon: Info },
       { label: "Team",     href: "/about#leadership-team", description: "The people building Africa's EV backbone",   icon: UserCircle },
-      { label: "Blog",     href: "/blog",  description: "Insights, news, and infrastructure updates", icon: BookOpen },
     ],
   },
   { label: "Contact", href: "/contact" },
@@ -332,8 +331,8 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     { label: "Charging Stations",        href: "/charging-network" },
     { label: "PCE App",                  href: "/pce-app" },
     { label: "EV Service & Maintenance", href: "/products/ev-service" },
-    { label: "EV Power Banks",           href: "/contact", badge: "Coming Soon" },
-    { label: "Energy Storage Units",     href: "/contact", badge: "Coming Soon" },
+    { label: "EV Power Banks",           href: "/coming-soon", badge: "Coming Soon" },
+    { label: "Energy Storage Units",     href: "/coming-soon", badge: "Coming Soon" },
   ];
   const mobileCompany = [
     { label: "About Us", href: "/about" },
@@ -499,6 +498,7 @@ export function Navbar() {
     if (item.dropdown) return item.dropdown.some(d => d.href !== "/contact" && pathname.startsWith(d.href));
     return false;
   };
+  const forceDarkNavbar = pathname === "/contact";
 
   return (
     <>
@@ -508,7 +508,7 @@ export function Navbar() {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          background: scrolled ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
+          background: scrolled || forceDarkNavbar ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
           backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)",
           borderBottom: "none",
           boxShadow: "none",
