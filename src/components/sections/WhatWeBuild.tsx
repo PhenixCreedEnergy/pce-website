@@ -16,7 +16,7 @@ const cards = [
     icon: BatteryCharging,
     title: "Energy Storage",
     desc: "Battery systems supporting clean energy deployment.",
-    href: "/contact",
+    href: "/coming-soon",
   },
   {
     icon: LayoutGrid,

@@ -92,7 +92,7 @@ export default function InvestorsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-24 pb-20 md:pt-36 md:pb-28"
+      <section className="relative overflow-hidden min-h-[72vh] flex items-end pt-28 pb-20 md:pb-28 lg:pb-32"
         style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 50%, #060d1f 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
@@ -103,36 +103,31 @@ export default function InvestorsPage() {
 
         <div className="relative section-padding max-w-[1440px] mx-auto">
           <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold tracking-widest uppercase"
-              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.28)", color: "#30E7ED" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-              Investor Relations
-            </div>
-            <h1 className="font-bold text-white leading-[1.02] tracking-tight mb-6"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", maxWidth: 760 }}>
+            <h1 className="font-bold text-white leading-[1.03] tracking-normal mb-5"
+              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.4rem)", maxWidth: 900, textShadow: "0 3px 24px rgba(0,0,0,0.36)" }}>
               The infrastructure play<br />
-              <span className="bg-clip-text text-transparent"
+              <span className="bg-clip-text text-transparent italic"
                 style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #0058B3 100%)" }}>
                 of the decade.
               </span>
             </h1>
-            <p className="text-base md:text-lg leading-relaxed mb-10"
-              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 520 }}>
+            <p className="text-base md:text-xl leading-relaxed mb-8"
+              style={{ color: "rgba(255,255,255,0.78)", maxWidth: 660 }}>
               Phoenix Creed Energy is building the connective tissue of Africa&apos;s electric
               economy — a $28B TAM with a 94% supply gap and no dominant player.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
               <Link href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm"
-                style={{ background: "linear-gradient(135deg,#0058B3,#003d7a)", color: "white", boxShadow: "0 8px 32px rgba(0,88,179,0.35)" }}>
+                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold"
+                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.42)" }}>
                 Request Investor Access <ArrowRight size={15} />
               </Link>
               <a
                 href="/investor/Phoenix-Creed-Energy-Pitch-Deck.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-sm"
-                style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
+                className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
+                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}>
                 <FileText size={15} /> View Pitch Deck
               </a>
             </div>
