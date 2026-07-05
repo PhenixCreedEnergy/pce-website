@@ -498,6 +498,7 @@ export function Navbar() {
     if (item.dropdown) return item.dropdown.some(d => d.href !== "/contact" && pathname.startsWith(d.href));
     return false;
   };
+  const forceDarkNavbar = pathname === "/contact";
 
   return (
     <>
@@ -507,7 +508,7 @@ export function Navbar() {
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          background: scrolled ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
+          background: scrolled || forceDarkNavbar ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
           backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)",
           borderBottom: "none",
           boxShadow: "none",
