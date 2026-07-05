@@ -7,7 +7,9 @@ const routes = [
   { path: "/pce-app", changeFrequency: "monthly", priority: 0.8 },
   { path: "/investors", changeFrequency: "weekly", priority: 0.9 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/careers", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/coming-soon", changeFrequency: "monthly", priority: 0.5 },
   { path: "/products/ev-service", changeFrequency: "monthly", priority: 0.8 },
 ] satisfies Array<{
   path: string;

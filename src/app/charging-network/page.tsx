@@ -64,7 +64,7 @@ export default function ChargingNetworkPage() {
   return (
     <>
       {/* ── Full-width cinematic hero ── */}
-      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: 640 }}>
+      <section className="relative overflow-hidden" style={{ height: "100vh", minHeight: 680 }}>
         {/* Background image */}
         <div
           className="absolute inset-0"
@@ -76,8 +76,8 @@ export default function ChargingNetworkPage() {
         />
 
         {/* Layered overlays */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.90) 0%, rgba(4,8,20,0.55) 55%, rgba(4,8,20,0.30) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.85) 0%, transparent 50%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.82) 0%, rgba(4,8,20,0.42) 56%, rgba(4,8,20,0.18) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.88) 0%, rgba(4,8,20,0.30) 50%, transparent 78%)" }} />
 
         {/* Grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
@@ -86,10 +86,10 @@ export default function ChargingNetworkPage() {
         }} />
 
         {/* Live network status ticker */}
-        <div className="absolute top-20 left-0 right-0 z-10">
+        <div className="absolute top-24 left-0 right-0 z-10">
           <div className="section-padding max-w-[1440px] mx-auto">
             {/* Mobile: centered single row, no scroll. Desktop: left-aligned scrollable row. */}
-            <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 py-1.5 flex-nowrap">
+            <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 py-1.5 flex-nowrap opacity-90">
               {liveStats.map((s) => (
                 <div
                   key={s.label}
@@ -111,32 +111,32 @@ export default function ChargingNetworkPage() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 h-full flex flex-col justify-center section-padding max-w-[1440px] mx-auto">
-          <div className="max-w-2xl">
-            <h1 className="font-bold text-white leading-[1.02] tracking-tight mb-6"
-              style={{ fontSize: "clamp(3rem, 6vw, 5.5rem)" }}>
+        <div className="relative z-10 h-full flex items-end section-padding pb-20 md:pb-28 lg:pb-32">
+          <div className="max-w-3xl">
+            <h1 className="font-bold text-white leading-[1.03] tracking-normal mb-5"
+              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.6rem)", textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}>
               Charge anywhere.<br />
-              <span className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "linear-gradient(135deg, #ffffff 0%, #30E7ED 60%, #0058B3 100%)" }}>
+              <span className="bg-clip-text text-transparent italic"
+                style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
                 Charge fast.
               </span>
             </h1>
 
-            <p className="text-base md:text-lg leading-relaxed mb-10"
-              style={{ color: "rgba(255,255,255,0.65)", maxWidth: 480 }}>
+            <p className="text-base md:text-xl leading-relaxed mb-8"
+              style={{ color: "rgba(255,255,255,0.82)", maxWidth: 640, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
               2,500+ ultra-fast stations spanning 18 African countries — strategically
               placed at highways, airports, malls, and urban hubs.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
               <Link href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm transition-all duration-200"
-                style={{ background: "linear-gradient(135deg, #0058B3, #003d7a)", color: "white", boxShadow: "0 8px 32px rgba(0,88,179,0.35)" }}>
+                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200"
+                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}>
                 Partner with us <ArrowRight size={15} />
               </Link>
               <Link href="/pce-app"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-sm transition-all duration-200"
-                style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.88)" }}>
+                className="inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200"
+                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)" }}>
                 Find a Charger
               </Link>
             </div>

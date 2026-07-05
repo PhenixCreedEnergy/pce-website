@@ -177,7 +177,7 @@ export default function EVServicePage() {
   return (
     <>
       {/* ── Hero — cinematic full-width image ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "75vh", display: "flex", alignItems: "center" }}>
+      <section className="relative overflow-hidden" style={{ minHeight: "82vh", display: "flex", alignItems: "flex-end" }}>
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
@@ -192,8 +192,8 @@ export default function EVServicePage() {
         </div>
 
         {/* Layered dark overlays for text legibility */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.88) 0%, rgba(4,8,20,0.55) 55%, rgba(4,8,20,0.25) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.75) 0%, transparent 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.82) 0%, rgba(4,8,20,0.44) 55%, rgba(4,8,20,0.18) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(4,8,20,0.88) 0%, rgba(4,8,20,0.30) 52%, transparent 78%)" }} />
 
         {/* Subtle grid overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{
@@ -202,45 +202,38 @@ export default function EVServicePage() {
         }} />
 
         {/* Content */}
-        <div className="section-padding max-w-[1440px] mx-auto relative z-10 w-full" ref={heroRef} style={{ paddingTop: "clamp(100px, 16vh, 140px)", paddingBottom: "clamp(64px, 10vh, 100px)" }}>
+        <div className="section-padding max-w-[1440px] mx-auto relative z-10 w-full" ref={heroRef} style={{ paddingTop: "clamp(104px, 14vh, 140px)", paddingBottom: "clamp(80px, 12vh, 128px)" }}>
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-2 mb-6">
-              <div style={{ height: 1, width: 32, background: "#30E7ED", opacity: 0.7 }} />
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#30E7ED", opacity: 0.9 }}>
-                Professional EV Care
-              </p>
-            </div>
-
             <h1
-              className="font-bold text-white leading-tight mb-6"
-              style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.8rem)", letterSpacing: "-0.02em", maxWidth: 720 }}
+              className="font-bold text-white leading-[1.03] mb-5"
+              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.4rem)", maxWidth: 880, textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}
             >
               Professional EV Service<br />
-              <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #ffffff 0%, #30E7ED 55%, #7ab8ff 100%)" }}>
+              <span className="bg-clip-text text-transparent italic" style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
                 &amp; Maintenance
               </span>
             </h1>
 
-            <p style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)", color: "rgba(255,255,255,0.60)", maxWidth: 540, lineHeight: 1.78, marginBottom: 44 }}>
+            <p style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)", color: "rgba(255,255,255,0.82)", maxWidth: 660, lineHeight: 1.65, marginBottom: 34, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
               Comprehensive diagnostics, battery health checks, preventive maintenance, repairs, software updates, and certified servicing for electric vehicles.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white text-sm"
-                style={{ padding: "15px 34px", background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 32px rgba(0,88,179,0.55)", textDecoration: "none" }}
+                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"
+                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)", textDecoration: "none" }}
               >
                 Book a Service <ArrowRight size={15} />
               </Link>
               <Link
                 href="#services"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm"
-                style={{ padding: "15px 34px", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.20)", color: "rgba(255,255,255,0.88)", textDecoration: "none" }}
+                className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
+                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}
               >
                 View Services
               </Link>

@@ -13,45 +13,51 @@ export function HeroSection() {
     <section className="relative w-full overflow-hidden bg-[#040814] min-h-[75vh] md:min-h-screen">
       <HeroCarousel />
 
-      {/* Extra overlay for text legibility on mobile */}
+      {/* Extra overlay for text legibility on smaller viewports */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none md:hidden"
-        style={{ background: "linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 100%)" }}
+        className="absolute inset-0 z-10 pointer-events-none lg:hidden"
+        style={{ background: "linear-gradient(to right, rgba(0,0,0,0.64) 0%, rgba(0,0,0,0.24) 100%)" }}
       />
 
       {/* ── Content overlay ── */}
       <div
-        className="absolute inset-0 z-20 flex items-center section-padding"
-        style={{ maxWidth: 1440, margin: "0 auto", left: 0, right: 0 }}
+        className="absolute inset-0 z-20 flex items-end section-padding pb-20 pt-24 md:pb-28 lg:pb-32"
       >
-        <div style={{ maxWidth: 600 }}>
+        <div style={{ maxWidth: 920 }}>
           <motion.h1
-            className="font-bold tracking-tight text-white"
-            style={{ fontSize: "clamp(2.1rem, 5.5vw, 5.4rem)", lineHeight: 1.06, marginBottom: "clamp(14px, 3vw, 22px)" }}
+            className="font-sans font-bold tracking-normal text-white"
+            style={{
+              fontSize: "clamp(3.25rem, 5.8vw, 6.8rem)",
+              lineHeight: 1.03,
+              marginBottom: "clamp(18px, 2.4vw, 30px)",
+              textShadow: "0 3px 24px rgba(0,0,0,0.58)",
+            }}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease }}
           >
-            <span className="block sm:inline">Powering</span>
-            <span className="block sm:inline sm:before:content-['_']">
+            <span className="block">
+              Powering{" "}
               <span
-                className="bg-clip-text text-transparent"
+                className="bg-clip-text text-transparent italic"
                 style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}
               >
                 Africa&apos;s
               </span>
             </span>
-            <br className="hidden sm:block" />
-            <span className="block sm:inline"> Electric Future.</span>
+            <span className="block">
+              Electric Future.
+            </span>
           </motion.h1>
 
           <motion.p
             style={{
-              fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
-              color: "rgba(255,255,255,0.65)",
-              maxWidth: 440,
-              lineHeight: 1.7,
-              marginBottom: "clamp(20px, 4vw, 36px)",
+              fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)",
+              color: "rgba(255,255,255,0.82)",
+              maxWidth: 620,
+              lineHeight: 1.65,
+              marginBottom: "clamp(24px, 3vw, 38px)",
+              textShadow: "0 2px 16px rgba(0,0,0,0.55)",
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,7 +67,7 @@ export function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.34, ease }}
@@ -69,20 +75,37 @@ export function HeroSection() {
             <Link
               href="/charging-network"
               className="inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
-              style={{ padding: "15px 32px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.55)" }}
+              style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.55)"; el.style.transform = "translateY(0)"; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
             >
               Explore Network <ArrowRight size={17} />
             </Link>
             <Link
               href="/investors"
               className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
-              style={{ padding: "15px 32px", fontSize: 15, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.22)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.14)"; el.style.borderColor = "rgba(255,255,255,0.35)"; el.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.08)"; el.style.borderColor = "rgba(255,255,255,0.22)"; el.style.transform = "translateY(0)"; }}
+              style={{
+                padding: "17px 34px",
+                fontSize: 16,
+                background: "rgba(255,255,255,0.10)",
+                border: "1px solid rgba(255,255,255,0.24)",
+                backdropFilter: "blur(14px)",
+                WebkitBackdropFilter: "blur(14px)",
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = "rgba(255,255,255,0.16)";
+                el.style.borderColor = "rgba(255,255,255,0.38)";
+                el.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = "rgba(255,255,255,0.10)";
+                el.style.borderColor = "rgba(255,255,255,0.24)";
+                el.style.transform = "translateY(0)";
+              }}
             >
-              Investor Overview
+              Investor Overview <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
