@@ -168,7 +168,7 @@ export default function EVServicePage() {
   return (
     <>
       {/* ── Hero — cinematic full-width image ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "82vh", display: "flex", alignItems: "flex-end" }}>
+      <section className="relative overflow-hidden max-w-full" style={{ minHeight: "82vh", display: "flex", alignItems: "flex-end" }}>
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
@@ -193,7 +193,7 @@ export default function EVServicePage() {
         }} />
 
         {/* Content */}
-        <div className="section-padding relative z-10 w-full" ref={heroRef} style={{ paddingTop: "clamp(104px, 14vh, 140px)", paddingBottom: "clamp(42px, 7vh, 72px)" }}>
+        <div className="section-padding relative z-10 w-full max-w-full" ref={heroRef} style={{ paddingTop: "clamp(104px, 14vh, 140px)", paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
@@ -201,7 +201,7 @@ export default function EVServicePage() {
           >
             <h1
               className="font-bold text-white leading-[1.08] mb-4"
-              style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620, textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}
+              style={{ fontSize: "clamp(1.85rem, 8vw, 3.65rem)", maxWidth: "min(620px, 100%)", overflowWrap: "break-word", textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}
             >
               Professional EV Service<br />
               <span className="bg-clip-text text-transparent italic" style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
@@ -209,7 +209,7 @@ export default function EVServicePage() {
               </span>
             </h1>
 
-            <p style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", color: "rgba(255,255,255,0.82)", maxWidth: 540, lineHeight: 1.65, marginBottom: 28, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
+            <p style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", color: "rgba(255,255,255,0.82)", maxWidth: "min(540px, 100%)", lineHeight: 1.65, marginBottom: 28, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
               Comprehensive diagnostics, battery health checks, preventive maintenance, repairs, software updates, and certified servicing for electric vehicles.
             </p>
 
@@ -217,14 +217,14 @@ export default function EVServicePage() {
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"
-                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)", textDecoration: "none" }}
+                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)", textDecoration: "none", maxWidth: "100%" }}
               >
                 Book a Service <ArrowRight size={15} />
               </Link>
               <Link
                 href="#services"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
-                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}
+                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none", maxWidth: "100%" }}
               >
                 View Services
               </Link>
@@ -237,7 +237,7 @@ export default function EVServicePage() {
       <section
         id="services"
         className="scroll-mt-24"
-        style={{ background: "linear-gradient(180deg, #060d1f 0%, #091528 60%, #060d1f 100%)", padding: "100px 0 120px" }}
+        style={{ position: "relative", overflow: "hidden", background: "linear-gradient(180deg, #060d1f 0%, #091528 60%, #060d1f 100%)", padding: "100px 0 120px" }}
       >
         {/* Ambient glows */}
         <div style={{ position: "absolute", top: "20%", left: "3%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(48,231,237,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
