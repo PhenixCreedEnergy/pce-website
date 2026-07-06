@@ -76,13 +76,6 @@ const services = [
   },
 ];
 
-const stats = [
-  { value: "500+", label: "EVs Serviced" },
-  { value: "98%", label: "First-Fix Rate" },
-  { value: "24h", label: "Turnaround" },
-  { value: "12mo", label: "Warranty" },
-];
-
 /* ─── Components ─────────────────────────────────────────────── */
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
   const [hovered, setHovered] = useState(false);
@@ -171,8 +164,6 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 /* ─── Page ───────────────────────────────────────────────────── */
 export default function EVServicePage() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsInView = useInView(statsRef, { once: true, margin: "-8%" });
 
   return (
     <>
@@ -241,30 +232,6 @@ export default function EVServicePage() {
           </motion.div>
         </div>
       </section>
-
-      {/* ── Stats bar ── */}
-      <div ref={statsRef} style={{ background: "rgba(6,13,31,0.98)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="section-padding max-w-[1440px] mx-auto py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={statsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center"
-              >
-                <div style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 800, color: "#30E7ED", letterSpacing: "-0.02em", lineHeight: 1 }}>
-                  {s.value}
-                </div>
-                <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.40)", marginTop: 6, fontWeight: 500, letterSpacing: "0.04em" }}>
-                  {s.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ── Services grid ── */}
       <section
