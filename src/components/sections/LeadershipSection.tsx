@@ -128,8 +128,9 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
                   src={member.photo}
                   alt={member.name}
                   fill
+                  quality={95}
                   style={{ objectFit: "cover", objectPosition: member.facePos }}
-                  sizes={`${CARD_AVATAR}px`}
+                  sizes={`${CARD_AVATAR * 2}px`}
                 />
               ) : (
                 <div style={{
