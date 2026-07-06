@@ -21,15 +21,16 @@ export function HeroSection() {
 
       {/* ── Content overlay ── */}
       <div
-        className="absolute inset-0 z-20 flex items-end section-padding pb-20 pt-24 md:pb-28 lg:pb-32"
+        className="absolute inset-0 z-20 flex items-end section-padding pt-24"
+        style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}
       >
-        <div style={{ maxWidth: 920 }}>
+        <div style={{ maxWidth: 620 }}>
           <motion.h1
             className="font-sans font-bold tracking-normal text-white"
             style={{
-              fontSize: "clamp(3.25rem, 5.8vw, 6.8rem)",
-              lineHeight: 1.03,
-              marginBottom: "clamp(18px, 2.4vw, 30px)",
+              fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)",
+              lineHeight: 1.08,
+              marginBottom: "clamp(14px, 1.6vw, 20px)",
               textShadow: "0 3px 24px rgba(0,0,0,0.58)",
             }}
             initial={{ opacity: 0, y: 24 }}
@@ -52,11 +53,11 @@ export function HeroSection() {
 
           <motion.p
             style={{
-              fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)",
+              fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)",
               color: "rgba(255,255,255,0.82)",
-              maxWidth: 620,
+              maxWidth: 540,
               lineHeight: 1.65,
-              marginBottom: "clamp(24px, 3vw, 38px)",
+              marginBottom: "clamp(22px, 2.2vw, 28px)",
               textShadow: "0 2px 16px rgba(0,0,0,0.55)",
             }}
             initial={{ opacity: 0, y: 20 }}
@@ -75,7 +76,7 @@ export function HeroSection() {
             <Link
               href="/charging-network"
               className="inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
-              style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
+              style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
             >
@@ -85,8 +86,8 @@ export function HeroSection() {
               href="/investors"
               className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
               style={{
-                padding: "17px 34px",
-                fontSize: 16,
+                padding: "15px 30px",
+                fontSize: 15,
                 background: "rgba(255,255,255,0.10)",
                 border: "1px solid rgba(255,255,255,0.24)",
                 backdropFilter: "blur(14px)",

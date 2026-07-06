@@ -22,7 +22,7 @@ export default function CareersPage() {
   return (
     <>
       <section
-        className="relative overflow-hidden bg-[#060d1f] section-padding pt-32 pb-20 md:pt-44 md:pb-28"
+        className="relative overflow-hidden bg-[#060d1f] section-padding min-h-[72vh] flex items-end pt-28"
         style={{ color: "#fff" }}
       >
         <div
@@ -37,18 +37,18 @@ export default function CareersPage() {
           className="absolute top-0 right-0 w-[680px] h-[680px] pointer-events-none"
           style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.10) 0%, transparent 70%)" }}
         />
-        <div className="relative z-10 max-w-[1440px] mx-auto">
-          <div className="max-w-4xl">
+        <div className="relative z-10 w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
+          <div style={{ maxWidth: 620 }}>
             <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] mb-6"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] mb-4"
               style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.26)", color: "#30E7ED" }}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#30E7ED]" />
               Careers
             </div>
             <h1
-              className="font-bold leading-[1.03] tracking-normal mb-6"
-              style={{ fontSize: "clamp(3.2rem, 6vw, 6.8rem)", textShadow: "0 3px 24px rgba(0,0,0,0.35)" }}
+              className="font-bold leading-[1.08] tracking-normal mb-4"
+              style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", textShadow: "0 3px 24px rgba(0,0,0,0.35)" }}
             >
               Build the future of<br />
               <span
@@ -59,8 +59,8 @@ export default function CareersPage() {
               </span>
             </h1>
             <p
-              className="leading-relaxed mb-9"
-              style={{ color: "rgba(255,255,255,0.76)", fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)", maxWidth: 720 }}
+              className="leading-relaxed mb-7"
+              style={{ color: "rgba(255,255,255,0.76)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}
             >
               We are building the charging, software, energy, and service layer for Africa&apos;s EV transition. Join a team focused on practical execution, technical reliability, and long-term infrastructure.
             </p>
@@ -68,14 +68,14 @@ export default function CareersPage() {
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"
-                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.42)", textDecoration: "none" }}
+                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.42)", textDecoration: "none" }}
               >
                 Send your profile <ArrowRight size={16} />
               </Link>
               <Link
                 href="/about"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
-                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}
+                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}
               >
                 About PCE
               </Link>

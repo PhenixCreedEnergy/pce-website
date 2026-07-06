@@ -33,20 +33,20 @@ export default function ContactPage() {
 
   return (
     <main className="bg-white">
-      <section className="section-padding max-w-[1120px] mx-auto pt-28 pb-20 md:pt-36 md:pb-28">
+      <section className="section-padding max-w-[1120px] mx-auto min-h-[62vh] flex flex-col justify-end pt-28 pb-12 md:pb-16">
         <AnimatedSection>
           <div className="max-w-2xl">
-            <h1 className="font-bold text-pce-dark leading-tight tracking-normal" style={{ fontSize: "clamp(2.5rem, 5vw, 4.8rem)" }}>
+            <h1 className="font-bold text-pce-dark leading-[1.08] tracking-normal" style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}>
               Contact us
             </h1>
-            <p className="text-pce-gray leading-relaxed mt-5" style={{ fontSize: "clamp(1rem, 1.15vw, 1.15rem)" }}>
+            <p className="text-pce-gray leading-relaxed mt-4" style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}>
               Tell us what you&apos;re building, operating, or looking to solve. We&apos;ll connect you with the right Phoenix Creed Energy team.
             </p>
           </div>
         </AnimatedSection>
 
         <AnimatedSection delay={0.08}>
-          <div className="mt-12 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
+          <div className="mt-10 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.35fr]">
               <aside className="border-b border-pce-border bg-pce-gray-light/60 p-6 sm:p-8 lg:border-b-0 lg:border-r">
                 <h2 className="text-lg font-bold text-pce-dark">Start a conversation</h2>

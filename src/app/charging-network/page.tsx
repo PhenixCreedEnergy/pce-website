@@ -111,10 +111,10 @@ export default function ChargingNetworkPage() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 h-full flex items-end section-padding pb-20 md:pb-28 lg:pb-32">
-          <div className="max-w-3xl">
-            <h1 className="font-bold text-white leading-[1.03] tracking-normal mb-5"
-              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.6rem)", textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}>
+        <div className="relative z-10 h-full flex items-end section-padding" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
+          <div style={{ maxWidth: 620 }}>
+            <h1 className="font-bold text-white leading-[1.08] tracking-normal mb-4"
+              style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}>
               Charge anywhere.<br />
               <span className="bg-clip-text text-transparent italic"
                 style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
@@ -122,8 +122,8 @@ export default function ChargingNetworkPage() {
               </span>
             </h1>
 
-            <p className="text-base md:text-xl leading-relaxed mb-8"
-              style={{ color: "rgba(255,255,255,0.82)", maxWidth: 640, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
+            <p className="leading-relaxed mb-7"
+              style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
               2,500+ ultra-fast stations spanning 18 African countries — strategically
               placed at highways, airports, malls, and urban hubs.
             </p>
@@ -131,12 +131,12 @@ export default function ChargingNetworkPage() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
               <Link href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200"
-                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}>
                 Partner with us <ArrowRight size={15} />
               </Link>
               <Link href="/pce-app"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200"
-                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)" }}>
                 Find a Charger
               </Link>
             </div>

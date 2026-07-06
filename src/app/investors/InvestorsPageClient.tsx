@@ -92,7 +92,7 @@ export default function InvestorsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden min-h-[72vh] flex items-end pt-28 pb-20 md:pb-28 lg:pb-32"
+      <section className="relative overflow-hidden min-h-[72vh] flex items-end pt-28"
         style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 50%, #060d1f 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
@@ -101,25 +101,25 @@ export default function InvestorsPage() {
         <div className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.08) 0%, transparent 70%)" }} />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(0,88,179,0.12) 0%, transparent 70%)" }} />
 
-        <div className="relative section-padding max-w-[1440px] mx-auto">
+        <div className="relative section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
-            <h1 className="font-bold text-white leading-[1.03] tracking-normal mb-5"
-              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.4rem)", maxWidth: 900, textShadow: "0 3px 24px rgba(0,0,0,0.36)" }}>
+            <h1 className="font-bold text-white leading-[1.08] tracking-normal mb-4"
+              style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620, textShadow: "0 3px 24px rgba(0,0,0,0.36)" }}>
               The infrastructure play<br />
               <span className="bg-clip-text text-transparent italic"
                 style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #0058B3 100%)" }}>
                 of the decade.
               </span>
             </h1>
-            <p className="text-base md:text-xl leading-relaxed mb-8"
-              style={{ color: "rgba(255,255,255,0.78)", maxWidth: 660 }}>
+            <p className="leading-relaxed mb-7"
+              style={{ color: "rgba(255,255,255,0.78)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}>
               Phoenix Creed Energy is building the connective tissue of Africa&apos;s electric
               economy — a $28B TAM with a 94% supply gap and no dominant player.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
               <Link href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold"
-                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.42)" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.42)" }}>
                 Request Investor Access <ArrowRight size={15} />
               </Link>
               <a
@@ -127,7 +127,7 @@ export default function InvestorsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
-                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}>
                 <FileText size={15} /> View Pitch Deck
               </a>
             </div>

@@ -56,18 +56,18 @@ export default function PCEAppPage() {
   return (
     <>
       {/* Hero — Apple product style */}
-      <section className="relative bg-pce-gray-light overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
+      <section className="relative bg-pce-gray-light overflow-hidden min-h-[62vh] flex items-end pt-28">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(48,231,237,0.07) 0%, transparent 60%)" }}
         />
-        <div className="relative section-padding max-w-[1440px] mx-auto">
+        <div className="relative section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <AnimatedSection>
-            <div className="chip mb-5">PCE App</div>
-            <h1 className="font-bold text-pce-dark mb-5 leading-[1.04] tracking-normal" style={{ fontSize: "clamp(3rem, 5.6vw, 6.4rem)", maxWidth: 820 }}>
+            <div className="chip mb-4">PCE App</div>
+            <h1 className="font-bold text-pce-dark mb-4 leading-[1.08] tracking-normal" style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}>
               Every charger.<br />One app.
             </h1>
-            <p className="text-pce-gray max-w-2xl leading-relaxed mb-8" style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)" }}>
+            <p className="text-pce-gray leading-relaxed mb-7" style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}>
               The PCE App is your co-pilot for Africa's electric roads.
               Available now on iOS and Android.
             </p>

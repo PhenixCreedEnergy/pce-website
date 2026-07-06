@@ -18,18 +18,18 @@ export default function AboutPage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
-      <section className="bg-white pt-32 pb-20 md:pt-44 md:pb-28">
-        <div className="section-padding max-w-[1440px] mx-auto">
+      <section className="bg-white min-h-[62vh] flex items-end pt-28">
+        <div className="section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <h1
-            className="font-bold text-pce-dark tracking-normal leading-[1.04] mb-6"
-            style={{ fontSize: "clamp(3rem, 5.6vw, 6.4rem)", maxWidth: 980 }}
+            className="font-bold text-pce-dark tracking-normal leading-[1.08] mb-4"
+            style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}
           >
             Building Africa&apos;s<br />
             electric future.
           </h1>
           <p
             className="text-pce-gray leading-relaxed"
-            style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)", maxWidth: 720 }}
+            style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}
           >
             Phoenix Creed Energy is building Africa&apos;s electric mobility ecosystem through EV charging infrastructure, battery energy storage, fleet solutions, intelligent software, and professional EV servicing.
           </p>
