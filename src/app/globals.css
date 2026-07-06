@@ -120,3 +120,32 @@
   }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 }
+
+/* ── Mobile-only hero fixes (max-width: 767px) ──────────────────
+   Desktop/tablet styles are untouched — these only apply on mobile.
+─────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* 1. Heading: reduce by ~20% on mobile */
+  .hero-heading {
+    font-size: clamp(2.55rem, 8vw, 3.1rem) !important;
+    line-height: 1.06 !important;
+  }
+
+  /* 2. CTA buttons: reduce vertical padding ~12% */
+  .hero-cta {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  /* 3. Hero background image: shift focal point for portrait mobile */
+  .hero-slide-img {
+    object-position: 62% 55% !important;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Extra-small screens: nudge heading down a touch more */
+  .hero-heading {
+    font-size: clamp(2.35rem, 8.5vw, 2.8rem) !important;
+  }
+}
