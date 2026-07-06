@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { Mail, Phone, MapPin, CheckCircle2, Wrench, Battery, Cpu, Zap } from "lucide-react";
+import {
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 
 const offices = [
   { city: "Lagos", country: "Nigeria", address: "Victoria Island, Lagos", email: "lagos@phoenixcreedenergy.com", phone: "+234 1 123 4567" },
@@ -24,210 +29,148 @@ export default function ContactPage() {
   }
 
   const inputClass =
-    "w-full bg-pce-gray-light border border-pce-border rounded-xl px-4 py-3 text-pce-dark placeholder:text-pce-gray/50 focus:outline-none focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/10 transition-all text-sm";
+    "w-full bg-white border border-pce-border rounded-lg px-4 py-3 text-pce-dark placeholder:text-pce-gray/45 focus:outline-none focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/10 transition-all text-sm";
 
   return (
-    <>
-      {/* Hero */}
-      <section className="bg-white pt-32 pb-16 md:pt-44 md:pb-24 overflow-hidden relative">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(0,88,179,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,88,179,0.03) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
-        />
-        <div className="relative section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection>
-            <div className="chip mb-5">Contact</div>
-            <h1 className="font-bold text-pce-dark mb-5 leading-[1.04] tracking-normal" style={{ fontSize: "clamp(3rem, 5.6vw, 6.4rem)", maxWidth: 820 }}>
-              Let&apos;s build<br />something.
-            </h1>
-            <p className="text-pce-gray max-w-2xl leading-relaxed" style={{ fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)" }}>
-              Whether you're an EV driver, a fleet operator, or an investor — we want to hear from you.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      <section className="section-padding max-w-[1440px] mx-auto py-16 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Form */}
-          <AnimatedSection className="lg:col-span-3" direction="left">
-            {submitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="surface rounded-2xl p-12 text-center h-full flex flex-col items-center justify-center gap-4"
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-2"
-                  style={{ background: "rgba(0,88,179,0.08)" }}
-                >
-                  <CheckCircle2 size={28} style={{ color: "#0058B3" }} />
-                </div>
-                <h2 className="text-2xl font-bold text-pce-dark">Message received.</h2>
-                <p className="text-pce-gray">We'll be in touch within 24 hours.</p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="surface rounded-2xl p-8 md:p-10 flex flex-col gap-5">
-                <h2 className="text-xl font-bold text-pce-dark mb-1">Send us a message</h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-pce-gray uppercase tracking-widest">Name</label>
-                    <input
-                      type="text" required value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className={inputClass} placeholder="Your name"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-pce-gray uppercase tracking-widest">Email</label>
-                    <input
-                      type="email" required value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className={inputClass} placeholder="you@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-bold text-pce-gray uppercase tracking-widest">Inquiry type</label>
-                  <select
-                    required value={form.type}
-                    onChange={(e) => setForm({ ...form, type: e.target.value })}
-                    className={inputClass}
-                  >
-                    <option value="" disabled>Select a topic</option>
-                    {inquiryTypes.map((t) => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] font-bold text-pce-gray uppercase tracking-widest">Message</label>
-                  <textarea
-                    required rows={5} value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className={inputClass} placeholder="Tell us about your inquiry..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-white transition-all duration-200 hover:shadow-blue-sm mt-1"
-                  style={{ background: "#0058B3" }}
-                >
-                  Send Message
-                </button>
-              </form>
-            )}
-          </AnimatedSection>
-
-          {/* Offices */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <AnimatedSection delay={0.1} direction="right">
-              <h2 className="text-xl font-bold text-pce-dark mb-5">Our offices</h2>
-            </AnimatedSection>
-            {offices.map((office, i) => (
-              <AnimatedSection key={office.city} delay={0.1 + i * 0.1} direction="right">
-                <div className="surface surface-hover rounded-2xl p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center"
-                      style={{ background: "rgba(0,88,179,0.08)" }}
-                    >
-                      <MapPin size={13} style={{ color: "#0058B3" }} />
-                    </div>
-                    <div>
-                      <div className="font-bold text-pce-dark text-sm">{office.city}</div>
-                      <div className="text-pce-gray text-xs">{office.country}</div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 pl-9">
-                    <div className="flex items-center gap-2 text-xs text-pce-gray">
-                      <MapPin size={11} className="shrink-0" />{office.address}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-pce-gray">
-                      <Mail size={11} className="shrink-0" />{office.email}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-pce-gray">
-                      <Phone size={11} className="shrink-0" />
-                      {/* Explicit tel: link prevents Safari from wrapping plain digits in its own <a> tag */}
-                      <a href={`tel:${office.phone.replace(/\s/g, "")}`} className="hover:text-pce-dark transition-colors">
-                        {office.phone}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Need EV Service? ── */}
-      <section className="section-padding max-w-[1440px] mx-auto pb-20 md:pb-28">
+    <main className="bg-white">
+      <section className="section-padding max-w-[1120px] mx-auto pt-28 pb-20 md:pt-36 md:pb-28">
         <AnimatedSection>
-          <div
-            className="rounded-3xl overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #060d1f 0%, #091528 60%, #040c1a 100%)", padding: "56px 48px" }}
-          >
-            <div className="flex flex-col lg:flex-row lg:items-center gap-10">
-              {/* Left */}
-              <div className="flex-1">
-                <p className="text-[11px] font-bold tracking-[0.18em] uppercase mb-4" style={{ color: "#30E7ED", opacity: 0.8 }}>
-                  Professional EV Care
-                </p>
-                <h2 className="font-bold text-white leading-tight mb-4" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
-                  Need EV Service?
-                </h2>
-                <p className="leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.55)", maxWidth: 480, fontSize: "1rem" }}>
-                  From battery diagnostics to full fleet maintenance — our certified technicians keep your EVs running at peak performance.
-                  Book a service appointment or speak to our EV care team today.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="/products/ev-service"
-                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white text-sm"
-                    style={{ background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 28px rgba(0,88,179,0.45)", textDecoration: "none" }}
-                  >
-                    <Wrench size={15} /> View EV Services
-                  </a>
-                  <a
-                    href="mailto:service@phoenixcreedenergy.com"
-                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm"
-                    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.20)", color: "rgba(255,255,255,0.85)", textDecoration: "none" }}
-                  >
-                    <Mail size={15} /> Email Service Team
-                  </a>
-                </div>
-              </div>
+          <div className="max-w-2xl">
+            <h1 className="font-bold text-pce-dark leading-tight tracking-normal" style={{ fontSize: "clamp(2.5rem, 5vw, 4.8rem)" }}>
+              Contact us
+            </h1>
+            <p className="text-pce-gray leading-relaxed mt-5" style={{ fontSize: "clamp(1rem, 1.15vw, 1.15rem)" }}>
+              Tell us what you&apos;re building, operating, or looking to solve. We&apos;ll connect you with the right Phoenix Creed Energy team.
+            </p>
+          </div>
+        </AnimatedSection>
 
-              {/* Right — service highlights */}
-              <div className="grid grid-cols-2 gap-3 lg:w-[340px] shrink-0">
-                {[
-                  { icon: Battery, label: "Battery Diagnostics" },
-                  { icon: Cpu,     label: "Software Updates" },
-                  { icon: Zap,     label: "Charging System Repair" },
-                  { icon: Wrench,  label: "Fleet Maintenance" },
-                ].map(({ icon: Icon, label }) => (
-                  <div
-                    key={label}
-                    className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                    style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(48,231,237,0.14)" }}
-                  >
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(48,231,237,0.10)" }}>
-                      <Icon size={15} style={{ color: "#30E7ED" }} />
+        <AnimatedSection delay={0.08}>
+          <div className="mt-12 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.35fr]">
+              <aside className="border-b border-pce-border bg-pce-gray-light/60 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+                <h2 className="text-lg font-bold text-pce-dark">Start a conversation</h2>
+                <p className="mt-3 text-sm leading-6 text-pce-gray">
+                  For partnerships, EV service, fleet solutions, investor relations, and support.
+                </p>
+
+                <div className="mt-8 space-y-5">
+                  {offices.map((office) => (
+                    <div key={office.city} className="space-y-4">
+                      <div>
+                        <p className="text-sm font-semibold text-pce-dark">{office.city}</p>
+                        <p className="text-sm text-pce-gray">{office.country}</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div className="flex gap-3 text-sm text-pce-gray">
+                          <MapPin size={16} className="mt-0.5 shrink-0 text-deep-blue" />
+                          <span>{office.address}</span>
+                        </div>
+                        <a
+                          href={`mailto:${office.email}`}
+                          className="flex gap-3 text-sm text-pce-gray transition-colors hover:text-pce-dark"
+                        >
+                          <Mail size={16} className="mt-0.5 shrink-0 text-deep-blue" />
+                          <span>{office.email}</span>
+                        </a>
+                        <a
+                          href={`tel:${office.phone.replace(/\s/g, "")}`}
+                          className="flex gap-3 text-sm text-pce-gray transition-colors hover:text-pce-dark"
+                        >
+                          <Phone size={16} className="mt-0.5 shrink-0 text-deep-blue" />
+                          <span>{office.phone}</span>
+                        </a>
+                      </div>
                     </div>
-                    <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{label}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </aside>
+
+              <div className="p-6 sm:p-8 lg:p-10">
+                {submitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex min-h-[420px] flex-col items-center justify-center text-center"
+                  >
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-deep-blue/10">
+                      <CheckCircle2 size={24} className="text-deep-blue" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-pce-dark">Message received.</h2>
+                    <p className="mt-2 text-pce-gray">We&apos;ll be in touch within 24 hours.</p>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                    <div>
+                      <h2 className="text-xl font-bold text-pce-dark">Send a message</h2>
+                      <p className="mt-1 text-sm text-pce-gray">All fields are required.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-semibold text-pce-dark">Name</label>
+                        <input
+                          type="text"
+                          required
+                          value={form.name}
+                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          className={inputClass}
+                          placeholder="Your name"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-semibold text-pce-dark">Email</label>
+                        <input
+                          type="email"
+                          required
+                          value={form.email}
+                          onChange={(e) => setForm({ ...form, email: e.target.value })}
+                          className={inputClass}
+                          placeholder="you@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-pce-dark">Inquiry type</label>
+                      <select
+                        required
+                        value={form.type}
+                        onChange={(e) => setForm({ ...form, type: e.target.value })}
+                        className={inputClass}
+                      >
+                        <option value="" disabled>Select a topic</option>
+                        {inquiryTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-pce-dark">Message</label>
+                      <textarea
+                        required
+                        rows={6}
+                        value={form.message}
+                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        className={inputClass}
+                        placeholder="Tell us about your inquiry..."
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="inline-flex items-center justify-center gap-2 rounded-lg bg-deep-blue px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-deep-blue/90 hover:shadow-blue-sm"
+                    >
+                      <Mail size={16} />
+                      Send message
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
         </AnimatedSection>
       </section>
-    </>
+    </main>
   );
 }
