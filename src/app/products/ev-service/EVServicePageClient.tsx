@@ -213,7 +213,7 @@ export default function EVServicePage() {
               Comprehensive diagnostics, battery health checks, preventive maintenance, repairs, software updates, and certified servicing for electric vehicles.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"

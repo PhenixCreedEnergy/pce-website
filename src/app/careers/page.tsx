@@ -22,7 +22,7 @@ export default function CareersPage() {
   return (
     <>
       <section
-        className="relative overflow-hidden bg-[#060d1f] section-padding min-h-[72vh] flex items-end pt-28"
+        className="relative overflow-hidden bg-[#060d1f] section-padding min-h-[58vh] md:min-h-[72vh] flex items-end pt-24 md:pt-28"
         style={{ color: "#fff" }}
       >
         <div
@@ -64,7 +64,7 @@ export default function CareersPage() {
             >
               We are building the charging, software, energy, and service layer for Africa&apos;s EV transition. Join a team focused on practical execution, technical reliability, and long-term infrastructure.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"
@@ -84,12 +84,12 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="bg-white section-padding py-20 md:py-28">
+      <section className="bg-white section-padding py-14 md:py-28">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <div className="chip mb-5">Where You Can Help</div>
-              <h2 className="font-bold text-pce-dark leading-tight mb-5" style={{ fontSize: "clamp(2.1rem, 4vw, 3.8rem)", maxWidth: 620 }}>
+              <h2 className="font-bold text-pce-dark leading-tight mb-4 md:mb-5" style={{ fontSize: "clamp(1.75rem, 4vw, 3.8rem)", maxWidth: 620 }}>
                 Teams building real infrastructure.
               </h2>
               <p className="text-pce-gray leading-relaxed" style={{ fontSize: "clamp(1rem, 1.25vw, 1.2rem)", maxWidth: 560 }}>
@@ -100,7 +100,7 @@ export default function CareersPage() {
               {teams.map((team) => {
                 const Icon = team.icon;
                 return (
-                  <div key={team.title} className="rounded-2xl p-6" style={{ background: "#F5F7FA", border: "1px solid #E5E7EB" }}>
+                  <div key={team.title} className="rounded-xl md:rounded-2xl p-5 md:p-6" style={{ background: "#F5F7FA", border: "1px solid #E5E7EB" }}>
                     <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: "rgba(0,88,179,0.08)", color: "#0058B3" }}>
                       <Icon size={21} />
                     </div>
@@ -115,7 +115,7 @@ export default function CareersPage() {
       </section>
 
       <section className="section-padding pb-20 md:pb-28 bg-white">
-        <div className="max-w-[1440px] mx-auto rounded-2xl p-8 md:p-10" style={{ background: "#060d1f", border: "1px solid rgba(48,231,237,0.14)" }}>
+        <div className="max-w-[1440px] mx-auto rounded-xl md:rounded-2xl p-6 md:p-10" style={{ background: "#060d1f", border: "1px solid rgba(48,231,237,0.14)" }}>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex items-center gap-2 mb-4" style={{ color: "#30E7ED" }}>
@@ -130,7 +130,7 @@ export default function CareersPage() {
               </p>
             </div>
             <div className="lg:min-w-[420px]">
-              <div className="rounded-2xl p-6" style={{ color: "rgba(255,255,255,0.78)", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
+              <div className="rounded-xl md:rounded-2xl p-5 md:p-6" style={{ color: "rgba(255,255,255,0.78)", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 <p className="text-sm font-semibold text-white mb-2">General applications only</p>
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.56)" }}>
                   Send your profile through our contact page and include the area where you would like to contribute.

@@ -86,10 +86,9 @@ export default function ChargingNetworkPage() {
         }} />
 
         {/* Live network status ticker */}
-        <div className="absolute top-24 left-0 right-0 z-10">
-          <div className="section-padding max-w-[1440px] mx-auto">
-            {/* Mobile: centered single row, no scroll. Desktop: left-aligned scrollable row. */}
-            <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 py-1.5 flex-nowrap opacity-90">
+        <div className="absolute left-0 right-0 z-10 section-padding hidden md:block" style={{ bottom: "clamp(42px, 7vh, 72px)" }}>
+          <div className="flex justify-start md:justify-end">
+            <div className="flex items-center justify-start md:justify-end gap-2 md:gap-3 py-1.5 flex-nowrap opacity-90 overflow-x-auto hide-scrollbar max-w-full">
               {liveStats.map((s) => (
                 <div
                   key={s.label}
@@ -128,7 +127,7 @@ export default function ChargingNetworkPage() {
               placed at highways, airports, malls, and urban hubs.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
               <Link href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200"
                 style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}>
@@ -154,19 +153,19 @@ export default function ChargingNetworkPage() {
       <NetworkMapSection />
 
       {/* ── Charger tiers ── */}
-      <section className="bg-pce-gray-light py-20 md:py-28">
+      <section className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection className="text-center mb-12">
+          <AnimatedSection className="text-center mb-8 md:mb-12">
             <div className="chip mx-auto mb-4">Charging Speeds</div>
-            <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Choose your speed</h2>
-            <p className="text-pce-gray text-lg max-w-xl mx-auto">
+            <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Choose your speed</h2>
+            <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">
               From overnight hotel parking to highway pit stops — every PCE station is purpose-built.
             </p>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {tiers.map((tier, i) => (
               <AnimatedSection key={tier.name} delay={i * 0.1}>
-                <div className="relative rounded-2xl p-8 h-full" style={tier.style}>
+                <div className="relative rounded-xl md:rounded-2xl p-6 md:p-8 h-full" style={tier.style}>
                   {tier.badge && (
                     <span className="absolute top-5 right-5 px-3 py-1 rounded-full text-xs font-bold"
                       style={tier.dark
@@ -175,7 +174,7 @@ export default function ChargingNetworkPage() {
                       {tier.badge}
                     </span>
                   )}
-                  <div className="text-5xl font-bold mb-1" style={{ color: tier.dark ? "#30E7ED" : "#0058B3" }}>
+                  <div className="text-4xl md:text-5xl font-bold mb-1" style={{ color: tier.dark ? "#30E7ED" : "#0058B3" }}>
                     {tier.speed}
                   </div>
                   <div className={`text-sm mb-4 ${tier.dark ? "text-blue-200" : "text-pce-gray"}`}>{tier.type}</div>
@@ -190,15 +189,15 @@ export default function ChargingNetworkPage() {
       </section>
 
       {/* ── Features ── */}
-      <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Built to last</h2>
-          <p className="text-pce-gray text-lg max-w-xl mx-auto">Infrastructure you can depend on.</p>
+      <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-28">
+        <AnimatedSection className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Built to last</h2>
+          <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">Infrastructure you can depend on.</p>
         </AnimatedSection>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((f, i) => (
             <AnimatedSection key={f.title} delay={i * 0.08}>
-              <div className="surface surface-hover rounded-2xl p-6 h-full">
+              <div className="surface surface-hover rounded-xl md:rounded-2xl p-5 md:p-6 h-full">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                   style={{ background: "rgba(0,88,179,0.08)" }}>
                   <f.icon size={20} style={{ color: "#0058B3" }} />

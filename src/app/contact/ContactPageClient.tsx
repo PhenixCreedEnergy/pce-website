@@ -33,7 +33,7 @@ export default function ContactPage() {
 
   return (
     <main className="bg-white">
-      <section className="section-padding max-w-[1120px] mx-auto min-h-[62vh] flex flex-col justify-end pt-28 pb-12 md:pb-16">
+      <section className="section-padding max-w-[1120px] mx-auto min-h-[44vh] md:min-h-[62vh] flex flex-col justify-end pt-24 md:pt-28 pb-10 md:pb-16">
         <AnimatedSection>
           <div className="max-w-2xl">
             <h1 className="font-bold text-pce-dark leading-[1.08] tracking-normal" style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}>
@@ -46,9 +46,9 @@ export default function ContactPage() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.08}>
-          <div className="mt-10 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
+          <div className="mt-8 md:mt-10 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.35fr]">
-              <aside className="border-b border-pce-border bg-pce-gray-light/60 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+              <aside className="border-b border-pce-border bg-pce-gray-light/60 p-5 sm:p-8 lg:border-b-0 lg:border-r">
                 <h2 className="text-lg font-bold text-pce-dark">Start a conversation</h2>
                 <p className="mt-3 text-sm leading-6 text-pce-gray">
                   For partnerships, EV service, fleet solutions, investor relations, and support.
@@ -87,12 +87,12 @@ export default function ContactPage() {
                 </div>
               </aside>
 
-              <div className="p-6 sm:p-8 lg:p-10">
+              <div className="p-5 sm:p-8 lg:p-10">
                 {submitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="flex min-h-[420px] flex-col items-center justify-center text-center"
+                    className="flex min-h-[320px] md:min-h-[420px] flex-col items-center justify-center text-center"
                   >
                     <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-deep-blue/10">
                       <CheckCircle2 size={24} className="text-deep-blue" />

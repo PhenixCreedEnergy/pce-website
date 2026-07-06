@@ -10,7 +10,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 /* ─── Hero section ───────────────────────────────────────────── */
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#040814] min-h-[75vh] md:min-h-screen">
+    <section className="relative w-full overflow-hidden bg-[#040814] min-h-[72vh] md:min-h-screen">
       <HeroCarousel />
 
       {/* Extra overlay for text legibility on smaller viewports */}
@@ -68,7 +68,7 @@ export function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.34, ease }}

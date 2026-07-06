@@ -56,7 +56,7 @@ export default function PCEAppPage() {
   return (
     <>
       {/* Hero — Apple product style */}
-      <section className="relative bg-pce-gray-light overflow-hidden min-h-[62vh] flex items-end pt-28">
+      <section className="relative bg-pce-gray-light overflow-hidden min-h-[44vh] md:min-h-[62vh] flex items-end pt-24 md:pt-28">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(48,231,237,0.07) 0%, transparent 60%)" }}
@@ -82,16 +82,16 @@ export default function PCEAppPage() {
       <AppPreviewSection />
 
       {/* Feature grid */}
-      <section className="bg-pce-gray-light py-20 md:py-28">
+      <section className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Everything you need</h2>
-            <p className="text-pce-gray text-lg max-w-xl mx-auto">Eight reasons PCE App is the best EV companion in Africa.</p>
+          <AnimatedSection className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Everything you need</h2>
+            <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">Eight reasons PCE App is the best EV companion in Africa.</p>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {allFeatures.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.06}>
-                <div className="surface surface-hover rounded-2xl p-6 h-full bg-white">
+                <div className="surface surface-hover rounded-xl md:rounded-2xl p-5 md:p-6 h-full bg-white">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
                     style={{ background: "rgba(0,88,179,0.08)" }}
@@ -108,16 +108,16 @@ export default function PCEAppPage() {
       </section>
 
       {/* Pricing — Apple-style */}
-      <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
-        <AnimatedSection className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Simple, transparent pricing</h2>
-          <p className="text-pce-gray text-lg max-w-lg mx-auto">Start free. Scale as you grow.</p>
+      <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-28">
+        <AnimatedSection className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Simple, transparent pricing</h2>
+          <p className="text-pce-gray text-base md:text-lg max-w-lg mx-auto">Start free. Scale as you grow.</p>
         </AnimatedSection>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {plans.map((plan, i) => (
             <AnimatedSection key={plan.name} delay={i * 0.1}>
               <div
-                className="flex flex-col h-full rounded-2xl p-8"
+                className="flex flex-col h-full rounded-xl md:rounded-2xl p-6 md:p-8"
                 style={
                   plan.highlight
                     ? { background: "#0058B3", boxShadow: "0 8px 32px rgba(0,88,179,0.25)" }
@@ -135,7 +135,7 @@ export default function PCEAppPage() {
                 <h3 className={`font-bold text-xl mb-1 ${plan.highlight ? "text-white" : "text-pce-dark"}`}>{plan.name}</h3>
                 <p className={`text-sm mb-4 ${plan.highlight ? "text-blue-200" : "text-pce-gray"}`}>{plan.desc}</p>
                 <div
-                  className={`text-4xl font-bold mb-6 ${plan.highlight ? "text-white" : "text-pce-dark"}`}
+                  className={`text-3xl md:text-4xl font-bold mb-5 md:mb-6 ${plan.highlight ? "text-white" : "text-pce-dark"}`}
                 >
                   {plan.price}
                 </div>

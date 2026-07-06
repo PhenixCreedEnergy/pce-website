@@ -18,7 +18,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
-      <section className="bg-white min-h-[62vh] flex items-end pt-28">
+      <section className="bg-white min-h-[44vh] md:min-h-[62vh] flex items-end pt-24 md:pt-28">
         <div className="section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <h1
             className="font-bold text-pce-dark tracking-normal leading-[1.08] mb-4"
@@ -37,7 +37,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Section 2: Cinematic full-width image ────────────── */}
-      <section className="w-full overflow-hidden" style={{ height: "clamp(380px, 55vw, 780px)" }}>
+      <section className="w-full overflow-hidden" style={{ height: "clamp(280px, 55vw, 780px)" }}>
         <div className="relative w-full h-full">
           <Image
             src="/about-us.png"
@@ -58,7 +58,7 @@ export default function AboutPage() {
       <LeadershipSection />
 
       {/* ── Section 5: Vision ────────────────────────────────── */}
-      <section className="bg-white py-32 md:py-48">
+      <section className="bg-white py-20 md:py-48">
         <div className="section-padding max-w-[860px] mx-auto text-center">
           <p
             className="text-[11px] font-bold tracking-[0.18em] uppercase mb-10"
@@ -78,7 +78,7 @@ export default function AboutPage() {
 
       {/* ── Section 6: CTA ───────────────────────────────────── */}
       <section
-        className="relative py-28 md:py-40"
+        className="relative py-20 md:py-40"
         style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 100%)" }}
       >
         <div
