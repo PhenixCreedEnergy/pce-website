@@ -39,7 +39,7 @@ const members = [
     role: "Chief Financial Officer",
     line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
     photo: "/team-favour.jpg",
-    facePos: "center 18%",
+    facePos: "center 35%",
     initials: "DF",
     color: "#f472b6",
   },
@@ -128,8 +128,9 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
                   src={member.photo}
                   alt={member.name}
                   fill
+                  quality={95}
                   style={{ objectFit: "cover", objectPosition: member.facePos }}
-                  sizes={`${CARD_AVATAR}px`}
+                  sizes={`${CARD_AVATAR * 2}px`}
                 />
               ) : (
                 <div style={{

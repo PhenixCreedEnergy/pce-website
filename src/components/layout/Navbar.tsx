@@ -552,7 +552,7 @@ export function Navbar() {
         }}
       >
         {/* Asymmetric padding: logo hugs the left edge; right side keeps room for the CTA */}
-        <div className="pl-3 pr-5 lg:pl-5 lg:pr-10 max-w-[1440px] mx-auto flex items-center justify-between h-[72px] lg:h-[68px]">
+        <div className="pl-5 pr-5 lg:pl-5 lg:pr-10 max-w-[1440px] mx-auto flex items-center justify-between h-[72px] lg:h-[68px]">
 
           {/* Single Logo instance — responsive height via className to avoid React 19 preload deduplication */}
           <Link href="/" aria-label="Phoenix Creed Energy home" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>

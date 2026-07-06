@@ -19,14 +19,13 @@ export function HeroSection() {
         style={{ background: "linear-gradient(to right, rgba(0,0,0,0.64) 0%, rgba(0,0,0,0.24) 100%)" }}
       />
 
-      {/* ── Content overlay ── */}
       <div
         className="absolute inset-0 z-20 flex items-end section-padding pt-24"
         style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}
       >
         <div style={{ maxWidth: 620 }}>
           <motion.h1
-            className="font-sans font-bold tracking-normal text-white"
+            className="hero-heading font-sans font-bold tracking-normal text-white"
             style={{
               fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)",
               lineHeight: 1.08,
@@ -75,7 +74,7 @@ export function HeroSection() {
           >
             <Link
               href="/charging-network"
-              className="inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
+              className="hero-cta inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
               style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
@@ -84,7 +83,7 @@ export function HeroSection() {
             </Link>
             <Link
               href="/investors"
-              className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
+              className="hero-cta inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
               style={{
                 padding: "15px 30px",
                 fontSize: 15,
