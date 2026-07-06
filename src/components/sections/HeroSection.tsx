@@ -10,7 +10,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 /* ─── Hero section ───────────────────────────────────────────── */
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#040814] min-h-[85vh] md:min-h-screen">
+    <section className="relative w-full overflow-hidden bg-[#040814] min-h-[72vh] md:min-h-screen">
       <HeroCarousel />
 
       {/* Extra overlay for text legibility on smaller viewports */}
@@ -19,22 +19,17 @@ export function HeroSection() {
         style={{ background: "linear-gradient(to right, rgba(0,0,0,0.64) 0%, rgba(0,0,0,0.24) 100%)" }}
       />
 
-      {/* ── Content overlay ──
-          Mobile:  flex items-center  — content centred vertically so it
-                   sits comfortably between the navbar and the dots.
-          md+:     flex items-end     — content pinned to the bottom as before.
-          pt-24 = guaranteed clear of the 72px navbar on mobile.          */}
       <div
-        className="absolute inset-0 z-20 flex items-center md:items-end section-padding pt-24 pb-24 md:pt-24 md:pb-28 lg:pb-32"
+        className="absolute inset-0 z-20 flex items-end section-padding pt-24"
+        style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}
       >
-        <div style={{ maxWidth: 920 }}>
-          {/* hero-heading class triggers mobile font-size override in globals.css */}
+        <div style={{ maxWidth: 620 }}>
           <motion.h1
             className="hero-heading font-sans font-bold tracking-normal text-white"
             style={{
-              fontSize: "clamp(3.25rem, 5.8vw, 6.8rem)",
-              lineHeight: 1.03,
-              marginBottom: "clamp(16px, 2.4vw, 30px)",
+              fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)",
+              lineHeight: 1.08,
+              marginBottom: "clamp(14px, 1.6vw, 20px)",
               textShadow: "0 3px 24px rgba(0,0,0,0.58)",
             }}
             initial={{ opacity: 0, y: 24 }}
@@ -57,11 +52,11 @@ export function HeroSection() {
 
           <motion.p
             style={{
-              fontSize: "clamp(1.08rem, 1.35vw, 1.35rem)",
+              fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)",
               color: "rgba(255,255,255,0.82)",
-              maxWidth: 620,
+              maxWidth: 540,
               lineHeight: 1.65,
-              marginBottom: "clamp(22px, 3vw, 38px)",
+              marginBottom: "clamp(22px, 2.2vw, 28px)",
               textShadow: "0 2px 16px rgba(0,0,0,0.55)",
             }}
             initial={{ opacity: 0, y: 20 }}
@@ -71,9 +66,8 @@ export function HeroSection() {
             Building Africa&apos;s next-generation EV charging network.
           </motion.p>
 
-          {/* hero-cta class triggers mobile padding-top/bottom override in globals.css */}
           <motion.div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.34, ease }}
@@ -81,7 +75,7 @@ export function HeroSection() {
             <Link
               href="/charging-network"
               className="hero-cta inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
-              style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
+              style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
             >
@@ -91,8 +85,8 @@ export function HeroSection() {
               href="/investors"
               className="hero-cta inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
               style={{
-                padding: "17px 34px",
-                fontSize: 16,
+                padding: "15px 30px",
+                fontSize: 15,
                 background: "rgba(255,255,255,0.10)",
                 border: "1px solid rgba(255,255,255,0.24)",
                 backdropFilter: "blur(14px)",
