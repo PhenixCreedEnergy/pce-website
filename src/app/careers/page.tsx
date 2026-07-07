@@ -39,13 +39,6 @@ export default function CareersPage() {
         />
         <div className="relative z-10 w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <div style={{ maxWidth: 620 }}>
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] mb-4"
-              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.26)", color: "#30E7ED" }}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#30E7ED]" />
-              Careers
-            </div>
             <h1
               className="font-bold leading-[1.08] tracking-normal mb-4"
               style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", textShadow: "0 3px 24px rgba(0,0,0,0.35)" }}
@@ -88,7 +81,6 @@ export default function CareersPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
-              <div className="chip mb-5">Where You Can Help</div>
               <h2 className="font-bold text-pce-dark leading-tight mb-4 md:mb-5" style={{ fontSize: "clamp(1.75rem, 4vw, 3.8rem)", maxWidth: 620 }}>
                 Teams building real infrastructure.
               </h2>

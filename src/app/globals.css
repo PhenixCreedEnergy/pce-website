@@ -102,19 +102,6 @@
     background: linear-gradient(90deg, #0058B3, #30E7ED);
   }
 
-  /* Chip / badge */
-  .chip {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
-    background: rgba(0, 88, 179, 0.08);
-    color: #0058B3;
-  }
-
-  .chip-accent {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
-    background: rgba(48, 231, 237, 0.12);
-    color: #0058B3;
-  }
-
   /* Glow effect */
   .electric-glow {
     box-shadow: 0 0 24px rgba(48,231,237,0.35), 0 0 8px rgba(48,231,237,0.2);

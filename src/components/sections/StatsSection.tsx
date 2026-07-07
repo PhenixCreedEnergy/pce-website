@@ -124,18 +124,8 @@ export function StatsSection() {
       <div className="relative section-padding max-w-[1440px] mx-auto py-16 md:py-24 lg:py-32">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
 
-          {/* ── LEFT: Badge + Heading + 2×2 stat grid ── */}
+          {/* ── LEFT: Heading + 2×2 stat grid ── */}
           <div className="w-full lg:w-1/2 flex flex-col">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="chip mb-5 self-start"
-            >
-              By the numbers
-            </motion.div>
-
             {/* Heading */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}

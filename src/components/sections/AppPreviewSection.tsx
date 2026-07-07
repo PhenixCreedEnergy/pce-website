@@ -352,11 +352,6 @@ export function AppPreviewSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 md:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold tracking-widest uppercase"
-            style={{ background: "rgba(48,231,237,0.08)", border: "1px solid rgba(48,231,237,0.20)", color: "#30E7ED" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-            PCE App
-          </div>
           <h2
             className="font-bold text-white tracking-tight mb-5"
             style={{ fontSize: "clamp(1.8rem, 4.5vw, 4rem)", lineHeight: 1.08 }}

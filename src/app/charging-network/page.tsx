@@ -156,7 +156,6 @@ export default function ChargingNetworkPage() {
       <section className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
           <AnimatedSection className="text-center mb-8 md:mb-12">
-            <div className="chip mx-auto mb-4">Charging Speeds</div>
             <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Choose your speed</h2>
             <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">
               From overnight hotel parking to highway pit stops — every PCE station is purpose-built.

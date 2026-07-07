@@ -63,7 +63,6 @@ export default function PCEAppPage() {
         />
         <div className="relative section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <AnimatedSection>
-            <div className="chip mb-4">PCE App</div>
             <h1 className="font-bold text-pce-dark mb-4 leading-[1.08] tracking-normal" style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}>
               Every charger.<br />One app.
             </h1>

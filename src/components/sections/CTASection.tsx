@@ -158,18 +158,6 @@ export function CTASection() {
         {/* ── Content ── */}
         <div className="relative z-10 flex flex-col items-center justify-center text-center px-5 md:px-16 py-16 md:py-36" style={{ minHeight: "clamp(460px, 78vw, 750px)" }}>
 
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-xs font-bold tracking-widest uppercase"
-            style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.28)", color: "#30E7ED" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-            Join the Movement
-          </motion.div>
-
           {/* Headline */}
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
