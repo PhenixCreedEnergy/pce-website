@@ -16,7 +16,7 @@ const cards = [
     icon: BatteryCharging,
     title: "Energy Storage",
     desc: "Battery systems supporting clean energy deployment.",
-    href: "/coming-soon",
+    disabled: true,
   },
   {
     icon: LayoutGrid,
@@ -36,17 +36,11 @@ function GlassCard({ card, index }: { card: typeof cards[0]; index: number }) {
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-8%" });
+  const isDisabled = "disabled" in card && card.disabled;
+  const href = "href" in card ? card.href : undefined;
 
-  return (
+  const cardContent = (
     // height:100% on all wrappers so CSS Grid can equalize row height
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 36 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      style={{ height: "100%" }}
-    >
-      <Link href={card.href} style={{ textDecoration: "none", display: "flex", height: "100%" }}>
         <div
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -67,6 +61,7 @@ function GlassCard({ card, index }: { card: typeof cards[0]; index: number }) {
             transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.35s ease, box-shadow 0.35s ease",
             position: "relative",
             overflow: "hidden",
+            cursor: isDisabled ? "default" : "pointer",
           }}
         >
           {/* Top edge glow on hover */}
@@ -105,7 +100,25 @@ function GlassCard({ card, index }: { card: typeof cards[0]; index: number }) {
             {card.desc}
           </p>
         </div>
-      </Link>
+  );
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 36 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      style={{ height: "100%" }}
+    >
+      {isDisabled || !href ? (
+        <div style={{ textDecoration: "none", display: "flex", height: "100%" }}>
+          {cardContent}
+        </div>
+      ) : (
+        <Link href={href} style={{ textDecoration: "none", display: "flex", height: "100%" }}>
+          {cardContent}
+        </Link>
+      )}
     </motion.div>
   );
 }

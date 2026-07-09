@@ -18,10 +18,11 @@ type DropdownItem = {
 
 type ProductItem = {
   label: string;
-  href: string;
+  href?: string;
   description: string;
   image: string;
   badge?: string;
+  disabled?: boolean;
 };
 
 type NavItem = {
@@ -36,8 +37,8 @@ const PRODUCTS: ProductItem[] = [
   { label: "Charging Network",     href: "/charging-network",      description: "Ultra-fast charging infrastructure across Africa",               image: "/product-ev-charger.png" },
   { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
   { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Diagnostics, repairs & scheduled EV servicing.", image: "/product-ev-service.jpg" },
-  { label: "EV Power Banks",       href: "/coming-soon",           description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon" },
-  { label: "Energy Storage Units", href: "/coming-soon",           description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon" },
+  { label: "EV Power Banks",       description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon", disabled: true },
+  { label: "Energy Storage Units", description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png", badge: "Coming Soon", disabled: true },
 ];
 
 const NAV: NavItem[] = [
@@ -106,24 +107,25 @@ function ProductsMegaMenu({ onClose, onEnter, onLeave }: {
 /* ─── Product card ───────────────────────────────────────────── */
 function ProductCard({ product, onClose }: { product: ProductItem; onClose: () => void }) {
   const [hovered, setHovered] = useState(false);
-  return (
-    <Link href={product.href} onClick={onClose} style={{ textDecoration: "none" }}>
+  const isDisabled = product.disabled || !product.href;
+  const card = (
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        aria-disabled={isDisabled}
         style={{
           borderRadius: 16, overflow: "hidden",
-          border: `1px solid ${hovered ? "rgba(48,231,237,0.28)" : "rgba(255,255,255,0.07)"}`,
-          background: hovered ? "rgba(48,231,237,0.04)" : "rgba(255,255,255,0.03)",
-          transform: hovered ? "translateY(-3px)" : "translateY(0)",
-          boxShadow: hovered ? "0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(48,231,237,0.10)" : "none",
+          border: `1px solid ${hovered && !isDisabled ? "rgba(48,231,237,0.28)" : "rgba(255,255,255,0.07)"}`,
+          background: hovered && !isDisabled ? "rgba(48,231,237,0.04)" : "rgba(255,255,255,0.03)",
+          transform: hovered && !isDisabled ? "translateY(-3px)" : "translateY(0)",
+          boxShadow: hovered && !isDisabled ? "0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(48,231,237,0.10)" : "none",
           transition: "transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease",
-          cursor: "pointer",
+          cursor: isDisabled ? "default" : "pointer",
         }}
       >
         <div style={{ position: "relative", width: "100%", aspectRatio: "16/10", overflow: "hidden" }}>
           <Image src={product.image} alt={product.label} fill
-            style={{ objectFit: "cover", transform: hovered ? "scale(1.05)" : "scale(1)", transition: "transform 0.5s ease" }}
+            style={{ objectFit: "cover", transform: hovered && !isDisabled ? "scale(1.05)" : "scale(1)", transition: "transform 0.5s ease" }}
             sizes="(max-width: 1200px) 25vw, 280px"
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,18,36,0.65) 0%, transparent 55%)" }} />
@@ -148,11 +150,22 @@ function ProductCard({ product, onClose }: { product: ProductItem; onClose: () =
             <p style={{ fontSize: 14, fontWeight: 600, margin: 0, lineHeight: 1.3, color: hovered ? "#fff" : "rgba(255,255,255,0.88)", transition: "color 0.2s" }}>
               {product.label}
             </p>
-            <span style={{ fontSize: 14, display: "inline-block", color: hovered ? "#30E7ED" : "rgba(255,255,255,0.22)", transform: hovered ? "translateX(3px)" : "translateX(0)", transition: "color 0.2s, transform 0.2s" }}>→</span>
+            {!isDisabled && (
+              <span style={{ fontSize: 14, display: "inline-block", color: hovered ? "#30E7ED" : "rgba(255,255,255,0.22)", transform: hovered ? "translateX(3px)" : "translateX(0)", transition: "color 0.2s, transform 0.2s" }}>→</span>
+            )}
           </div>
           <p style={{ fontSize: 12, lineHeight: 1.6, color: "rgba(255,255,255,0.40)", margin: 0 }}>{product.description}</p>
         </div>
       </div>
+  );
+
+  if (isDisabled) {
+    return <div style={{ textDecoration: "none" }}>{card}</div>;
+  }
+
+  return (
+    <Link href={product.href!} onClick={onClose} style={{ textDecoration: "none" }}>
+      {card}
     </Link>
   );
 }
@@ -241,19 +254,10 @@ function NavItemComponent({ item, active, activeMenu, onEnter, onLeave }: {
 }
 
 /* ─── Mobile sub-link (dark overlay) ────────────────────────── */
-function MobileSubLink({ href, label, badge, onClose }: { href: string; label: string; badge?: string; onClose: () => void }) {
-  return (
-    <Link
-      href={href}
-      onClick={onClose}
-      style={{
-        display: "flex", alignItems: "center", gap: 10,
-        padding: "14px 20px 14px 28px", textDecoration: "none",
-        fontSize: 16, fontWeight: 400, letterSpacing: "-0.005em",
-        color: "rgba(255,255,255,0.55)",
-        minHeight: 52,
-      }}
-    >
+function MobileSubLink({ href, label, badge, disabled, onClose }: { href?: string; label: string; badge?: string; disabled?: boolean; onClose: () => void }) {
+  const isDisabled = disabled || !href;
+  const content = (
+    <>
       <span style={{ flex: 1 }}>{label}</span>
       {badge && (
         <span style={{
@@ -265,6 +269,38 @@ function MobileSubLink({ href, label, badge, onClose }: { href: string; label: s
           {badge}
         </span>
       )}
+    </>
+  );
+  const style = {
+    display: "flex", alignItems: "center", gap: 10,
+    padding: "14px 20px 14px 28px", textDecoration: "none",
+    fontSize: 16, fontWeight: 400, letterSpacing: "-0.005em",
+    color: "rgba(255,255,255,0.55)",
+    minHeight: 52,
+    cursor: isDisabled ? "default" : "pointer",
+  };
+
+  if (isDisabled) {
+    return (
+      <div aria-disabled="true" style={style}>
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={href!}
+      onClick={onClose}
+      style={{
+        display: "flex", alignItems: "center", gap: 10,
+        padding: "14px 20px 14px 28px", textDecoration: "none",
+        fontSize: 16, fontWeight: 400, letterSpacing: "-0.005em",
+        color: "rgba(255,255,255,0.55)",
+        minHeight: 52,
+      }}
+    >
+      {content}
     </Link>
   );
 }
@@ -331,8 +367,8 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     { label: "Charging Stations",        href: "/charging-network" },
     { label: "PCE App",                  href: "/pce-app" },
     { label: "EV Service & Maintenance", href: "/products/ev-service" },
-    { label: "EV Power Banks",           href: "/coming-soon", badge: "Coming Soon" },
-    { label: "Energy Storage Units",     href: "/coming-soon", badge: "Coming Soon" },
+    { label: "EV Power Banks",           badge: "Coming Soon", disabled: true },
+    { label: "Energy Storage Units",     badge: "Coming Soon", disabled: true },
   ];
   const mobileCompany = [
     { label: "About Us", href: "/about" },
@@ -412,7 +448,7 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                       active={!!item.active}
                     >
                       {item.sub.map(p => (
-                        <MobileSubLink key={p.label} href={p.href} label={p.label} badge={(p as { badge?: string }).badge} onClose={onClose} />
+                        <MobileSubLink key={p.label} href={p.href} label={p.label} badge={(p as { badge?: string }).badge} disabled={(p as { disabled?: boolean }).disabled} onClose={onClose} />
                       ))}
                     </MobileAccordion>
                   </div>

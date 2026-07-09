@@ -343,7 +343,7 @@ export function AppPreviewSection() {
         background: "radial-gradient(ellipse 40% 40% at 72% 50%, rgba(48,231,237,0.04) 0%, transparent 70%)",
       }} />
 
-      <div className="relative max-w-[1440px] mx-auto px-8 md:px-16 lg:px-24 py-20 md:py-44 lg:py-56">
+      <div className="relative max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 py-14 md:py-44 lg:py-56">
 
         {/* ── Section header — centred ── */}
         <motion.div
@@ -359,7 +359,7 @@ export function AppPreviewSection() {
           </div>
           <h2
             className="font-bold text-white tracking-tight mb-5"
-            style={{ fontSize: "clamp(2.4rem, 4.5vw, 4rem)", lineHeight: 1.05 }}
+            style={{ fontSize: "clamp(1.8rem, 4.5vw, 4rem)", lineHeight: 1.08 }}
           >
             The OS powering<br />
             <span className="bg-clip-text text-transparent"

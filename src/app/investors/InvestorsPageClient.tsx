@@ -92,7 +92,7 @@ export default function InvestorsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden min-h-[72vh] flex items-end pt-28 pb-20 md:pb-28 lg:pb-32"
+      <section className="relative overflow-hidden min-h-[58vh] md:min-h-[72vh] flex items-end pt-24 md:pt-28"
         style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 50%, #060d1f 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
@@ -101,25 +101,25 @@ export default function InvestorsPage() {
         <div className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(48,231,237,0.08) 0%, transparent 70%)" }} />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(0,88,179,0.12) 0%, transparent 70%)" }} />
 
-        <div className="relative section-padding max-w-[1440px] mx-auto">
+        <div className="relative section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
           <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}>
-            <h1 className="font-bold text-white leading-[1.03] tracking-normal mb-5"
-              style={{ fontSize: "clamp(3.15rem, 5.6vw, 6.4rem)", maxWidth: 900, textShadow: "0 3px 24px rgba(0,0,0,0.36)" }}>
+            <h1 className="font-bold text-white leading-[1.08] tracking-normal mb-4"
+              style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620, textShadow: "0 3px 24px rgba(0,0,0,0.36)" }}>
               The infrastructure play<br />
               <span className="bg-clip-text text-transparent italic"
                 style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #0058B3 100%)" }}>
                 of the decade.
               </span>
             </h1>
-            <p className="text-base md:text-xl leading-relaxed mb-8"
-              style={{ color: "rgba(255,255,255,0.78)", maxWidth: 660 }}>
+            <p className="leading-relaxed mb-7"
+              style={{ color: "rgba(255,255,255,0.78)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}>
               Phoenix Creed Energy is building the connective tissue of Africa&apos;s electric
               economy — a $28B TAM with a 94% supply gap and no dominant player.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
               <Link href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold"
-                style={{ padding: "17px 34px", fontSize: 16, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.42)" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.42)" }}>
                 Request Investor Access <ArrowRight size={15} />
               </Link>
               <a
@@ -127,7 +127,7 @@ export default function InvestorsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
-                style={{ padding: "17px 34px", fontSize: 16, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}>
+                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none" }}>
                 <FileText size={15} /> View Pitch Deck
               </a>
             </div>
@@ -136,15 +136,15 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Key metrics ── */}
-      <section className="section-padding max-w-[1440px] mx-auto py-16 md:py-20">
+      <section className="section-padding max-w-[1440px] mx-auto py-12 md:py-20">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {keyMetrics.map((m, i) => (
             <Reveal key={m.label} delay={i * 0.08}>
-              <div className="rounded-2xl p-6 md:p-8 group cursor-default transition-all duration-300"
+              <div className="rounded-xl md:rounded-2xl p-5 md:p-8 group cursor-default transition-all duration-300"
                 style={{ background: "#F5F7FA", border: "0.5px solid #E5E7EB" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,88,179,0.25)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,88,179,0.08)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "#E5E7EB"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                <div className="text-4xl md:text-5xl font-bold mb-1 tracking-tight" style={{ color: "#0058B3" }}>{m.value}</div>
+                <div className="text-3xl md:text-5xl font-bold mb-1 tracking-tight" style={{ color: "#0058B3" }}>{m.value}</div>
                 <div className="font-semibold text-pce-dark mb-1">{m.label}</div>
                 <div className="text-pce-gray text-xs">{m.sub}</div>
               </div>
@@ -154,12 +154,12 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Revenue section ── */}
-      <section id="revenue-growth" className="bg-pce-gray-light py-20 md:py-28">
+      <section id="revenue-growth" className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
             <Reveal className="lg:w-2/5">
               <div className="chip mb-5">Financial Overview</div>
-              <h2 className="text-3xl md:text-4xl font-bold text-pce-dark mb-4 leading-tight">
+              <h2 className="text-2xl md:text-4xl font-bold text-pce-dark mb-4 leading-tight">
                 Building Africa&apos;s EV Infrastructure Foundation
               </h2>
               <p className="text-pce-gray leading-relaxed mb-6">
@@ -186,7 +186,7 @@ export default function InvestorsPage() {
             </Reveal>
 
             <Reveal className="lg:w-3/5" delay={0.1}>
-              <div className="surface rounded-2xl p-6 md:p-8">
+              <div className="surface rounded-xl md:rounded-2xl p-5 md:p-8">
                 <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-6">Annual Revenue (USD)</p>
                 <div className="flex items-end gap-4 h-48 mb-3">
                   {revenueData.map(d => (
@@ -216,17 +216,17 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Network economics / Break-even ── */}
-      <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
-        <Reveal className="text-center mb-12">
+      <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-28">
+        <Reveal className="text-center mb-8 md:mb-12">
           <div className="chip mx-auto mb-4">Unit Economics</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Network economics</h2>
-          <p className="text-pce-gray text-lg max-w-xl mx-auto">Projections are based on hardware specifications and market analysis. Commercial operations have not yet commenced.</p>
+          <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Network economics</h2>
+          <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">Projections are based on hardware specifications and market analysis. Commercial operations have not yet commenced.</p>
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 mb-10 md:mb-12">
           {/* Unit economics table */}
           <Reveal>
-            <div className="surface rounded-2xl p-6 md:p-8 h-full">
+            <div className="surface rounded-xl md:rounded-2xl p-5 md:p-8 h-full">
               <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-5">Per-Station Metrics</p>
               <div className="space-y-4">
                 {unitEconomics.map((u, i) => (
@@ -244,7 +244,7 @@ export default function InvestorsPage() {
 
           {/* Break-even analysis */}
           <Reveal delay={0.1}>
-            <div className="rounded-2xl p-6 md:p-8 h-full" style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 100%)", border: "1px solid rgba(48,231,237,0.15)" }}>
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-8 h-full" style={{ background: "linear-gradient(135deg, #060d1f 0%, #0a1628 100%)", border: "1px solid rgba(48,231,237,0.15)" }}>
               <p className="text-xs font-bold tracking-[0.15em] uppercase mb-5" style={{ color: "#30E7ED" }}>350kW Station — Projected Model</p>
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {breakEvenData.map((b, i) => (
@@ -268,24 +268,24 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Africa EV market opportunity ── */}
-      <section className="bg-pce-gray-light py-20 md:py-28">
+      <section className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
-          <Reveal className="text-center mb-12">
+          <Reveal className="text-center mb-8 md:mb-12">
             <div className="chip mx-auto mb-4">Market Opportunity</div>
-            <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Africa EV market opportunity</h2>
-            <p className="text-pce-gray text-lg max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Africa EV market opportunity</h2>
+            <p className="text-pce-gray text-base md:text-lg max-w-2xl mx-auto">
               1.4 billion people. 54 countries. A $28B charging market by 2030 — and today,
               94% of demand is completely unserved. PCE is positioning now, before the curve peaks.
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-12">
             {marketData.map((m, i) => (
               <Reveal key={m.label} delay={i * 0.08}>
-                <div className="surface rounded-2xl p-6 text-center group cursor-default transition-all duration-300"
+                <div className="surface rounded-xl md:rounded-2xl p-4 md:p-6 text-center group cursor-default transition-all duration-300"
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,88,179,0.1)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                  <div className="text-4xl font-bold mb-1" style={{ color: "#0058B3" }}>{m.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold mb-1" style={{ color: "#0058B3" }}>{m.value}</div>
                   <div className="font-semibold text-pce-dark mb-1 text-sm">{m.label}</div>
                   <div className="text-pce-gray text-xs">{m.sub}</div>
                 </div>
@@ -295,7 +295,7 @@ export default function InvestorsPage() {
 
           {/* TAM/SAM/SOM visual */}
           <Reveal>
-            <div className="surface rounded-2xl p-8 md:p-10">
+            <div className="surface rounded-xl md:rounded-2xl p-5 md:p-10">
               <p className="text-xs font-bold tracking-[0.15em] text-pce-gray uppercase mb-8 text-center">Market Sizing — TAM / SAM / SOM</p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                 {[
@@ -322,16 +322,16 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Why PCE ── */}
-      <section className="section-padding max-w-[1440px] mx-auto py-20 md:py-28">
-        <Reveal className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold text-pce-dark mb-4">Why PCE wins</h2>
-          <p className="text-pce-gray text-lg max-w-xl mx-auto">Six structural advantages that compound over time.</p>
+      <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-28">
+        <Reveal className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Why PCE wins</h2>
+          <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">Six structural advantages that compound over time.</p>
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {whyPCE.map((h, i) => (
             <Reveal key={h.title} delay={i * 0.08}>
-              <div className="surface surface-hover rounded-2xl p-8 flex gap-5 h-full">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+              <div className="surface surface-hover rounded-xl md:rounded-2xl p-5 md:p-8 flex gap-4 md:gap-5 h-full">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0"
                   style={{ background: "rgba(0,88,179,0.08)", border: "0.5px solid rgba(0,88,179,0.12)" }}>
                   <h.icon size={22} style={{ color: "#0058B3" }} />
                 </div>
@@ -346,20 +346,20 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── Expansion roadmap ── */}
-      <section className="relative overflow-hidden py-20 md:py-28"
+      <section className="relative overflow-hidden py-14 md:py-28"
         style={{ background: "linear-gradient(180deg, #060d1f 0%, #0a1628 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }} />
         <div className="relative section-padding max-w-[1440px] mx-auto">
-          <Reveal className="text-center mb-12">
+          <Reveal className="text-center mb-8 md:mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold tracking-widest uppercase"
               style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.25)", color: "#30E7ED" }}>
               Roadmap
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Expansion roadmap</h2>
-            <p className="text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From founding to a pan-African network.</p>
+            <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-4">Expansion roadmap</h2>
+            <p className="text-base md:text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From founding to a pan-African network.</p>
           </Reveal>
 
           <div className="relative max-w-2xl mx-auto">
@@ -368,7 +368,7 @@ export default function InvestorsPage() {
             <div className="flex flex-col gap-6">
               {roadmapItems.map((m, i) => (
                 <Reveal key={m.year} delay={i * 0.07}>
-                  <div className="flex gap-8 items-start pl-16 relative">
+                  <div className="flex gap-4 md:gap-8 items-start pl-12 md:pl-16 relative">
                     <div className="absolute left-6 top-1.5 w-4 h-4 rounded-full border-2 -translate-x-1/2 shrink-0"
                       style={{
                         background: m.done ? "#30E7ED" : "#0058B3",
@@ -389,9 +389,9 @@ export default function InvestorsPage() {
       </section>
 
       {/* ── IR contact ── */}
-      <section className="section-padding max-w-[1440px] mx-auto py-14">
+      <section className="section-padding max-w-[1440px] mx-auto py-10 md:py-14">
         <Reveal>
-          <div className="rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
+          <div className="rounded-xl md:rounded-3xl p-6 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8"
             style={{ background: "#0058B3", boxShadow: "0 8px 32px rgba(0,88,179,0.25)" }}>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Speak with our IR team</h2>
@@ -399,7 +399,7 @@ export default function InvestorsPage() {
               <p className="text-blue-300 text-sm mt-2">ir@phoenixcreedenergy.com · Lagos, Nigeria</p>
             </div>
             <Link href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-deep-blue font-semibold shrink-0 hover:bg-blue-50 transition-all duration-200">
+              className="inline-flex items-center gap-2 px-6 md:px-8 py-3.5 md:py-4 rounded-full bg-white text-deep-blue font-semibold shrink-0 hover:bg-blue-50 transition-all duration-200">
               Request Access <ArrowRight size={16} />
             </Link>
           </div>
