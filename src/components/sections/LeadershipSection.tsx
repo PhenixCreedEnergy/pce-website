@@ -52,6 +52,15 @@ const members = [
     initials: "MI",
     color: "#34d399",
   },
+  {
+    name: "Fabian Sani",
+    role: "Chief Legal Officer",
+    line: "Providing legal strategy, corporate governance, regulatory compliance, contract oversight, and protecting Phoenix Creed Energy's long-term interests.",
+    photo: "/team-fabian.png",
+    facePos: "center 18%",
+    initials: "FS",
+    color: "#fb923c",
+  },
 ];
 
 // Fixed card dimensions — every card is identical so the grid looks balanced.
@@ -234,8 +243,8 @@ export function LeadershipSection() {
         borderRadius: "50%", pointerEvents: "none",
       }} />
 
-      {/* Max-width widened to 1400px so 5 cards have room to breathe */}
-      <div className="section-padding max-w-[1400px] mx-auto relative z-10">
+      {/* Max-width widened to 1520px so 6 cards have room to breathe */}
+      <div className="section-padding max-w-[1520px] mx-auto relative z-10">
 
         {/* Section header */}
         <motion.div
@@ -279,7 +288,7 @@ export function LeadershipSection() {
           lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
           xl      → 5 col (all in one row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 xl:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 xl:gap-5">
           {members.map((member, i) => (
             <MemberCard key={member.name} member={member} index={i} />
           ))}
