@@ -38,18 +38,6 @@ export function FinalCTASection() {
 
       <div className="relative section-padding max-w-[1100px] mx-auto py-24 md:py-40 text-center">
 
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55, delay: 0.05, ease }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8 text-xs font-bold tracking-widest uppercase"
-          style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.28)", color: "#30E7ED" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-          Partner With Us
-        </motion.div>
-
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 28 }}

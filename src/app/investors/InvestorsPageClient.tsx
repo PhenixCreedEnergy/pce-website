@@ -158,7 +158,6 @@ export default function InvestorsPage() {
         <div className="section-padding max-w-[1440px] mx-auto">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
             <Reveal className="lg:w-2/5">
-              <div className="chip mb-5">Financial Overview</div>
               <h2 className="text-2xl md:text-4xl font-bold text-pce-dark mb-4 leading-tight">
                 Building Africa&apos;s EV Infrastructure Foundation
               </h2>
@@ -218,7 +217,6 @@ export default function InvestorsPage() {
       {/* ── Network economics / Break-even ── */}
       <section className="section-padding max-w-[1440px] mx-auto py-14 md:py-28">
         <Reveal className="text-center mb-8 md:mb-12">
-          <div className="chip mx-auto mb-4">Unit Economics</div>
           <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Network economics</h2>
           <p className="text-pce-gray text-base md:text-lg max-w-xl mx-auto">Projections are based on hardware specifications and market analysis. Commercial operations have not yet commenced.</p>
         </Reveal>
@@ -271,7 +269,6 @@ export default function InvestorsPage() {
       <section className="bg-pce-gray-light py-14 md:py-28">
         <div className="section-padding max-w-[1440px] mx-auto">
           <Reveal className="text-center mb-8 md:mb-12">
-            <div className="chip mx-auto mb-4">Market Opportunity</div>
             <h2 className="text-2xl md:text-5xl font-bold text-pce-dark mb-3 md:mb-4">Africa EV market opportunity</h2>
             <p className="text-pce-gray text-base md:text-lg max-w-2xl mx-auto">
               1.4 billion people. 54 countries. A $28B charging market by 2030 — and today,
@@ -354,10 +351,6 @@ export default function InvestorsPage() {
         }} />
         <div className="relative section-padding max-w-[1440px] mx-auto">
           <Reveal className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold tracking-widest uppercase"
-              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.25)", color: "#30E7ED" }}>
-              Roadmap
-            </div>
             <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-4">Expansion roadmap</h2>
             <p className="text-base md:text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From founding to a pan-African network.</p>
           </Reveal>

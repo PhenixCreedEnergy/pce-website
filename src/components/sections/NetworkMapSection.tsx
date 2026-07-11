@@ -105,13 +105,6 @@ export function NetworkMapSection() {
             transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full lg:w-[42%] flex flex-col"
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 self-start text-xs font-bold tracking-widest uppercase"
-              style={{ background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.25)", color: "#30E7ED" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-              Charging Network
-            </div>
-
             {/* Headline */}
             <h2 className="font-bold text-white leading-[1.02] tracking-tight mb-5" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3.5rem)" }}>
               Powering every<br />

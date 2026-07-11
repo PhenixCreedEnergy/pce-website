@@ -52,9 +52,6 @@ export function InvestorTeaser() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           {/* Text */}
           <AnimatedSection className="lg:w-2/5" direction="left">
-            <div className="chip-accent mb-5" style={{ background: "rgba(48,231,237,0.15)", color: "#30E7ED" }}>
-              Investor Relations
-            </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
               The infrastructure play<br />of the decade.
             </h2>
