@@ -17,10 +17,10 @@ const members = [
     color: "#30E7ED",
   },
   {
-    name: "Shekwolo Myke",
+    name: "Shekwolo Michael",
     role: "Chief Technology Officer",
     line: "Leading technology, software, AI, and platform innovation across Phoenix Creed Energy.",
-    photo: "/team-myke.png",
+    photo: "/team-myke.JPG",
     facePos: "center 18%",
     initials: "SM",
     color: "#7ab8ff",
@@ -104,7 +104,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             WebkitBackdropFilter: "blur(24px)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
           }}
         >
           {/* Avatar — centered horizontally */}
@@ -162,6 +162,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             letterSpacing: "-0.015em",
             lineHeight: 1.28,
             whiteSpace: "nowrap",
+            textAlign: "center",
           }}>
             {member.name}
           </p>
@@ -176,6 +177,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             transition: "color 0.38s ease",
             marginBottom: 22,
             lineHeight: 1.5,
+            textAlign: "center",
           }}>
             {member.role}
           </p>
@@ -185,7 +187,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             width: "100%",
             height: 1,
             background: hovered
-              ? `linear-gradient(90deg, ${member.color}45, transparent)`
+              ? `linear-gradient(90deg, transparent, ${member.color}45, transparent)`
               : "rgba(255,255,255,0.08)",
             marginBottom: 22,
             transition: "background 0.38s ease",
@@ -199,6 +201,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             margin: 0,
             fontStyle: "italic",
             flexGrow: 1,
+            textAlign: "center",
           }}>
             &ldquo;{member.line}&rdquo;
           </p>
@@ -275,12 +278,21 @@ export function LeadershipSection() {
           Grid layout:
           mobile  → 1 col
           sm      → 2 col
-          lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
+          lg      → 6 col (cards span 2 cols; final row starts in col 2 so it centers)
           xl      → 5 col (all in one row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 xl:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-5 gap-6 xl:gap-7">
           {members.map((member, i) => (
-            <MemberCard key={member.name} member={member} index={i} />
+            <div
+              key={member.name}
+              className={[
+                "h-full",
+                "lg:col-span-2 xl:col-span-1",
+                i === 3 ? "lg:col-start-2 xl:col-start-auto" : "",
+              ].join(" ")}
+            >
+              <MemberCard member={member} index={i} />
+            </div>
           ))}
         </div>
 
