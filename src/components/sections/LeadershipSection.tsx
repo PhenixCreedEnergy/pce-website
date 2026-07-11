@@ -42,7 +42,7 @@ const members = [
     role: "Chief Financial Officer",
     line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
     photo: "/team-favour.jpg",
-    facePos: "center 18%",
+    facePos: "center 35%",
     imageScale: 1,
     initials: "DF",
     color: "#f472b6",
@@ -56,6 +56,16 @@ const members = [
     imageScale: 1,
     initials: "MI",
     color: "#34d399",
+  },
+  {
+    name: "Fabian Sani",
+    role: "Chief Legal Officer",
+    line: "Providing legal strategy, corporate governance, regulatory compliance, contract oversight, and protecting Phoenix Creed Energy's long-term interests.",
+    photo: "/team-fabian.png",
+    facePos: "center 18%",
+    imageScale: 1,
+    initials: "FS",
+    color: "#fb923c",
   },
 ];
 
@@ -133,12 +143,13 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
                   src={member.photo}
                   alt={member.name}
                   fill
+                  quality={95}
                   style={{
                     objectFit: "cover",
                     objectPosition: member.facePos,
                     transform: `scale(${member.imageScale})`,
                   }}
-                  sizes={`${CARD_AVATAR}px`}
+                  sizes={`${CARD_AVATAR * 2}px`}
                 />
               ) : (
                 <div style={{
@@ -245,8 +256,8 @@ export function LeadershipSection() {
         borderRadius: "50%", pointerEvents: "none",
       }} />
 
-      {/* Max-width widened to 1400px so 5 cards have room to breathe */}
-      <div className="section-padding max-w-[1400px] mx-auto relative z-10">
+      {/* Max-width widened to 1520px so 6 cards have room to breathe */}
+      <div className="section-padding max-w-[1520px] mx-auto relative z-10">
 
         {/* Section header */}
         <motion.div
@@ -287,17 +298,16 @@ export function LeadershipSection() {
           Grid layout:
           mobile  → 1 col
           sm      → 2 col
-          lg      → 6 col (cards span 2 cols; final row starts in col 2 so it centers)
-          xl      → 5 col (all in one row)
+          lg      → 6 col (cards span 2 cols, giving two centered rows of 3)
+          xl      → 6 col (all in one row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-5 gap-6 xl:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 gap-6 xl:gap-5">
           {members.map((member, i) => (
             <div
               key={member.name}
               className={[
                 "h-full",
                 "lg:col-span-2 xl:col-span-1",
-                i === 3 ? "lg:col-start-2 xl:col-start-auto" : "",
               ].join(" ")}
             >
               <MemberCard member={member} index={i} />

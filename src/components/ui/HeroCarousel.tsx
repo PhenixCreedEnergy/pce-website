@@ -64,7 +64,7 @@ export function HeroCarousel() {
               src={slides[current].src}
               alt={slides[current].alt}
               fill
-              className="object-cover"
+              className="object-cover hero-slide-img"
               style={{ objectPosition: slides[current].objectPosition }}
               priority={current === 0}
               sizes="100vw"

@@ -118,7 +118,7 @@ export function CTASection() {
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative rounded-3xl overflow-hidden"
+        className="relative rounded-xl md:rounded-3xl overflow-hidden"
         style={{ minHeight: 650 }}
       >
 
@@ -156,7 +156,7 @@ export function CTASection() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(48,231,237,0.6) 30%, rgba(0,88,179,0.8) 70%, transparent 100%)" }} />
 
         {/* ── Content ── */}
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-16 py-28 md:py-36" style={{ minHeight: 750 }}>
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-5 md:px-16 py-16 md:py-36" style={{ minHeight: "clamp(460px, 78vw, 750px)" }}>
 
           {/* Badge */}
           <motion.div
@@ -176,7 +176,7 @@ export function CTASection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.85, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="font-bold text-white leading-[1.0] tracking-tight mb-6"
-            style={{ fontSize: "clamp(3rem, 6vw, 5.5rem)", maxWidth: 820 }}
+            style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)", maxWidth: 820 }}
           >
             Ready to charge<br />
             <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, #ffffff 0%, #30E7ED 55%, #0058B3 100%)" }}>
@@ -275,7 +275,7 @@ export function CTASection() {
           />
 
           {/* Animated stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-14 w-full max-w-2xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-14 w-full max-w-2xl">
             {stats.map((s) => (
               <StatItem key={s.label} {...s} />
             ))}

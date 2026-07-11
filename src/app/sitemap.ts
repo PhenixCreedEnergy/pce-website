@@ -9,7 +9,6 @@ const routes = [
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/careers", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/coming-soon", changeFrequency: "monthly", priority: 0.5 },
   { path: "/products/ev-service", changeFrequency: "monthly", priority: 0.8 },
 ] satisfies Array<{
   path: string;

@@ -7,8 +7,8 @@ const columns = [
     links: [
       { label: "Charging Network", href: "/charging-network" },
       { label: "PCE App",          href: "/pce-app" },
-      { label: "EV Power Banks",   href: "/coming-soon" },
-      { label: "Energy Storage",   href: "/coming-soon" },
+      { label: "EV Power Banks" },
+      { label: "Energy Storage" },
     ],
   },
   {
@@ -72,13 +72,19 @@ export function Footer() {
               <ul className="space-y-3.5 list-none m-0 p-0">
                 {col.links.map(link => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm transition-colors duration-150 hover:text-white/90"
-                      style={{ color: "rgba(255,255,255,0.48)", textDecoration: "none" }}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.href ? (
+                      <Link
+                        href={link.href}
+                        className="text-sm transition-colors duration-150 hover:text-white/90"
+                        style={{ color: "rgba(255,255,255,0.48)", textDecoration: "none" }}
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <span className="text-sm" style={{ color: "rgba(255,255,255,0.28)" }}>
+                        {link.label}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
