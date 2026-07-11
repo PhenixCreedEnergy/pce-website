@@ -13,6 +13,7 @@ const members = [
     line: "Building Africa's electric mobility infrastructure.",
     photo: "/team-onyeka2.jpg",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "OO",
     color: "#30E7ED",
   },
@@ -21,7 +22,8 @@ const members = [
     role: "Chief Technology Officer",
     line: "Leading technology, software, AI, and platform innovation across Phoenix Creed Energy.",
     photo: "/team-myke.JPG",
-    facePos: "center 18%",
+    facePos: "center 42%",
+    imageScale: 1.65,
     initials: "SM",
     color: "#7ab8ff",
   },
@@ -31,6 +33,7 @@ const members = [
     line: "Driving operations, execution, partnerships, and nationwide deployment.",
     photo: "/team-john.png",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "AJ",
     color: "#a78bfa",
   },
@@ -40,6 +43,7 @@ const members = [
     line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
     photo: "/team-favour.jpg",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "DF",
     color: "#f472b6",
   },
@@ -49,6 +53,7 @@ const members = [
     line: "Leading engineering, infrastructure deployment, maintenance, and technical excellence.",
     photo: null,
     facePos: "center 18%",
+    imageScale: 1,
     initials: "MI",
     color: "#34d399",
   },
@@ -128,7 +133,11 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
                   src={member.photo}
                   alt={member.name}
                   fill
-                  style={{ objectFit: "cover", objectPosition: member.facePos }}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: member.facePos,
+                    transform: `scale(${member.imageScale})`,
+                  }}
                   sizes={`${CARD_AVATAR}px`}
                 />
               ) : (
