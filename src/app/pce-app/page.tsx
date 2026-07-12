@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { AppPreviewSection } from "@/components/sections/AppPreviewSection";
 import { CTASection } from "@/components/sections/CTASection";
@@ -55,24 +56,45 @@ const plans = [
 export default function PCEAppPage() {
   return (
     <>
-      {/* Hero — Apple product style */}
-      <section className="relative bg-pce-gray-light overflow-hidden min-h-[44vh] md:min-h-[62vh] flex items-end pt-24 md:pt-28">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(48,231,237,0.07) 0%, transparent 60%)" }}
-        />
-        <div className="relative section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
-          <AnimatedSection>
+      {/* Hero — product preview */}
+      <section className="overflow-hidden bg-pce-gray-light pt-24 md:pt-28">
+        <div className="section-padding mx-auto grid min-h-[calc(100vh-68px)] max-w-[1440px] items-center gap-10 py-14 md:grid-cols-2 md:py-20 lg:gap-16">
+          <AnimatedSection className="max-w-xl">
             <div className="chip mb-4">PCE App</div>
-            <h1 className="font-bold text-pce-dark mb-4 leading-[1.08] tracking-normal" style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}>
+            <h1 className="mb-5 font-bold leading-[1.04] tracking-normal text-pce-dark" style={{ fontSize: "clamp(2.65rem, 5vw, 5.8rem)" }}>
               Every charger.<br />One app.
             </h1>
-            <p className="text-pce-gray leading-relaxed mb-7" style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}>
+            <p className="mb-8 max-w-lg text-pce-gray leading-relaxed" style={{ fontSize: "clamp(1rem, 1.15vw, 1.25rem)" }}>
               The PCE App is your co-pilot for Africa's electric roads.
               Available now on iOS and Android.
             </p>
             <div className="flex">
               <StoreBadges gap={24} />
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.12} className="flex flex-col items-center">
+            <div className="relative h-[430px] w-full max-w-[330px] overflow-hidden rounded-[2rem] border border-white/70 bg-pce-dark shadow-[0_24px_70px_rgba(0,88,179,0.20)] md:h-[620px] md:max-w-[430px]">
+              <Image
+                src="/product-ev-app.png"
+                alt="PCE App mobile interface preview"
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 82vw, 430px"
+              />
+            </div>
+            <div className="mt-4 grid w-full max-w-[430px] grid-cols-3 gap-2 rounded-2xl border border-pce-border bg-white p-3 shadow-card">
+              {[
+                ["Live map", "Nearby"],
+                ["Fast start", "QR/NFC"],
+                ["Wallet", "Ready"],
+              ].map(([label, value]) => (
+                <div key={label} className="min-w-0">
+                  <div className="truncate text-[11px] font-semibold uppercase tracking-normal text-pce-gray">{label}</div>
+                  <div className="text-base font-bold text-deep-blue md:text-lg">{value}</div>
+                </div>
+              ))}
             </div>
           </AnimatedSection>
         </div>

@@ -56,7 +56,7 @@ function MapScreen() {
           <div className="absolute inset-0 rounded-full animate-ping" style={{background:"rgba(0,88,179,0.25)"}} />
         </div>
         <div className="absolute top-2 right-2 px-2 py-1 rounded-lg" style={{background:"rgba(6,13,31,0.9)",backdropFilter:"blur(8px)",border:"1px solid rgba(48,231,237,0.3)"}}>
-          <p className="text-[9px] font-bold" style={{color:"#30E7ED"}}>350kW · 0.8km</p>
+          <p className="text-[9px] font-bold" style={{color:"#30E7ED"}}>Fast · nearby</p>
           <p className="text-[8px]" style={{color:"rgba(255,255,255,0.6)"}}>4 bays free</p>
         </div>
       </div>
@@ -180,7 +180,7 @@ function DashboardScreen() {
         <div className="rounded-xl p-2.5" style={{background:"rgba(0,88,179,0.12)",border:"1px solid rgba(0,88,179,0.25)"}}>
           <p className="text-[9px] font-bold text-white mb-1">Last Session — Yesterday</p>
           <div className="flex justify-between text-[8px]" style={{color:"rgba(255,255,255,0.55)"}}>
-            <span>PCE Victoria Island · 350kW</span>
+            <span>PCE Victoria Island · fast charge</span>
             <span style={{color:"#30E7ED"}}>62 kWh · ₦148</span>
           </div>
         </div>
@@ -268,7 +268,7 @@ const FEATURES = [
   {
     icon: Wallet,
     title: "PCE Wallet",
-    desc: "One balance across 2,500+ stations. Auto-reload, instant receipts, no friction at the charger.",
+    desc: "One balance for charging sessions. Auto-reload, instant receipts, no friction at the charger.",
   },
   {
     icon: Zap,

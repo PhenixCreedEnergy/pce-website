@@ -33,17 +33,17 @@ const routes: [string, string, number][] = [
 ];
 
 const statsCards = [
-  { value: "2,500+", label: "Charging Stations", top: "8%",  left: "58%"  },
-  { value: "18",     label: "Countries",          top: "34%", left: "60%"  },
-  { value: "98%",    label: "Network Uptime",     top: "58%", left: "0%"   },
-  { value: "350kW",  label: "Ultra-Fast Power",   top: "76%", left: "58%"  },
+  { value: "Planned", label: "Charging Hubs",     top: "8%",  left: "58%"  },
+  { value: "Priority", label: "Markets",          top: "34%", left: "60%"  },
+  { value: "Live",    label: "Availability",      top: "58%", left: "0%"   },
+  { value: "Fast",    label: "Charging Access",   top: "76%", left: "58%"  },
 ];
 
 const features = [
-  { icon: Zap,    title: "350kW Fast Charging",    desc: "Add 100 km of range in under 5 minutes at every SuperCharge node." },
+  { icon: Zap,    title: "Fast Charging",          desc: "Reliable high-power charging designed for practical urban and highway use." },
   { icon: MapPin, title: "Live Availability",       desc: "Real-time station data — find open bays before you arrive." },
   { icon: Cpu,    title: "Smart Energy Routing",    desc: "AI dispatching balances load across the grid automatically." },
-  { icon: Globe2, title: "Pan-African Coverage",    desc: "18 countries, 2,500+ stations — and expanding every month." },
+  { icon: Globe2, title: "Market Expansion",        desc: "A phased rollout plan focused on priority African mobility corridors." },
 ];
 
 /* ─── Africa SVG path ────────────────────────────────────────── */
@@ -122,9 +122,9 @@ export function NetworkMapSection() {
 
             {/* Subheadline */}
             <p className="text-gray-400 leading-relaxed mb-10 text-base md:text-lg" style={{ maxWidth: 420 }}>
-              Our intelligent charging network connects Africa's largest cities,
-              highways, airports, and commercial hubs — with 350kW ultra-fast
-              power at every node.
+              Our intelligent charging network is designed to connect major
+              cities, highways, airports, and commercial hubs across priority
+              African markets.
             </p>
 
             {/* Feature icon cards — 2×2 */}
