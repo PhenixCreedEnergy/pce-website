@@ -9,7 +9,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "EV Charging Network",
   description:
-    "Explore Phoenix Creed Energy's planned EV charging network with standard, fast, and 350kW ultra-fast charging across strategic African highways, airports, malls, and urban hubs.",
+    "Explore Phoenix Creed Energy's planned EV charging network across strategic African highways, airports, malls, and urban hubs.",
   path: "/charging-network",
   image: "/charging-hub.png",
 });
@@ -48,16 +48,16 @@ const tiers = [
 ];
 
 const features = [
-  { icon: Zap,    title: "350kW Peak Power",   desc: "Add 100 km of range in under 5 minutes" },
+  { icon: Zap,    title: "Fast Charging",      desc: "Built for practical top-ups at high-traffic locations" },
   { icon: Clock,  title: "24/7 Operations",     desc: "Round-the-clock support and live monitoring" },
   { icon: Shield, title: "ISO Certified",       desc: "Meets international EV charging safety standards" },
   { icon: Wifi,   title: "Always Connected",    desc: "Real-time diagnostics and OTA firmware updates" },
 ];
 
 const liveStats = [
-  { value: "2,487", label: "Stations Online", shortLabel: "Online", dot: "#30E7ED" },
-  { value: "1,204", label: "Active Sessions",  shortLabel: "Active", dot: "#22d3ee" },
-  { value: "98.7%", label: "Network Uptime",   shortLabel: "Uptime", dot: "#30E7ED" },
+  { value: "Planned", label: "Charging Hubs", shortLabel: "Hubs", dot: "#30E7ED" },
+  { value: "Live", label: "Availability", shortLabel: "Availability", dot: "#22d3ee" },
+  { value: "Smart", label: "Monitoring", shortLabel: "Monitoring", dot: "#30E7ED" },
 ];
 
 export default function ChargingNetworkPage() {
@@ -123,8 +123,8 @@ export default function ChargingNetworkPage() {
 
             <p className="leading-relaxed mb-7"
               style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
-              2,500+ ultra-fast stations spanning 18 African countries — strategically
-              placed at highways, airports, malls, and urban hubs.
+              A planned fast-charging network designed for highways, airports,
+              malls, and urban hubs across priority African markets.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">

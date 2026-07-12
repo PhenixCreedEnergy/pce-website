@@ -13,15 +13,17 @@ const members = [
     line: "Building Africa's electric mobility infrastructure.",
     photo: "/team-onyeka2.jpg",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "OO",
     color: "#30E7ED",
   },
   {
-    name: "Shekwolo Myke",
+    name: "Shekwolo Michael",
     role: "Chief Technology Officer",
     line: "Leading technology, software, AI, and platform innovation across Phoenix Creed Energy.",
-    photo: "/team-myke.png",
-    facePos: "center 18%",
+    photo: "/team-myke.JPG",
+    facePos: "center 42%",
+    imageScale: 1.65,
     initials: "SM",
     color: "#7ab8ff",
   },
@@ -31,6 +33,7 @@ const members = [
     line: "Driving operations, execution, partnerships, and nationwide deployment.",
     photo: "/team-john.png",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "AJ",
     color: "#a78bfa",
   },
@@ -40,6 +43,7 @@ const members = [
     line: "Managing finance, investment strategy, budgeting, and sustainable company growth.",
     photo: "/team-favour.jpg",
     facePos: "center 35%",
+    imageScale: 1,
     initials: "DF",
     color: "#f472b6",
   },
@@ -49,6 +53,7 @@ const members = [
     line: "Leading engineering, infrastructure deployment, maintenance, and technical excellence.",
     photo: null,
     facePos: "center 18%",
+    imageScale: 1,
     initials: "MI",
     color: "#34d399",
   },
@@ -58,6 +63,7 @@ const members = [
     line: "Providing legal strategy, corporate governance, regulatory compliance, contract oversight, and protecting Phoenix Creed Energy's long-term interests.",
     photo: "/team-fabian.png",
     facePos: "center 18%",
+    imageScale: 1,
     initials: "FS",
     color: "#fb923c",
   },
@@ -113,7 +119,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             WebkitBackdropFilter: "blur(24px)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
           }}
         >
           {/* Avatar — centered horizontally */}
@@ -138,7 +144,11 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
                   alt={member.name}
                   fill
                   quality={95}
-                  style={{ objectFit: "cover", objectPosition: member.facePos }}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: member.facePos,
+                    transform: `scale(${member.imageScale})`,
+                  }}
                   sizes={`${CARD_AVATAR * 2}px`}
                 />
               ) : (
@@ -172,6 +182,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             letterSpacing: "-0.015em",
             lineHeight: 1.28,
             whiteSpace: "nowrap",
+            textAlign: "center",
           }}>
             {member.name}
           </p>
@@ -186,6 +197,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             transition: "color 0.38s ease",
             marginBottom: 22,
             lineHeight: 1.5,
+            textAlign: "center",
           }}>
             {member.role}
           </p>
@@ -195,7 +207,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             width: "100%",
             height: 1,
             background: hovered
-              ? `linear-gradient(90deg, ${member.color}45, transparent)`
+              ? `linear-gradient(90deg, transparent, ${member.color}45, transparent)`
               : "rgba(255,255,255,0.08)",
             marginBottom: 22,
             transition: "background 0.38s ease",
@@ -209,6 +221,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             margin: 0,
             fontStyle: "italic",
             flexGrow: 1,
+            textAlign: "center",
           }}>
             &ldquo;{member.line}&rdquo;
           </p>
@@ -285,12 +298,20 @@ export function LeadershipSection() {
           Grid layout:
           mobile  → 1 col
           sm      → 2 col
-          lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
-          xl      → 5 col (all in one row)
+          lg      → 6 col (cards span 2 cols, giving two centered rows of 3)
+          xl      → 6 col (all in one row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 xl:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 gap-6 xl:gap-5">
           {members.map((member, i) => (
-            <MemberCard key={member.name} member={member} index={i} />
+            <div
+              key={member.name}
+              className={[
+                "h-full",
+                "lg:col-span-2 xl:col-span-1",
+              ].join(" ")}
+            >
+              <MemberCard member={member} index={i} />
+            </div>
           ))}
         </div>
 
