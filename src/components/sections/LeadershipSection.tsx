@@ -27,7 +27,7 @@ const members = [
   },
   {
     name: "Anyebe John",
-    role: "Chief Operating Officer",
+    role: "Field Operational Supervisor",
     line: "Driving operations, execution, partnerships, and nationwide deployment.",
     photo: "/team-john.png",
     facePos: "center 18%",
@@ -61,7 +61,18 @@ const members = [
     initials: "FS",
     color: "#fb923c",
   },
+  {
+    name: "Jessica Okere",
+    role: "Executive Assistant",
+    line: "Supporting executive coordination, scheduling, and day-to-day administration.",
+    photo: null,
+    facePos: "center 18%",
+    initials: "JO",
+    color: "#fbbf24",
+  },
 ];
+
+const PAGE_SIZE = 3;
 
 // Fixed card dimensions — every card is identical so the grid looks balanced.
 const CARD_AVATAR = 96;   // px — large enough to show full face
@@ -171,7 +182,6 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             marginBottom: 7,
             letterSpacing: "-0.015em",
             lineHeight: 1.28,
-            whiteSpace: "nowrap",
           }}>
             {member.name}
           </p>
@@ -186,6 +196,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             transition: "color 0.38s ease",
             marginBottom: 22,
             lineHeight: 1.5,
+            minHeight: "3em",
           }}>
             {member.role}
           </p>
@@ -219,6 +230,9 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
 }
 
 export function LeadershipSection() {
+  const [page, setPage] = useState(0);
+  const pageCount = Math.ceil(members.length / PAGE_SIZE);
+  const visibleMembers = members.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-6%" });
 
@@ -243,8 +257,7 @@ export function LeadershipSection() {
         borderRadius: "50%", pointerEvents: "none",
       }} />
 
-      {/* Max-width widened to 1520px so 6 cards have room to breathe */}
-      <div className="section-padding max-w-[1520px] mx-auto relative z-10">
+      <div className="section-padding max-w-[1200px] mx-auto relative z-10">
 
         {/* Section header */}
         <motion.div
@@ -281,18 +294,48 @@ export function LeadershipSection() {
           </p>
         </motion.div>
 
-        {/*
-          Grid layout:
-          mobile  → 1 col
-          sm      → 2 col
-          lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
-          xl      → 5 col (all in one row)
-        */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 xl:gap-5">
-          {members.map((member, i) => (
+        <div id="leadership-members" className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-6">
+          {visibleMembers.map((member, i) => (
             <MemberCard key={member.name} member={member} index={i} />
           ))}
         </div>
+
+        <nav aria-label="Team pagination" className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPage(p => p - 1)}
+            disabled={page === 0}
+            aria-controls="leadership-members"
+            className="min-h-11 rounded-xl border border-white/15 px-4 text-sm text-white/80 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#30E7ED]"
+          >
+            Previous
+          </button>
+          {Array.from({ length: pageCount }, (_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setPage(i)}
+              aria-label={`Team page ${i + 1}`}
+              aria-current={page === i ? "page" : undefined}
+              aria-controls="leadership-members"
+              className={`min-h-11 min-w-11 rounded-xl border text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#30E7ED] ${page === i ? "border-[#30E7ED]/40 bg-[#30E7ED]/10 text-[#30E7ED]" : "border-white/15 text-white/70 hover:bg-white/10"}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setPage(p => p + 1)}
+            disabled={page === pageCount - 1}
+            aria-controls="leadership-members"
+            className="min-h-11 rounded-xl border border-white/15 px-4 text-sm text-white/80 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#30E7ED]"
+          >
+            Next
+          </button>
+        </nav>
+        <p role="status" className="mt-4 text-center text-sm text-white/50">
+          Showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, members.length)} of {members.length} team members
+        </p>
 
       </div>
     </section>
