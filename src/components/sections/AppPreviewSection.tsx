@@ -1,252 +1,16 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence, useAnimation } from "framer-motion";
-import { MapPin, Zap, BarChart3, Wallet, Battery, Navigation, Star } from "lucide-react";
+import { motion, useInView, AnimatePresence, useAnimation, useReducedMotion } from "framer-motion";
+import { MapPin, Zap, Wallet, Battery, Navigation } from "lucide-react";
+import Image from "next/image";
 import { StoreBadges } from "@/components/ui/StoreBadges";
 
-/* ─── Screen components ─────────────────────────────────────── */
-function MapScreen() {
-  return (
-    <div className="w-full h-full flex flex-col" style={{ background: "#0f172a" }}>
-      <div className="flex justify-between items-center px-5 pt-2 pb-1">
-        <span className="text-white text-[10px] font-semibold">9:41</span>
-        <div className="flex items-center gap-1">
-          <div className="flex gap-px items-end">
-            {[6,9,12,12,12].map((h,i) => <div key={i} className="w-0.5 rounded-sm bg-white" style={{height:h}} />)}
-          </div>
-          <div className="rounded-sm overflow-hidden ml-1" style={{width:18,height:9,border:'1px solid rgba(255,255,255,0.4)'}}>
-            <div className="h-full bg-white" style={{width:'78%'}} />
-          </div>
-        </div>
-      </div>
-      <div className="mx-3 mb-2 px-3 py-2 rounded-xl flex items-center gap-2" style={{ background: "rgba(255,255,255,0.08)" }}>
-        <MapPin size={12} style={{ color: "#30E7ED" }} />
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Search chargers near you...</span>
-      </div>
-      <div className="flex-1 relative mx-3 rounded-2xl overflow-hidden" style={{ background: "#1e293b" }}>
-        <svg className="absolute inset-0 w-full h-full opacity-20">
-          {[20,40,60,80].map(y => <line key={`h${y}`} x1="0" y1={`${y}%`} x2="100%" y2={`${y}%`} stroke="#30E7ED" strokeWidth="0.5"/>)}
-          {[20,40,60,80].map(x => <line key={`v${x}`} x1={`${x}%`} y1="0" x2={`${x}%`} y2="100%" stroke="#30E7ED" strokeWidth="0.5"/>)}
-        </svg>
-        <svg className="absolute inset-0 w-full h-full">
-          <path d="M 30 80 Q 120 50 200 75 T 300 65" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="6"/>
-          <path d="M 10 140 L 300 130" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4"/>
-          <path d="M 150 10 L 148 200" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4"/>
-        </svg>
-        {[
-          {x:'35%',y:'42%',active:true},
-          {x:'62%',y:'38%',active:true},
-          {x:'22%',y:'62%',active:false},
-          {x:'75%',y:'55%',active:true},
-          {x:'50%',y:'72%',active:false},
-        ].map((pin,i) => (
-          <div key={i} className="absolute -translate-x-1/2 -translate-y-1/2" style={{left:pin.x,top:pin.y}}>
-            <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{
-              background: pin.active ? "#30E7ED" : "rgba(255,255,255,0.25)",
-              boxShadow: pin.active ? "0 0 8px rgba(48,231,237,0.7)" : "none",
-            }}>
-              <Zap size={9} style={{ color: pin.active ? "#0a1628" : "rgba(255,255,255,0.5)" }} />
-            </div>
-            {pin.active && <div className="absolute inset-0 rounded-full animate-ping" style={{background:"rgba(48,231,237,0.3)"}} />}
-          </div>
-        ))}
-        <div className="absolute -translate-x-1/2 -translate-y-1/2" style={{left:'50%',top:'50%'}}>
-          <div className="w-4 h-4 rounded-full border-2 border-white" style={{background:"#0058B3",boxShadow:"0 0 12px rgba(0,88,179,0.8)"}} />
-          <div className="absolute inset-0 rounded-full animate-ping" style={{background:"rgba(0,88,179,0.25)"}} />
-        </div>
-        <div className="absolute top-2 right-2 px-2 py-1 rounded-lg" style={{background:"rgba(6,13,31,0.9)",backdropFilter:"blur(8px)",border:"1px solid rgba(48,231,237,0.3)"}}>
-          <p className="text-[9px] font-bold" style={{color:"#30E7ED"}}>350kW · 0.8km</p>
-          <p className="text-[8px]" style={{color:"rgba(255,255,255,0.6)"}}>4 bays free</p>
-        </div>
-      </div>
-      <div className="mx-3 mt-2 mb-2 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(48,231,237,0.15)" }}>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-white font-semibold text-xs">PCE Lagos Island</p>
-            <div className="flex items-center gap-1 mt-0.5">
-              <Star size={8} fill="#F59E0B" style={{color:"#F59E0B"}} />
-              <span className="text-[9px]" style={{color:"rgba(255,255,255,0.5)"}}>4.9 · 0.8 km · Open</span>
-            </div>
-          </div>
-          <div className="px-3 py-1.5 rounded-full text-[9px] font-bold" style={{background:"rgba(48,231,237,0.15)",color:"#30E7ED"}}>Navigate</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ChargingScreen() {
-  const [progress, setProgress] = useState(68);
-  useEffect(() => {
-    const t = setInterval(() => setProgress(p => p >= 95 ? 68 : p + 0.3), 200);
-    return () => clearInterval(t);
-  }, []);
-  const R = 52;
-  const circ = 2 * Math.PI * R;
-  return (
-    <div className="w-full h-full flex flex-col" style={{ background: "#060d1f" }}>
-      <div className="flex justify-between items-center px-5 pt-2 pb-1">
-        <span className="text-white text-[10px] font-semibold">9:41</span>
-        <span className="text-[10px]" style={{color:"#30E7ED"}}>Charging...</span>
-      </div>
-      <div className="flex-1 flex flex-col items-center justify-center px-4">
-        <div className="relative mb-4">
-          <svg width="120" height="120">
-            <circle cx="60" cy="60" r={R} fill="none" stroke="rgba(48,231,237,0.1)" strokeWidth="6"/>
-            <circle cx="60" cy="60" r={R} fill="none" stroke="#30E7ED" strokeWidth="6"
-              strokeLinecap="round"
-              strokeDasharray={`${(progress/100)*circ} ${circ}`}
-              transform="rotate(-90 60 60)"
-              style={{filter:"drop-shadow(0 0 6px rgba(48,231,237,0.5))",transition:"stroke-dasharray 0.3s"}} />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-white">{Math.round(progress)}%</span>
-            <span className="text-[9px]" style={{color:"rgba(255,255,255,0.5)"}}>charged</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-2 w-full mb-4">
-          {[{label:"Power",value:"48kW"},{label:"Added",value:"42km"},{label:"Time",value:"12min"}].map(s => (
-            <div key={s.label} className="rounded-xl p-2 text-center" style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(48,231,237,0.12)"}}>
-              <p className="text-white font-bold text-sm">{s.value}</p>
-              <p className="text-[9px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="w-full rounded-xl p-3" style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(48,231,237,0.10)"}}>
-          <div className="flex justify-between items-center mb-1.5">
-            <div className="flex items-center gap-1">
-              <Battery size={11} style={{color:"#30E7ED"}} />
-              <span className="text-[10px] font-medium text-white">Battery</span>
-            </div>
-            <span className="text-[10px] font-bold" style={{color:"#30E7ED"}}>{Math.round(progress)}%</span>
-          </div>
-          <div className="h-2 rounded-full overflow-hidden" style={{background:"rgba(255,255,255,0.08)"}}>
-            <div className="h-full rounded-full transition-all duration-300" style={{
-              width:`${progress}%`,
-              background:"linear-gradient(90deg,#0058B3,#30E7ED)",
-              boxShadow:"0 0 6px rgba(48,231,237,0.4)",
-            }} />
-          </div>
-          <p className="text-[8px] mt-1" style={{color:"rgba(255,255,255,0.35)"}}>Est. full charge in 14 min · ₦2.4/kWh</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DashboardScreen() {
-  return (
-    <div className="w-full h-full flex flex-col" style={{ background: "#060d1f" }}>
-      <div className="flex justify-between items-center px-5 pt-2 pb-1">
-        <span className="text-white text-[10px] font-semibold">9:41</span>
-        <span className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>Dashboard</span>
-      </div>
-      <div className="flex-1 overflow-hidden px-3 pb-2">
-        <div className="mb-3">
-          <p className="text-xs font-bold text-white">Good morning, Adebayo</p>
-          <p className="text-[9px]" style={{color:"rgba(255,255,255,0.4)"}}>Your EV summary · June 2025</p>
-        </div>
-        <div className="rounded-xl p-3 mb-2" style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(48,231,237,0.10)"}}>
-          <p className="text-[9px] font-bold mb-2" style={{color:"rgba(255,255,255,0.5)"}}>kWh this week</p>
-          <div className="flex items-end gap-1.5 h-10">
-            {[14,22,8,30,18,27,20].map((v,i) => (
-              <div key={i} className="flex-1 rounded-t-sm" style={{
-                height:`${(v/30)*100}%`,
-                background: i===5 ? "linear-gradient(180deg,#30E7ED,#0058B3)" : "rgba(0,88,179,0.4)",
-              }} />
-            ))}
-          </div>
-          <div className="flex justify-between mt-1">
-            {['M','T','W','T','F','S','S'].map((d,i) => (
-              <span key={i} className="text-[7px] flex-1 text-center" style={{color:i===5?"#30E7ED":"rgba(255,255,255,0.3)"}}>{d}</span>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-2 mb-2">
-          {[
-            {label:"Total Sessions",value:"47",icon:Zap},
-            {label:"CO₂ Saved",value:"124kg",icon:BarChart3},
-            {label:"km Added",value:"2,840",icon:Navigation},
-            {label:"Avg Cost",value:"₦1.8/kWh",icon:Wallet},
-          ].map(s => (
-            <div key={s.label} className="rounded-xl p-2" style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.06)"}}>
-              <s.icon size={10} style={{color:"#30E7ED",marginBottom:2}} />
-              <p className="text-white font-bold text-xs">{s.value}</p>
-              <p className="text-[8px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="rounded-xl p-2.5" style={{background:"rgba(0,88,179,0.12)",border:"1px solid rgba(0,88,179,0.25)"}}>
-          <p className="text-[9px] font-bold text-white mb-1">Last Session — Yesterday</p>
-          <div className="flex justify-between text-[8px]" style={{color:"rgba(255,255,255,0.55)"}}>
-            <span>PCE Victoria Island · 350kW</span>
-            <span style={{color:"#30E7ED"}}>62 kWh · ₦148</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function WalletScreen() {
-  return (
-    <div className="w-full h-full flex flex-col" style={{ background: "#060d1f" }}>
-      <div className="flex justify-between items-center px-5 pt-2 pb-1">
-        <span className="text-white text-[10px] font-semibold">9:41</span>
-        <span className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>Wallet</span>
-      </div>
-      <div className="flex-1 px-3 pb-2">
-        <div className="rounded-2xl p-4 mb-3" style={{
-          background:"linear-gradient(135deg,#0058B3 0%,#003d7a 100%)",
-          boxShadow:"0 8px 24px rgba(0,88,179,0.4)",
-        }}>
-          <p className="text-[9px] font-bold tracking-widest uppercase mb-1" style={{color:"rgba(255,255,255,0.5)"}}>PCE Balance</p>
-          <p className="text-2xl font-bold text-white mb-3">₦14,250</p>
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-[8px]" style={{color:"rgba(255,255,255,0.5)"}}>Card</p>
-              <p className="text-[10px] text-white font-medium">•••• 4821</p>
-            </div>
-            <div className="px-3 py-1.5 rounded-full text-[8px] font-bold" style={{background:"rgba(48,231,237,0.2)",color:"#30E7ED"}}>Top Up</div>
-          </div>
-        </div>
-        <div className="rounded-xl p-3 mb-2" style={{background:"rgba(255,255,255,0.04)",border:"1px solid rgba(48,231,237,0.15)"}}>
-          <div className="flex items-center gap-2 mb-2">
-            <Navigation size={10} style={{color:"#30E7ED"}} />
-            <p className="text-[10px] font-bold text-white">Route Plan</p>
-            <span className="ml-auto text-[8px] px-2 py-0.5 rounded-full" style={{background:"rgba(48,231,237,0.12)",color:"#30E7ED"}}>Active</span>
-          </div>
-          <p className="text-[9px] mb-1" style={{color:"rgba(255,255,255,0.5)"}}>Lagos → Abuja · 681km</p>
-          <div className="flex justify-between text-[8px]" style={{color:"rgba(255,255,255,0.4)"}}>
-            <span>2 charging stops</span>
-            <span style={{color:"#30E7ED"}}>₦3,200 est.</span>
-          </div>
-        </div>
-        <p className="text-[9px] font-bold mb-2" style={{color:"rgba(255,255,255,0.5)"}}>RECENT</p>
-        {[
-          {name:"PCE Victoria Island",amt:"-₦148",time:"Yesterday",credit:false},
-          {name:"PCE Lekki Phase 1",  amt:"-₦96", time:"Jun 18",credit:false},
-          {name:"Top-up via GTBank",  amt:"+₦5,000",time:"Jun 15",credit:true},
-        ].map(t => (
-          <div key={t.name} className="flex items-center justify-between py-2 border-b" style={{borderColor:"rgba(255,255,255,0.05)"}}>
-            <div>
-              <p className="text-[10px] font-medium text-white">{t.name}</p>
-              <p className="text-[8px]" style={{color:"rgba(255,255,255,0.35)"}}>{t.time}</p>
-            </div>
-            <span className="text-[10px] font-bold" style={{color: t.credit ? "#30E7ED" : "rgba(255,255,255,0.7)"}}>{t.amt}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const SCREENS = [
-  { label: "Map",    icon: MapPin,    component: MapScreen },
-  { label: "Charge", icon: Zap,       component: ChargingScreen },
-  { label: "Stats",  icon: BarChart3, component: DashboardScreen },
-  { label: "Wallet", icon: Wallet,    component: WalletScreen },
+  { label: "Map", src: "/Map.svg", alt: "PCE app map showing nearby charging stations" },
+  { label: "Station", src: "/Station detail.png", alt: "PCE app charging station details" },
+  { label: "Charging", src: "/Charging.svg", alt: "PCE app charging session screen" },
+  { label: "Payment", src: "/Payment.svg", alt: "PCE app payment screen" },
 ];
 
 const FEATURES = [
@@ -283,6 +47,8 @@ export function AppPreviewSection() {
   const inView = useInView(ref, { once: true, margin: "-8%" });
   const [active, setActive] = useState(0);
   const [hovering, setHovering] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   // Sentinel ref: a zero-size div at the phone's NATURAL position (no y-offset).
   // whileInView on the phone itself is unreliable because initial:{y:220} pushes
@@ -292,7 +58,6 @@ export function AppPreviewSection() {
   const sentinelInView = useInView(sentinelRef, { once: true, amount: 0 });
 
   const entranceControls = useAnimation();
-  const floatControls = useAnimation();
   const glowControls = useAnimation();
 
   // Drive animation from sentinel visibility — runs once when column enters view
@@ -303,25 +68,19 @@ export function AppPreviewSection() {
         opacity: 1, y: 0, scale: 1, rotateX: 0,
         transition: { type: "spring", stiffness: 57, damping: 18, mass: 0.9 },
       });
-      // 0.8s pause baked into float delay
-      floatControls.start({
-        y: [0, -8, 0],
-        rotateZ: [0, 1, 0, -1, 0],
-        transition: { duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.8 },
-      });
       glowControls.start({
         opacity: [0, 1, 0.4],
         transition: { duration: 2.2, times: [0, 0.45, 1], ease: "easeOut" },
       });
     }
     run();
-  }, [sentinelInView, entranceControls, floatControls, glowControls]);
+  }, [sentinelInView, entranceControls, glowControls]);
 
   useEffect(() => {
-    if (hovering) return;
+    if (hovering || paused || reducedMotion || !inView) return;
     const t = setInterval(() => setActive(s => (s + 1) % SCREENS.length), 4000);
     return () => clearInterval(t);
-  }, [hovering]);
+  }, [hovering, paused, reducedMotion, inView]);
 
   return (
     <section
@@ -343,7 +102,7 @@ export function AppPreviewSection() {
         background: "radial-gradient(ellipse 40% 40% at 72% 50%, rgba(48,231,237,0.04) 0%, transparent 70%)",
       }} />
 
-      <div className="relative max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 py-14 md:py-44 lg:py-56">
+      <div className="relative max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-16 py-16 md:py-24 lg:py-32">
 
         {/* ── Section header — centred ── */}
         <motion.div
@@ -374,11 +133,10 @@ export function AppPreviewSection() {
         </motion.div>
 
         {/* ── Two-column: Phone left · Features right ── */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start"
-          style={{ gap: "clamp(60px, 10vw, 160px)" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] items-center gap-12 lg:gap-16 xl:gap-24 max-w-[1120px] mx-auto">
 
           {/* ── LEFT: Phone mockup ── */}
-          <div className="flex-shrink-0 relative" style={{ alignSelf: "center" }}>
+          <div className="relative w-full max-w-[320px] mx-auto" role="region" aria-label="PCE app screens" aria-roledescription="carousel">
             {/* Sentinel: zero-size div at natural position, no transform.
                 IntersectionObserver fires reliably on this instead of the
                 phone which is offset 220px and clipped by overflow:hidden. */}
@@ -391,8 +149,7 @@ export function AppPreviewSection() {
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
             >
-            {/* Float wrapper — driven by useAnimation after entrance */}
-            <motion.div animate={floatControls}>
+            <motion.div>
             {/* Glow — peaks on entrance then fades to 40%, driven by useAnimation */}
             <motion.div
               className="absolute pointer-events-none"
@@ -412,112 +169,52 @@ export function AppPreviewSection() {
               filter: "blur(40px)",
             }} />
 
-            {/* iPhone 16 Pro shell */}
-            <div style={{
-              width: 320, height: 660,
-              borderRadius: 54,
-              background: "linear-gradient(145deg, #3d3d3d 0%, #1c1c1e 40%, #2c2c2e 100%)",
-              boxShadow: [
-                "0 0 0 1px rgba(255,255,255,0.13)",
-                "0 0 0 2px rgba(0,0,0,0.85)",
-                "0 40px 90px rgba(0,0,0,0.75)",
-                "0 0 60px rgba(0,88,179,0.18)",
-                "inset 0 1px 0 rgba(255,255,255,0.14)",
-              ].join(", "),
-              position: "relative",
-              overflow: "visible",
-            }}>
-              {/* Side buttons */}
-              {[
-                { side: "left",  top: 120, h: 34 },
-                { side: "left",  top: 168, h: 60 },
-                { side: "left",  top: 242, h: 60 },
-                { side: "right", top: 160, h: 90 },
-              ].map((b, i) => (
-                <div key={i} style={{
-                  position: "absolute",
-                  [b.side]: -4,
-                  top: b.top, width: 4, height: b.h,
-                  borderRadius: b.side === "left" ? "4px 0 0 4px" : "0 4px 4px 0",
-                  background: "linear-gradient(180deg,#404040,#2a2a2a)",
-                  boxShadow: b.side === "left" ? "-1px 0 2px rgba(0,0,0,0.6)" : "1px 0 2px rgba(0,0,0,0.6)",
-                }} />
-              ))}
-
-              {/* Screen */}
-              <div style={{ position:"absolute", inset:4, borderRadius:50, overflow:"hidden", background:"#000" }}>
-                {/* Dynamic Island */}
-                <div style={{
-                  position:"absolute", top:10, left:"50%", transform:"translateX(-50%)",
-                  width:110, height:32, borderRadius:20, background:"#000", zIndex:30,
-                  boxShadow:"0 0 0 1.5px rgba(255,255,255,0.05)",
-                  display:"flex", alignItems:"center", justifyContent:"center", gap:6,
-                }}>
-                  <div style={{width:10,height:10,borderRadius:"50%",background:"#1a1a1a",border:"1px solid rgba(255,255,255,0.06)"}} />
-                  <div style={{width:6,height:6,borderRadius:"50%",background:"#1c1c1c"}} />
-                  {active === 1 && (
-                    <div style={{position:"absolute",right:10}}>
-                      <div style={{width:4,height:4,borderRadius:"50%",background:"#30E7ED",boxShadow:"0 0 4px #30E7ED"}} />
-                    </div>
-                  )}
-                </div>
-
-                {/* App content */}
-                <div style={{ position:"absolute", inset:0, paddingTop:50 }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={active}
-                      initial={{ opacity: 0, x: 16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -16 }}
-                      transition={{ duration: 0.32, ease: "easeInOut" }}
-                      style={{ position:"absolute", inset:0, paddingTop:50 }}
-                    >
-                      {(() => { const S = SCREENS[active].component; return <S />; })()}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Tab bar */}
-                <div style={{
-                  position:"absolute", bottom:0, left:0, right:0, height:72,
-                  background:"rgba(6,13,31,0.96)", backdropFilter:"blur(20px)",
-                  borderTop:"1px solid rgba(255,255,255,0.06)",
-                  display:"flex", alignItems:"center", justifyContent:"space-around",
-                  paddingBottom:12, zIndex:20,
-                }}>
-                  {SCREENS.map((s, i) => (
-                    <button key={s.label}
-                      onClick={() => { setActive(i); setHovering(true); }}
-                      style={{display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"4px 10px",border:"none",background:"transparent",cursor:"pointer"}}>
-                      <s.icon size={16} style={{ color: i===active ? "#30E7ED" : "rgba(255,255,255,0.3)" }} />
-                      <span style={{ fontSize:8, color: i===active ? "#30E7ED" : "rgba(255,255,255,0.3)", fontWeight: i===active ? 700 : 400 }}>{s.label}</span>
-                    </button>
-                  ))}
-                </div>
-                {/* Home indicator */}
-                <div style={{position:"absolute",bottom:6,left:"50%",transform:"translateX(-50%)",width:100,height:4,borderRadius:2,background:"rgba(255,255,255,0.28)",zIndex:25}} />
+            <div className="relative rounded-[34px] border border-white/20 bg-[#101519] p-1.5 shadow-[0_28px_70px_rgba(0,0,0,0.5)]">
+              <div className="relative aspect-[430/932] overflow-hidden rounded-[28px] bg-[#101519]">
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={active}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: reducedMotion ? 0 : 0.25 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={SCREENS[active].src}
+                      alt={SCREENS[active].alt}
+                      fill
+                      unoptimized
+                      sizes="(max-width: 359px) 90vw, 308px"
+                      className="object-contain"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 
-            {/* Screen pagination dots */}
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {SCREENS.map((_, i) => (
-                <button key={i}
-                  onClick={() => { setActive(i); setHovering(true); }}
-                  style={{
-                    width: i === active ? 20 : 6,
-                    height: 6,
-                    borderRadius: 3,
-                    background: i === active ? "#30E7ED" : "rgba(255,255,255,0.2)",
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    boxShadow: i === active ? "0 0 8px rgba(48,231,237,0.5)" : "none",
-                  }}
-                />
+            <div className="mt-6 grid grid-cols-4 gap-1 rounded-2xl border border-white/10 bg-white/[0.03] p-1" aria-label="Choose app screen">
+              {SCREENS.map((screen, i) => (
+                <button
+                  key={screen.label}
+                  type="button"
+                  aria-label={`Show ${screen.label.toLowerCase()} screen`}
+                  aria-pressed={active === i}
+                  onClick={() => { setActive(i); setPaused(true); }}
+                  className={`min-h-11 rounded-xl text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#30E7ED] ${active === i ? "bg-[#30E7ED]/15 text-[#30E7ED]" : "text-white/60 hover:bg-white/5 hover:text-white"}`}
+                >
+                  {screen.label}
+                </button>
               ))}
             </div>
+            <button
+              type="button"
+              onClick={() => setPaused(p => !p)}
+              className="mx-auto mt-3 block min-h-11 px-3 text-xs text-white/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#30E7ED]"
+              hidden={!!reducedMotion}
+            >
+              {paused ? "Play slideshow" : "Pause slideshow"}
+            </button>
             </motion.div>
             </motion.div>
           </div>
@@ -527,8 +224,7 @@ export function AppPreviewSection() {
             initial={{ opacity: 0, x: 32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full lg:flex-1 flex flex-col gap-4"
-            style={{ paddingTop: 8 }}
+            className="w-full min-w-0 flex flex-col gap-3"
           >
             {FEATURES.map((f, i) => (
               <motion.div
@@ -536,12 +232,11 @@ export function AppPreviewSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative group cursor-default rounded-2xl transition-all duration-400"
+                className="relative group cursor-default rounded-2xl p-4 sm:p-5 transition-all duration-300"
                 style={{
                   background: "rgba(255,255,255,0.03)",
                   backdropFilter: "blur(12px)",
                   border: "1px solid rgba(255,255,255,0.07)",
-                  padding: "24px 28px",
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement;
@@ -562,7 +257,7 @@ export function AppPreviewSection() {
                 <div className="absolute top-0 left-6 right-6 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ background: "linear-gradient(90deg, transparent, rgba(48,231,237,0.5), transparent)" }} />
 
-                <div className="flex items-start gap-5">
+                <div className="flex items-start gap-4">
                   {/* Icon */}
                   <div className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{
@@ -574,10 +269,10 @@ export function AppPreviewSection() {
 
                   {/* Text */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-white font-semibold mb-2" style={{ fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>
+                    <h3 className="text-white font-semibold mb-1.5" style={{ fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>
                       {f.title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)", lineHeight: 1.65 }}>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.60)", lineHeight: 1.65 }}>
                       {f.desc}
                     </p>
                   </div>
@@ -590,9 +285,9 @@ export function AppPreviewSection() {
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 1.0 }}
-              className="pt-2"
+              className="mt-3 border-t border-white/10 pt-6"
             >
-              <StoreBadges gap={24} />
+              <StoreBadges gap={12} className="justify-center sm:justify-start [&_img]:!h-11 sm:[&_img]:!h-[52px]" />
             </motion.div>
           </motion.div>
         </div>
