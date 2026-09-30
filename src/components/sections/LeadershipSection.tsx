@@ -27,8 +27,8 @@ const members = [
   },
   {
     name: "Anyebe John",
-    role: "Chief Operating Officer",
-    line: "Driving operations, execution, partnerships, and nationwide deployment.",
+    role: "Field Operation Supervisor",
+    line: "Overseeing field operations, site deployment, on-ground execution, and nationwide infrastructure rollout.",
     photo: "/team-john.png",
     facePos: "center 18%",
     initials: "AJ",
@@ -53,13 +53,31 @@ const members = [
     color: "#34d399",
   },
   {
-    name: "Fabian Sani",
+    name: "Idisha Ogunmola",
     role: "Chief Legal Officer",
     line: "Providing legal strategy, corporate governance, regulatory compliance, contract oversight, and protecting Phoenix Creed Energy's long-term interests.",
-    photo: "/team-fabian.png",
+    photo: "/team-idisha.jpg",
     facePos: "center 18%",
-    initials: "FS",
+    initials: "IO",
     color: "#fb923c",
+  },
+  {
+    name: "Moses Kanu",
+    role: "COO / HR",
+    line: "Driving organisational operations, human resources strategy, talent development, and cross-functional performance across Phoenix Creed Energy.",
+    photo: "/team-moses.jpg",
+    facePos: "center 18%",
+    initials: "MK",
+    color: "#4ade80",
+  },
+  {
+    name: "Jessica Okere",
+    role: "Head of Marketing",
+    line: "Leading brand strategy, marketing campaigns, digital presence, and customer acquisition across Africa's EV market.",
+    photo: "/team-jessica.jpg",
+    facePos: "center 18%",
+    initials: "JO",
+    color: "#f9a8d4",
   },
 ];
 
@@ -244,7 +262,7 @@ export function LeadershipSection() {
       }} />
 
       {/* Max-width widened to 1520px so 6 cards have room to breathe */}
-      <div className="section-padding max-w-[1520px] mx-auto relative z-10">
+      <div className="section-padding max-w-[1400px] mx-auto relative z-10">
 
         {/* Section header */}
         <motion.div
@@ -288,7 +306,7 @@ export function LeadershipSection() {
           lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
           xl      → 5 col (all in one row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 xl:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {members.map((member, i) => (
             <MemberCard key={member.name} member={member} index={i} />
           ))}
