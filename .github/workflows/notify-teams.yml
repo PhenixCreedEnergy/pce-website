@@ -1,0 +1,54 @@
+name: Notify Teams on Push
+
+on:
+  push:
+    branches:
+      - main
+      - '**'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send commit notification to Teams
+        run: |
+          COMMIT_MSG=$(echo '${{ github.event.head_commit.message }}' | head -n1)
+          curl -H 'Content-Type: application/json' -d '{
+            "type": "message",
+            "attachments": [
+              {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                  "type": "AdaptiveCard",
+                  "version": "1.5",
+                  "body": [
+                    {
+                      "type": "TextBlock",
+                      "text": "🚀 New push to '"${{ github.repository }}"'",
+                      "weight": "Bolder",
+                      "size": "Medium"
+                    },
+                    {
+                      "type": "FactSet",
+                      "facts": [
+                        { "title": "Branch", "value": "'"${{ github.ref_name }}"'" },
+                        { "title": "Author", "value": "'"${{ github.actor }}"'" },
+                        { "title": "Commit", "value": "'"$COMMIT_MSG"'" }
+                      ]
+                    },
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "title": "View Commit",
+                          "url": "'"${{ github.event.head_commit.url }}"'"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }' "${{ secrets.TEAMS_WEBHOOK_URL }}"

@@ -20,8 +20,8 @@ const members = [
     name: "Shekwolo Myke",
     role: "Chief Technology Officer",
     line: "Leading technology, software, AI, and platform innovation across Phoenix Creed Energy.",
-    photo: "/team-myke.png",
-    facePos: "center 18%",
+    photo: "/team-myke.JPG",
+    facePos: "center 35%",
     initials: "SM",
     color: "#7ab8ff",
   },
@@ -189,7 +189,6 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             marginBottom: 7,
             letterSpacing: "-0.015em",
             lineHeight: 1.28,
-            whiteSpace: "nowrap",
           }}>
             {member.name}
           </p>
@@ -204,6 +203,7 @@ function MemberCard({ member, index }: { member: typeof members[0]; index: numbe
             transition: "color 0.38s ease",
             marginBottom: 22,
             lineHeight: 1.5,
+            minHeight: "3em",
           }}>
             {member.role}
           </p>
@@ -261,7 +261,6 @@ export function LeadershipSection() {
         borderRadius: "50%", pointerEvents: "none",
       }} />
 
-      {/* Max-width widened to 1520px so 6 cards have room to breathe */}
       <div className="section-padding max-w-[1400px] mx-auto relative z-10">
 
         {/* Section header */}
@@ -299,18 +298,12 @@ export function LeadershipSection() {
           </p>
         </motion.div>
 
-        {/*
-          Grid layout:
-          mobile  → 1 col
-          sm      → 2 col
-          lg      → 3 col (CEO + CTO + COO top; CFO + Engineer bottom centered via justify)
-          xl      → 5 col (all in one row)
-        */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="leadership-members" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {members.map((member, i) => (
             <MemberCard key={member.name} member={member} index={i} />
           ))}
         </div>
+
 
       </div>
     </section>

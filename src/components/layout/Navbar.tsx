@@ -512,7 +512,11 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    // Separate entry/exit thresholds prevent flicker around the top boundary.
+    const onScroll = () => setScrolled(current =>
+      current ? window.scrollY > 8 : window.scrollY > 32
+    );
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -538,14 +542,10 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      <header
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          background: scrolled || forceDarkNavbar ? "rgba(6,13,31,0.72)" : "rgba(6,13,31,0.18)",
-          backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)",
+          background: scrolled || forceDarkNavbar ? "#060d1f" : "rgba(6,13,31,0.82)",
           borderBottom: "none",
           boxShadow: "none",
           transition: "background 0.4s ease",
@@ -571,7 +571,7 @@ export function Navbar() {
           <Link
             href="/contact"
             className="hidden lg:inline-flex items-center"
-            style={{ padding: "9px 22px", borderRadius: 999, background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", fontSize: 13, fontWeight: 600, letterSpacing: "0.01em", textDecoration: "none", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", transition: "background 0.2s, border-color 0.2s" }}
+            style={{ padding: "9px 22px", borderRadius: 999, background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "white", fontSize: 13, fontWeight: 600, letterSpacing: "0.01em", textDecoration: "none", transition: "background 0.2s, border-color 0.2s" }}
             onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.22)"; el.style.borderColor = "rgba(255,255,255,0.45)"; }}
             onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "rgba(255,255,255,0.12)"; el.style.borderColor = "rgba(255,255,255,0.25)"; }}
           >
@@ -586,7 +586,6 @@ export function Navbar() {
             style={{
               height: 44, padding: "0 22px", borderRadius: 9999,
               background: "rgba(255,255,255,0.13)",
-              backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
               border: "1px solid rgba(255,255,255,0.22)",
               boxShadow: "0 2px 16px rgba(0,0,0,0.18)",
               cursor: "pointer", color: "rgba(255,255,255,0.92)",
@@ -597,7 +596,7 @@ export function Navbar() {
             Menu
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* Desktop mega menu */}
       <AnimatePresence>

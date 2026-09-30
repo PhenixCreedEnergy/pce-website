@@ -18,36 +18,34 @@ export default function AboutPage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
-      <section className="bg-white min-h-[44vh] md:min-h-[62vh] flex items-end pt-24 md:pt-28">
-        <div className="section-padding w-full" style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}>
+      <section className="relative isolate overflow-hidden bg-[#060d1f] min-h-[620px] md:min-h-[min(82vh,900px)] flex items-center pt-28 pb-16 md:py-36">
+        <Image
+          src="/about-us.png"
+          alt="Phoenix Creed Energy — Africa's electric future"
+          fill
+          className="object-cover object-[60%_center] md:object-center"
+          priority
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          aria-hidden="true"
+          style={{ background: "linear-gradient(90deg, rgba(6,13,31,0.90) 0%, rgba(6,13,31,0.72) 45%, rgba(6,13,31,0.22) 100%)" }}
+        />
+        <div className="section-padding relative z-10 w-full max-w-[1440px] mx-auto">
           <h1
-            className="font-bold text-pce-dark tracking-normal leading-[1.08] mb-4"
-            style={{ fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)", maxWidth: 620 }}
+            className="font-bold text-white tracking-tight leading-[1.08] mb-6"
+            style={{ fontSize: "clamp(2.5rem, 4.5vw, 4.5rem)", maxWidth: 760 }}
           >
             Building Africa&apos;s<br />
             electric future.
           </h1>
           <p
-            className="text-pce-gray leading-relaxed"
-            style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540 }}
+            className="text-white/80 leading-relaxed"
+            style={{ fontSize: "clamp(1rem, 1.2vw, 1.125rem)", maxWidth: 600 }}
           >
             Phoenix Creed Energy is building Africa&apos;s electric mobility ecosystem through EV charging infrastructure, battery energy storage, fleet solutions, intelligent software, and professional EV servicing.
           </p>
-        </div>
-      </section>
-
-      {/* ── Section 2: Cinematic full-width image ────────────── */}
-      <section className="w-full overflow-hidden" style={{ height: "clamp(280px, 55vw, 780px)" }}>
-        <div className="relative w-full h-full">
-          <Image
-            src="/about-us.png"
-            alt="Phoenix Creed Energy — Africa's electric future"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "center 45%" }}
-            priority
-            sizes="100vw"
-          />
         </div>
       </section>
 

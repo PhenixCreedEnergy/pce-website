@@ -18,7 +18,8 @@
     font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    /* Clip decorative overflow without creating another scroll container. */
+    overflow-x: clip;
   }
 
   body {
@@ -27,7 +28,7 @@
     font-feature-settings: "rlig" 1, "calt" 1;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   button,
