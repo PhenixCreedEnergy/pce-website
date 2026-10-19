@@ -156,3 +156,21 @@
     font-size: clamp(2.35rem, 8.5vw, 2.8rem) !important;
   }
 }
+
+/* Energy storage page — flowing power lines + battery surface shimmer */
+@keyframes pce-flow-dash {
+  to { stroke-dashoffset: -36; }
+}
+.pce-flow-dash {
+  animation: pce-flow-dash 0.9s linear infinite;
+}
+@keyframes pce-wave {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.9; }
+}
+.pce-wave {
+  animation: pce-wave 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pce-flow-dash, .pce-wave { animation: none; }
+}

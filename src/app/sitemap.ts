@@ -10,6 +10,7 @@ const routes = [
   { path: "/careers", changeFrequency: "monthly", priority: 0.6 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.7 },
   { path: "/products/ev-service", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/products/energy-storage", changeFrequency: "monthly", priority: 0.8 },
 ] satisfies Array<{
   path: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
