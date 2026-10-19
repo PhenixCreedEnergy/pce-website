@@ -37,8 +37,8 @@ const PRODUCTS: ProductItem[] = [
   { label: "Charging Network",     href: "/charging-network",      description: "Ultra-fast charging infrastructure across Africa",               image: "/product-ev-charger.png" },
   { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
   { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Diagnostics, repairs & scheduled EV servicing.", image: "/product-ev-service.jpg" },
-  { label: "EV Power Banks",       description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon", disabled: true },
   { label: "Energy Storage Units", href: "/products/energy-storage", description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png" },
+  { label: "EV Power Banks",       description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon", disabled: true },
 ];
 
 const NAV: NavItem[] = [
@@ -367,8 +367,8 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     { label: "Charging Stations",        href: "/charging-network" },
     { label: "PCE App",                  href: "/pce-app" },
     { label: "EV Service & Maintenance", href: "/products/ev-service" },
-    { label: "EV Power Banks",           badge: "Coming Soon", disabled: true },
     { label: "Energy Storage Units",     href: "/products/energy-storage" },
+    { label: "EV Power Banks",           badge: "Coming Soon", disabled: true },
   ];
   const mobileCompany = [
     { label: "About Us", href: "/about" },
