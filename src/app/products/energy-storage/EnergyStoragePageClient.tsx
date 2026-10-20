@@ -593,6 +593,67 @@ function EnergyFlow() {
   );
 }
 
+/* ─── Ecosystem animation ────────────────────────────────────── */
+function EcosystemVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const inView = useInView(videoRef, { margin: "-10%" });
+  const reduceMotion = useReducedMotion();
+
+  // Only play while on screen, and never autoplay for reduced-motion users
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (inView && !reduceMotion) v.play().catch(() => {});
+    else v.pause();
+  }, [inView, reduceMotion]);
+
+  return (
+    <section style={{ position: "relative", overflow: "hidden", background: "#060d1f", padding: "40px 0 110px" }}>
+      <div className="section-padding max-w-[1440px] mx-auto relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-8%" }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="text-center"
+          style={{ marginBottom: 40 }}
+        >
+          <Eyebrow center>The Connected Grid</Eyebrow>
+          <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", margin: "0 0 16px" }}>
+            One network. <GradientText>Every kilowatt accounted for.</GradientText>
+          </h2>
+          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
+            Grid, solar, storage, homes, businesses and EV chargers — linked together and balanced by PCE storage around the clock.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 32, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-8%" }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="relative overflow-hidden"
+          style={{ borderRadius: 28, border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 30px 90px rgba(0,0,0,0.5), 0 0 0 1px rgba(48,231,237,0.06), 0 0 80px rgba(0,88,179,0.18)", aspectRatio: "16 / 9", background: "#e9ecef" }}
+        >
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/video/energy-storage-ecosystem-poster.jpg"
+            aria-label="Animation of the PCE energy network: grid power, solar and battery storage supplying homes, offices and EV chargers"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          >
+            <source src="/video/energy-storage-ecosystem.webm" type="video/webm" />
+            <source src="/video/energy-storage-ecosystem.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Product lineup ─────────────────────────────────────────── */
 function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) {
   const [hovered, setHovered] = useState(false);
@@ -716,6 +777,7 @@ export default function EnergyStoragePageClient() {
       <ProductShowcase />
       <SiteScene />
       <EnergyFlow />
+      <EcosystemVideo />
 
       {/* ── Product lineup ── */}
       <section style={{ position: "relative", overflow: "hidden", background: "#060d1f", padding: "100px 0 110px" }}>
