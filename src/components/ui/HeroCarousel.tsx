@@ -2,9 +2,16 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-const slides = [
+type Slide = {
+  src: string;
+  alt: string;
+  objectPosition: string;
+  video?: { webm: string; mp4: string };
+};
+
+const slides: Slide[] = [
   {
     src: "/fuel-station.png",
     alt: "PCE charging station — ultra-fast EV charging bays with electric-blue canopy lighting",
@@ -14,6 +21,13 @@ const slides = [
     src: "/energy-source.png",
     alt: "PCE Energy Storage System — 20MWh grid-scale battery with wind and solar infrastructure",
     objectPosition: "center 60%",
+  },
+  {
+    // Poster frame doubles as the still for reduced-motion users
+    src: "/video/energy-storage-ecosystem-poster.jpg",
+    alt: "Animation of the PCE energy network — grid, solar and battery storage supplying homes, offices and EV chargers",
+    objectPosition: "center 50%",
+    video: { webm: "/video/energy-storage-ecosystem.webm", mp4: "/video/energy-storage-ecosystem.mp4" },
   },
 ];
 
@@ -26,6 +40,8 @@ export function HeroCarousel() {
   // Track whether we've moved past the first slide (skip initial fade for slide 0)
   const [hasCycled, setHasCycled] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reduceMotion = useReducedMotion();
+  const slide = slides[current];
 
   const advance = useCallback(() => {
     setHasCycled(true);
@@ -50,26 +66,48 @@ export function HeroCarousel() {
           exit={{ opacity: 0 }}
           transition={{ duration: FADE_DURATION, ease: "easeInOut" }}
         >
-          {/* Ken Burns zoom layer */}
-          <motion.div
-            className="absolute inset-0"
-            initial={{ scale: 1 }}
-            animate={{ scale: ZOOM }}
-            transition={{
-              duration: DURATION / 1000 + FADE_DURATION,
-              ease: "linear",
-            }}
-          >
-            <Image
-              src={slides[current].src}
-              alt={slides[current].alt}
-              fill
-              className="object-cover hero-slide-img"
-              style={{ objectPosition: slides[current].objectPosition }}
-              priority={current === 0}
-              sizes="100vw"
-            />
-          </motion.div>
+          {slide.video && !reduceMotion ? (
+            <>
+              {/* Video slide — already animated, so no Ken Burns zoom */}
+              <video
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                poster={slide.src}
+                aria-label={slide.alt}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: slide.objectPosition }}
+              >
+                <source src={slide.video.webm} type="video/webm" />
+                <source src={slide.video.mp4} type="video/mp4" />
+              </video>
+              {/* Footage is much lighter than the photos — darken it for the hero text */}
+              <div className="absolute inset-0" style={{ background: "rgba(4,8,20,0.38)" }} />
+            </>
+          ) : (
+            /* Ken Burns zoom layer */
+            <motion.div
+              className="absolute inset-0"
+              initial={{ scale: 1 }}
+              animate={{ scale: ZOOM }}
+              transition={{
+                duration: DURATION / 1000 + FADE_DURATION,
+                ease: "linear",
+              }}
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                className="object-cover hero-slide-img"
+                style={{ objectPosition: slide.objectPosition }}
+                priority={current === 0}
+                sizes="100vw"
+              />
+              {slide.video && <div className="absolute inset-0" style={{ background: "rgba(4,8,20,0.38)" }} />}
+            </motion.div>
+          )}
         </motion.div>
       </AnimatePresence>
 
