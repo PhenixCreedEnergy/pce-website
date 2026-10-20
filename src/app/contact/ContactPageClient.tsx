@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 const offices = [
-  { city: "Lagos", country: "Nigeria", address: "Victoria Island, Lagos", email: "info@pceenergies.com", phone: "08064530306" },
+  { city: "Lagos", country: "Nigeria", address: "Plot 97 Adeola Odeku, Victoria Island, Lagos", email: "info@pceenergies.com", phone: "08064530306" },
 ];
 
 const inquiryTypes = [
