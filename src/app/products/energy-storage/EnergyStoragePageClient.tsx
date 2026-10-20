@@ -593,64 +593,33 @@ function EnergyFlow() {
   );
 }
 
-/* ─── Ecosystem animation ────────────────────────────────────── */
-function EcosystemVideo() {
+/* ─── Hero background video ──────────────────────────────────── */
+function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const inView = useInView(videoRef, { margin: "-10%" });
   const reduceMotion = useReducedMotion();
 
-  // Only play while on screen, and never autoplay for reduced-motion users
+  // Reduced-motion users get the poster frame only
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (inView && !reduceMotion) v.play().catch(() => {});
-    else v.pause();
-  }, [inView, reduceMotion]);
+    if (reduceMotion) v.pause();
+    else v.play().catch(() => {});
+  }, [reduceMotion]);
 
   return (
-    <section style={{ position: "relative", overflow: "hidden", background: "#060d1f", padding: "40px 0 110px" }}>
-      <div className="section-padding max-w-[1440px] mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-8%" }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="text-center"
-          style={{ marginBottom: 40 }}
-        >
-          <Eyebrow center>The Connected Grid</Eyebrow>
-          <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", margin: "0 0 16px" }}>
-            One network. <GradientText>Every kilowatt accounted for.</GradientText>
-          </h2>
-          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
-            Grid, solar, storage, homes, businesses and EV chargers — linked together and balanced by PCE storage around the clock.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 32, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-8%" }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="relative overflow-hidden"
-          style={{ borderRadius: 28, border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 30px 90px rgba(0,0,0,0.5), 0 0 0 1px rgba(48,231,237,0.06), 0 0 80px rgba(0,88,179,0.18)", aspectRatio: "16 / 9", background: "#e9ecef" }}
-        >
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/video/energy-storage-ecosystem-poster.jpg"
-            aria-label="Animation of the PCE energy network: grid power, solar and battery storage supplying homes, offices and EV chargers"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-          >
-            <source src="/video/energy-storage-ecosystem.webm" type="video/webm" />
-            <source src="/video/energy-storage-ecosystem.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
-      </div>
-    </section>
+    <video
+      ref={videoRef}
+      muted
+      loop
+      playsInline
+      preload="auto"
+      poster="/video/energy-storage-ecosystem-poster.jpg"
+      aria-label="Animation of the PCE energy network: grid power, solar and battery storage supplying homes, offices and EV chargers"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 50%" }}
+    >
+      <source src="/video/energy-storage-ecosystem.webm" type="video/webm" />
+      <source src="/video/energy-storage-ecosystem.mp4" type="video/mp4" />
+    </video>
   );
 }
 
@@ -720,17 +689,9 @@ export default function EnergyStoragePageClient() {
           animate={{ scale: 1 }}
           transition={{ duration: 2.4, ease: EASE }}
         >
-          <Image
-            src="/energy-source.png"
-            alt="PCE 20 MWh energy storage system alongside wind turbines and solar panels"
-            fill
-            className="object-cover"
-            style={{ objectPosition: "center 50%" }}
-            priority
-            sizes="100vw"
-          />
+          <HeroVideo />
         </motion.div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.86) 0%, rgba(4,8,20,0.48) 55%, rgba(4,8,20,0.15) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.92) 0%, rgba(4,8,20,0.68) 50%, rgba(4,8,20,0.32) 100%)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,1) 0%, rgba(4,8,20,0.35) 45%, transparent 75%)" }} />
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
@@ -777,7 +738,6 @@ export default function EnergyStoragePageClient() {
       <ProductShowcase />
       <SiteScene />
       <EnergyFlow />
-      <EcosystemVideo />
 
       {/* ── Product lineup ── */}
       <section style={{ position: "relative", overflow: "hidden", background: "#060d1f", padding: "100px 0 110px" }}>
