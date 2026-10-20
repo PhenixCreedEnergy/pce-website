@@ -691,8 +691,8 @@ export default function EnergyStoragePageClient() {
         >
           <HeroVideo />
         </motion.div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.92) 0%, rgba(4,8,20,0.68) 50%, rgba(4,8,20,0.32) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,1) 0%, rgba(4,8,20,0.35) 45%, transparent 75%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.82) 0%, rgba(4,8,20,0.40) 50%, rgba(4,8,20,0) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,1) 0%, rgba(4,8,20,0.12) 35%, transparent 60%)" }} />
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
           backgroundSize: "80px 80px",

@@ -82,8 +82,6 @@ export function HeroCarousel() {
                 <source src={slide.video.webm} type="video/webm" />
                 <source src={slide.video.mp4} type="video/mp4" />
               </video>
-              {/* Footage is much lighter than the photos — darken it for the hero text */}
-              <div className="absolute inset-0" style={{ background: "rgba(4,8,20,0.38)" }} />
             </>
           ) : (
             /* Ken Burns zoom layer */
@@ -105,7 +103,6 @@ export function HeroCarousel() {
                 priority={current === 0}
                 sizes="100vw"
               />
-              {slide.video && <div className="absolute inset-0" style={{ background: "rgba(4,8,20,0.38)" }} />}
             </motion.div>
           )}
         </motion.div>
