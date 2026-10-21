@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { HeroCarousel } from "@/components/ui/HeroCarousel";
 
@@ -56,7 +54,6 @@ export function HeroSection() {
               color: "rgba(255,255,255,0.82)",
               maxWidth: 540,
               lineHeight: 1.65,
-              marginBottom: "clamp(22px, 2.2vw, 28px)",
               textShadow: "0 2px 16px rgba(0,0,0,0.55)",
             }}
             initial={{ opacity: 0, y: 20 }}
@@ -65,49 +62,6 @@ export function HeroSection() {
           >
             Building Africa&apos;s next-generation EV charging network.
           </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.34, ease }}
-          >
-            <Link
-              href="/charging-network"
-              className="hero-cta inline-flex items-center justify-center gap-2.5 rounded-full font-semibold text-white transition-all duration-200"
-              style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
-            >
-              Our Charging Network <ArrowRight size={17} />
-            </Link>
-            <Link
-              href="/investors"
-              className="hero-cta inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-all duration-200"
-              style={{
-                padding: "15px 30px",
-                fontSize: 15,
-                background: "rgba(255,255,255,0.10)",
-                border: "1px solid rgba(255,255,255,0.24)",
-                backdropFilter: "blur(14px)",
-                WebkitBackdropFilter: "blur(14px)",
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "rgba(255,255,255,0.16)";
-                el.style.borderColor = "rgba(255,255,255,0.38)";
-                el.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = "rgba(255,255,255,0.10)";
-                el.style.borderColor = "rgba(255,255,255,0.24)";
-                el.style.transform = "translateY(0)";
-              }}
-            >
-              Investor Relations <ArrowRight size={16} />
-            </Link>
-          </motion.div>
         </div>
       </div>
     </section>
