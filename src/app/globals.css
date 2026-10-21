@@ -204,3 +204,8 @@
 @media (prefers-reduced-motion: reduce) {
   .pce-drift-a, .pce-drift-b, .pce-spin, .pce-spin-rev, .pce-float, .pce-glow { animation: none; }
 }
+@keyframes pce-marquee { to { transform: translateX(-50%); } }
+.pce-marquee { animation: pce-marquee 45s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .pce-marquee { animation: none; }
+}

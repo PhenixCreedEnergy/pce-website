@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView, animate, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useInView, animate, useReducedMotion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -243,6 +243,72 @@ function Spotlight({ children, color = "rgba(0,88,179,0.10)", radius = 24, class
   );
 }
 
+// Heading lines slide up from behind a mask, one after another
+function Lines({ lines }: { lines: React.ReactNode[] }) {
+  const reduce = useReducedMotion();
+  return (
+    <>
+      {lines.map((line, i) => (
+        // The in-view trigger sits on the visible mask: the hidden line itself never intersects
+        <motion.span
+          key={i}
+          className="block overflow-hidden"
+          style={{ paddingBottom: "0.1em", marginBottom: "-0.1em" }}
+          initial={reduce ? false : "hidden"}
+          whileInView="shown"
+          viewport={{ once: true, margin: "-10%" }}
+        >
+          <motion.span
+            className="block"
+            variants={{ hidden: { y: "110%" }, shown: { y: "0%" } }}
+            transition={{ duration: 0.95, delay: 0.08 + i * 0.13, ease: EASE }}
+          >
+            {line}
+          </motion.span>
+        </motion.span>
+      ))}
+    </>
+  );
+}
+
+// Two counter-scrolling rows of keywords — solid, then outlined
+const marqueeWords = ["Solar Firming", "Backup Power", "Peak Shaving", "EV Charging Support", "Grid Services", "Diesel Displacement", "Renewable Firming", "Frequency Response"];
+
+function MarqueeRow({ outline, reverse }: { outline?: boolean; reverse?: boolean }) {
+  const words = [...marqueeWords, ...marqueeWords];
+  return (
+    <div className="flex w-max pce-marquee" style={{ animationDirection: reverse ? "reverse" : "normal", animationDuration: reverse ? "55s" : "45s" }}>
+      {words.map((w, i) => (
+        <span
+          key={i}
+          className="flex items-center"
+          style={{
+            fontSize: "clamp(2rem, 5.4vw, 4.6rem)", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1.15, whiteSpace: "nowrap", padding: "0 0.45em",
+            color: outline ? "transparent" : INK,
+            WebkitTextStroke: outline ? "1.2px rgba(0,88,179,0.38)" : undefined,
+          }}
+        >
+          {w}
+          <span aria-hidden style={{ marginLeft: "0.9em", width: "0.28em", height: "0.28em", borderRadius: 999, background: `linear-gradient(135deg, ${ACCENT}, ${CYAN})`, boxShadow: `0 0 18px ${CYAN}` }} />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function KeywordMarquee() {
+  const mask = "linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%)";
+  return (
+    <section aria-label="What PCE storage does" style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "84px 0 20px" }}>
+      <div style={{ maskImage: mask, WebkitMaskImage: mask }}>
+        <MarqueeRow />
+        <div style={{ height: 6 }} />
+        <MarqueeRow outline reverse />
+      </div>
+    </section>
+  );
+}
+
 /* ─── Product showcase (hotspots + floating stats) ───────────── */
 function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   return (
@@ -271,6 +337,12 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
 function ProductShowcase() {
   const [active, setActive] = useState<string | null>(null);
   const reduce = useReducedMotion();
+  // The unit grows into place as it scrolls towards the centre of the screen
+  const productRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: productRef, offset: ["start end", "center center"] });
+  const productScale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
+  const productY = useTransform(scrollYProgress, [0, 1], [90, 0]);
+  const productOpacity = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
 
   return (
     <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "120px 0 140px" }}>
@@ -288,18 +360,15 @@ function ProductShowcase() {
         >
           <Eyebrow center light>Our Products</Eyebrow>
           <h2 style={{ fontSize: "clamp(2rem, 4.6vw, 3.6rem)", fontWeight: 600, color: INK, lineHeight: 1.1, letterSpacing: "-0.02em", margin: 0 }}>
-            Energy Storage for<br />
-            <GradientText light>Homes, Businesses &amp; the Grid</GradientText>
+            <Lines lines={["Energy Storage for", <GradientText key="g" light>Homes, Businesses &amp; the Grid</GradientText>]} />
           </h2>
         </motion.div>
 
         <div className="relative lg:py-10">
           {/* Product with hotspots */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 1, ease: EASE }}
+            ref={productRef}
+            style={reduce ? undefined : { scale: productScale, y: productY, opacity: productOpacity }}
             className="relative mx-auto w-full lg:w-[76%]"
           >
             <OrbitRings />
@@ -395,6 +464,11 @@ function ProductShowcase() {
 function SiteScene() {
   const [active, setActive] = useState<string>("battery");
   const current = sceneHotspots.find(h => h.id === active)!;
+  const reduce = useReducedMotion();
+  const imageRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: imageRef, offset: ["start end", "start 25%"] });
+  const clipPath = useTransform(scrollYProgress, [0, 1], ["inset(0% 9% 0% 9% round 28px)", "inset(0% 0% 0% 0% round 0px)"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.18, 1]);
 
   return (
     <section style={{ position: "relative", background: LIGHT_BG, padding: "24px 0 120px" }}>
@@ -418,7 +492,7 @@ function SiteScene() {
               <div>
                 <Eyebrow light>One Connected System</Eyebrow>
                 <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.1rem)", fontWeight: 600, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 640, margin: 0 }}>
-                  Generation, storage and control — <GradientText light>working as one.</GradientText>
+                  <Lines lines={[<>Generation, storage and control — <GradientText light>working as one.</GradientText></>]} />
                 </h2>
               </div>
               <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
@@ -427,8 +501,10 @@ function SiteScene() {
             </motion.div>
           </div>
 
-          <div className="relative w-full" style={{ aspectRatio: "16 / 9" }}>
-            <Image src="/solar-hub.png" alt="PCE solar energy hub with battery storage containers" fill className="object-cover" sizes="100vw" />
+          <motion.div ref={imageRef} className="relative w-full overflow-hidden" style={{ aspectRatio: "16 / 9", ...(reduce ? {} : { clipPath }) }}>
+            <motion.div className="absolute inset-0" style={reduce ? undefined : { scale: imageScale }}>
+              <Image src="/solar-hub.png" alt="PCE solar energy hub with battery storage containers" fill className="object-cover" sizes="100vw" />
+            </motion.div>
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.45) 0%, rgba(6,13,31,0.04) 40%, transparent 100%)" }} />
 
             {sceneHotspots.map(h => {
@@ -472,7 +548,7 @@ function SiteScene() {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -588,7 +664,7 @@ function EnergyFlow() {
         >
           <Eyebrow center>How It Works</Eyebrow>
           <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", margin: "0 0 16px" }}>
-            Store it when it&apos;s abundant.<br /><GradientText>Use it when it matters.</GradientText>
+            <Lines lines={["Store it when it\u2019s abundant.", <GradientText key="g">Use it when it matters.</GradientText>]} />
           </h2>
           <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
             PCE storage soaks up solar, wind and off-peak grid power, then releases it to homes, businesses and EV chargers on demand.
@@ -745,14 +821,27 @@ function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) 
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-6%" });
   const tone = item.color === CYAN ? TEAL : ACCENT;
+  const reduce = useReducedMotion();
+  const tiltX = useSpring(useMotionValue(0), { stiffness: 180, damping: 18 });
+  const tiltY = useSpring(useMotionValue(0), { stiffness: 180, damping: 18 });
+  const onTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    tiltY.set(((e.clientX - r.left) / r.width - 0.5) * 10);
+    tiltX.set(-((e.clientY - r.top) / r.height - 0.5) * 10);
+  };
+  const resetTilt = () => { tiltX.set(0); tiltY.set(0); };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.12, ease: EASE }}
+      initial={{ opacity: 0, y: 60, rotateX: 12 }}
+      animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+      transition={{ duration: 0.9, delay: index * 0.14, ease: EASE }}
+      onMouseMove={onTilt}
+      onMouseLeave={resetTilt}
       className="h-full"
+      style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1100 }}
     >
       <div
         className="relative h-full overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1.5"
@@ -803,8 +892,17 @@ function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) 
 
 /* ─── Page ───────────────────────────────────────────────────── */
 export default function EnergyStoragePageClient() {
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+
   return (
     <>
+      {/* Reading progress */}
+      <motion.div
+        aria-hidden
+        className="fixed top-0 left-0 right-0 pointer-events-none"
+        style={{ height: 3, zIndex: 100, transformOrigin: "0% 50%", scaleX: progress, background: `linear-gradient(90deg, ${ACCENT}, ${CYAN}, #6366f1)`, boxShadow: `0 0 12px ${CYAN}` }}
+      />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden max-w-full" style={{ minHeight: "88vh", display: "flex", alignItems: "flex-end" }}>
         <motion.div
@@ -861,9 +959,10 @@ export default function EnergyStoragePageClient() {
       <ProductShowcase />
       <SiteScene />
       <EnergyFlow />
+      <KeywordMarquee />
 
       {/* ── Product lineup + applications share one continuous glowing field ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "130px 0 130px" }}>
+      <section style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "100px 0 130px" }}>
         <Aurora blobs={EDGES_LIGHT_ALT} />
         <Grain />
         <div className="section-padding max-w-[1440px] mx-auto relative z-10">
@@ -877,7 +976,7 @@ export default function EnergyStoragePageClient() {
           >
             <Eyebrow center light>The Range</Eyebrow>
             <h2 style={{ fontSize: "clamp(2rem, 4.2vw, 3.3rem)", fontWeight: 600, color: INK, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 16px" }}>
-              From a single home<br /><GradientText light>to a whole grid.</GradientText>
+              <Lines lines={["From a single home", <GradientText key="g" light>to a whole grid.</GradientText>]} />
             </h2>
             <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 520, lineHeight: 1.7, margin: "0 auto" }}>
               One storage platform, sized to fit — every system is monitored and managed through PCE&apos;s energy software.
@@ -899,7 +998,7 @@ export default function EnergyStoragePageClient() {
             <div>
               <Eyebrow light>Applications</Eyebrow>
               <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.1rem)", fontWeight: 600, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 720, margin: 0 }}>
-                What PCE storage <GradientText light>does for you.</GradientText>
+                <Lines lines={[<>What PCE storage <GradientText light>does for you.</GradientText></>]} />
               </h2>
             </div>
             <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 400, lineHeight: 1.7, margin: 0 }}>
@@ -923,7 +1022,7 @@ export default function EnergyStoragePageClient() {
                 >
                   <div style={{ padding: "30px 28px 32px" }}>
                     <div className="flex items-start justify-between" style={{ marginBottom: 22 }}>
-                      <div style={{ width: 46, height: 46, borderRadius: 14, background: `linear-gradient(135deg, ${ACCENT}, ${TEAL})`, boxShadow: "0 10px 24px rgba(0,88,179,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-6" style={{ width: 46, height: 46, borderRadius: 14, background: `linear-gradient(135deg, ${ACCENT}, ${TEAL})`, boxShadow: "0 10px 24px rgba(0,88,179,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <u.icon size={20} style={{ color: "#fff" }} />
                       </div>
                       <span className="bg-clip-text text-transparent" style={{ fontSize: "2.2rem", fontWeight: 200, lineHeight: 1, letterSpacing: "-0.03em", backgroundImage: "linear-gradient(135deg, rgba(0,88,179,0.35), rgba(10,143,153,0.18))" }}>
@@ -963,7 +1062,7 @@ export default function EnergyStoragePageClient() {
             <div className="relative z-10">
               <Eyebrow center>Let&apos;s Build Your System</Eyebrow>
               <h2 style={{ fontSize: "clamp(2rem, 4.4vw, 3.6rem)", fontWeight: 600, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 18 }}>
-                Power that&apos;s ready<br /><GradientText>when you are.</GradientText>
+                <Lines lines={["Power that\u2019s ready", <GradientText key="g">when you are.</GradientText>]} />
               </h2>
               <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.68)", maxWidth: 500, margin: "0 auto 40px", lineHeight: 1.7 }}>
                 Talk to our energy team about sizing, financing and deployment for your home, business or grid project.
