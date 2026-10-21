@@ -79,7 +79,7 @@ export function HeroSection() {
               onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 8px 36px rgba(0,88,179,0.70)"; el.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 28px rgba(0,88,179,0.45)"; el.style.transform = "translateY(0)"; }}
             >
-              Explore Network <ArrowRight size={17} />
+              Our Charging Network <ArrowRight size={17} />
             </Link>
             <Link
               href="/investors"
@@ -105,7 +105,7 @@ export function HeroSection() {
                 el.style.transform = "translateY(0)";
               }}
             >
-              Investor Overview <ArrowRight size={16} />
+              Investor Relations <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
