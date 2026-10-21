@@ -12,6 +12,12 @@ import {
 const EASE = [0.16, 1, 0.3, 1] as const;
 const CYAN = "#30E7ED";
 const BLUE = "#7ab8ff";
+// Light-section palette — cyan is too faint on white, so accents shift to brand blue / deep teal
+const INK = "#0b1530";
+const INK_SOFT = "rgba(11,21,48,0.62)";
+const ACCENT = "#0058B3";
+const TEAL = "#0a8f99";
+const LIGHT_BG = "#f4f7fc";
 
 /* ─── Data ───────────────────────────────────────────────────── */
 type Hotspot = { id: string; x: number; y: number; title: string; desc: string };
@@ -78,18 +84,22 @@ const useCases = [
 ];
 
 /* ─── Shared bits ────────────────────────────────────────────── */
-function Eyebrow({ children, center }: { children: React.ReactNode; center?: boolean }) {
+function Eyebrow({ children, center, light }: { children: React.ReactNode; center?: boolean; light?: boolean }) {
+  const color = light ? ACCENT : CYAN;
   return (
-    <p style={{ display: "flex", alignItems: "center", justifyContent: center ? "center" : "flex-start", gap: 10, fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: CYAN, marginBottom: 16 }}>
-      <span style={{ width: 3, height: 16, borderRadius: 2, background: CYAN, boxShadow: `0 0 10px ${CYAN}` }} />
-      <span style={{ opacity: 0.8 }}>{children}</span>
+    <p style={{ display: "flex", alignItems: "center", justifyContent: center ? "center" : "flex-start", gap: 10, fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color, marginBottom: 16 }}>
+      <span style={{ width: 3, height: 16, borderRadius: 2, background: color, boxShadow: light ? "none" : `0 0 10px ${CYAN}` }} />
+      <span style={{ opacity: light ? 1 : 0.8 }}>{children}</span>
     </p>
   );
 }
 
-function GradientText({ children }: { children: React.ReactNode }) {
+function GradientText({ children, light }: { children: React.ReactNode; light?: boolean }) {
+  const gradient = light
+    ? `linear-gradient(110deg, ${ACCENT} 0%, #0a7fd1 55%, ${TEAL} 100%)`
+    : `linear-gradient(110deg, ${CYAN} 0%, ${BLUE} 55%, #0070e0 100%)`;
   return (
-    <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(110deg, ${CYAN} 0%, ${BLUE} 55%, #0070e0 100%)` }}>
+    <span className="bg-clip-text text-transparent" style={{ backgroundImage: gradient }}>
       {children}
     </span>
   );
@@ -146,16 +156,16 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
       transition={{ duration: 0.8, delay: 0.25 + index * 0.12, ease: EASE }}
       style={{
         borderRadius: 20, padding: "22px 24px",
-        background: "rgba(10,22,44,0.72)",
+        background: "rgba(255,255,255,0.94)",
         backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
+        border: "1px solid rgba(11,21,48,0.06)",
+        boxShadow: "0 20px 50px rgba(11,21,48,0.10)",
       }}
     >
-      <p style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)", fontWeight: 300, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 10px" }}>
+      <p style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)", fontWeight: 300, color: INK, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 10px" }}>
         <CountUp to={stat.value} decimals={stat.decimals} prefix={stat.prefix} suffix={stat.suffix} />
       </p>
-      <p style={{ fontSize: 13, color: "rgba(255,255,255,0.48)", lineHeight: 1.55, margin: 0, maxWidth: 220 }}>{stat.label}</p>
+      <p style={{ fontSize: 13, color: INK_SOFT, lineHeight: 1.55, margin: 0, maxWidth: 220 }}>{stat.label}</p>
     </motion.div>
   );
 }
@@ -165,8 +175,8 @@ function ProductShowcase() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: "linear-gradient(180deg, #060d1f 0%, #091528 55%, #060d1f 100%)", padding: "110px 0 120px" }}>
-      <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)", width: 900, maxWidth: "100%", height: 600, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(48,231,237,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
+    <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "110px 0 120px" }}>
+      <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)", width: 900, maxWidth: "100%", height: 600, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(0,88,179,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
 
       <div className="section-padding max-w-[1440px] mx-auto relative z-10">
         <motion.div
@@ -177,10 +187,10 @@ function ProductShowcase() {
           className="text-center"
           style={{ marginBottom: 72 }}
         >
-          <Eyebrow center>Our Products</Eyebrow>
-          <h2 style={{ fontSize: "clamp(2rem, 4.6vw, 3.6rem)", fontWeight: 600, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", margin: 0 }}>
+          <Eyebrow center light>Our Products</Eyebrow>
+          <h2 style={{ fontSize: "clamp(2rem, 4.6vw, 3.6rem)", fontWeight: 600, color: INK, lineHeight: 1.1, letterSpacing: "-0.02em", margin: 0 }}>
             Energy Storage for<br />
-            <GradientText>Homes, Businesses &amp; the Grid</GradientText>
+            <GradientText light>Homes, Businesses &amp; the Grid</GradientText>
           </h2>
         </motion.div>
 
@@ -199,7 +209,7 @@ function ProductShowcase() {
               className="relative w-full"
               style={{ aspectRatio: "3 / 2" }}
             >
-              <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 28, border: "1px solid rgba(48,231,237,0.16)", boxShadow: "0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(48,231,237,0.08)" }}>
+              <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 28, border: "1px solid rgba(11,21,48,0.06)", boxShadow: "0 40px 90px rgba(11,21,48,0.18)" }}>
                 <Image src="/product-storage-unit.png" alt="PCE 2500 kWh containerised energy storage unit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 62vw" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.45) 0%, transparent 40%)" }} />
               </div>
@@ -253,12 +263,12 @@ function ProductShowcase() {
               <AnimatePresence mode="wait">
                 {active ? (
                   <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}
-                    style={{ padding: "16px 18px", borderRadius: 16, background: "rgba(10,22,44,0.8)", border: "1px solid rgba(48,231,237,0.25)" }}>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>{unitHotspots.find(h => h.id === active)?.title}</p>
-                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6, margin: 0 }}>{unitHotspots.find(h => h.id === active)?.desc}</p>
+                    style={{ padding: "16px 18px", borderRadius: 16, background: "#fff", border: "1px solid rgba(0,88,179,0.18)", boxShadow: "0 12px 30px rgba(11,21,48,0.08)" }}>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: INK, margin: "0 0 6px" }}>{unitHotspots.find(h => h.id === active)?.title}</p>
+                    <p style={{ fontSize: 13, color: INK_SOFT, lineHeight: 1.6, margin: 0 }}>{unitHotspots.find(h => h.id === active)?.desc}</p>
                   </motion.div>
                 ) : (
-                  <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", textAlign: "center", margin: 0 }}>
+                  <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ fontSize: 13, color: "rgba(11,21,48,0.45)", textAlign: "center", margin: 0 }}>
                     Tap a hotspot to explore the system
                   </motion.p>
                 )}
@@ -287,7 +297,7 @@ function SiteScene() {
   const current = sceneHotspots.find(h => h.id === active)!;
 
   return (
-    <section style={{ position: "relative", background: "#060d1f", padding: "40px 0 120px" }}>
+    <section style={{ position: "relative", background: LIGHT_BG, padding: "40px 0 120px" }}>
       <div className="section-padding max-w-[1440px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -298,12 +308,12 @@ function SiteScene() {
           style={{ marginBottom: 48 }}
         >
           <div>
-            <Eyebrow>One Connected System</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 620, margin: 0 }}>
-              Generation, storage and control — <GradientText>working as one.</GradientText>
+            <Eyebrow light>One Connected System</Eyebrow>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 620, margin: 0 }}>
+              Generation, storage and control — <GradientText light>working as one.</GradientText>
             </h2>
           </div>
-          <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.45)", maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
+          <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
             Every PCE storage site pairs batteries with power conversion and intelligent control, so clean energy is there exactly when it&apos;s needed.
           </p>
         </motion.div>
@@ -314,7 +324,7 @@ function SiteScene() {
           viewport={{ once: true, margin: "-8%" }}
           transition={{ duration: 0.9, ease: EASE }}
           className="relative w-full overflow-hidden"
-          style={{ aspectRatio: "3 / 2", borderRadius: 28, border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 40px 100px rgba(0,0,0,0.5)" }}
+          style={{ aspectRatio: "3 / 2", borderRadius: 28, border: "1px solid rgba(11,21,48,0.06)", boxShadow: "0 40px 90px rgba(11,21,48,0.16)" }}
         >
           <Image src="/solar-hub.png" alt="PCE solar energy hub with battery storage containers" fill className="object-cover" sizes="(max-width: 1440px) 100vw, 1300px" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.55) 0%, rgba(6,13,31,0.05) 45%, rgba(6,13,31,0.25) 100%)" }} />
@@ -368,16 +378,16 @@ function SiteScene() {
             {sceneHotspots.map(h => (
               <button key={h.id} type="button" onClick={() => setActive(h.id)}
                 style={{ padding: "7px 14px", borderRadius: 999, fontSize: 12.5, fontWeight: 500, cursor: "pointer",
-                  background: active === h.id ? "rgba(48,231,237,0.14)" : "rgba(255,255,255,0.05)",
-                  border: `1px solid ${active === h.id ? "rgba(48,231,237,0.5)" : "rgba(255,255,255,0.12)"}`,
-                  color: active === h.id ? CYAN : "rgba(255,255,255,0.7)" }}>
+                  background: active === h.id ? "rgba(0,88,179,0.08)" : "#fff",
+                  border: `1px solid ${active === h.id ? "rgba(0,88,179,0.4)" : "rgba(11,21,48,0.10)"}`,
+                  color: active === h.id ? ACCENT : INK_SOFT }}>
                 {h.label}
               </button>
             ))}
           </div>
-          <div style={{ padding: "18px 20px", borderRadius: 16, background: "rgba(10,22,44,0.8)", border: "1px solid rgba(48,231,237,0.2)" }}>
-            <p style={{ fontSize: 15, fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>{current.title}</p>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
+          <div style={{ padding: "18px 20px", borderRadius: 16, background: "#fff", border: "1px solid rgba(11,21,48,0.08)", boxShadow: "0 12px 30px rgba(11,21,48,0.06)" }}>
+            <p style={{ fontSize: 15, fontWeight: 600, color: INK, margin: "0 0 6px" }}>{current.title}</p>
+            <p style={{ fontSize: 13, color: INK_SOFT, lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
           </div>
         </div>
       </div>
@@ -628,6 +638,7 @@ function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) 
   const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-6%" });
+  const tone = item.color === CYAN ? TEAL : ACCENT;
 
   return (
     <motion.div
@@ -642,32 +653,32 @@ function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) 
         style={{
           height: "100%", borderRadius: 24, padding: 2,
           background: item.featured || hovered
-            ? `linear-gradient(135deg, ${item.color}55 0%, rgba(255,255,255,0.06) 100%)`
-            : "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)",
-          boxShadow: hovered ? `0 0 36px ${item.color}18, 0 20px 60px rgba(0,0,0,0.35)` : "0 4px 20px rgba(0,0,0,0.25)",
+            ? `linear-gradient(135deg, ${tone}66 0%, rgba(11,21,48,0.06) 100%)`
+            : "rgba(11,21,48,0.07)",
+          boxShadow: hovered ? "0 24px 60px rgba(11,21,48,0.14)" : "0 8px 28px rgba(11,21,48,0.06)",
           transform: hovered ? "translateY(-6px)" : "translateY(0)",
           transition: "transform 0.32s cubic-bezier(0.16,1,0.3,1), box-shadow 0.32s ease, background 0.32s ease",
         }}
       >
-        <div style={{ position: "relative", borderRadius: 22, padding: "32px 28px 36px", background: "rgba(10,20,40,0.92)", height: "100%", display: "flex", flexDirection: "column" }}>
+        <div style={{ position: "relative", borderRadius: 22, padding: "32px 28px 36px", background: "#fff", height: "100%", display: "flex", flexDirection: "column" }}>
           {item.featured && (
-            <span style={{ position: "absolute", top: 20, right: 20, padding: "4px 10px", borderRadius: 999, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: CYAN, background: "rgba(48,231,237,0.10)", border: "1px solid rgba(48,231,237,0.35)" }}>
+            <span style={{ position: "absolute", top: 20, right: 20, padding: "4px 10px", borderRadius: 999, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: TEAL, background: "rgba(10,143,153,0.08)", border: "1px solid rgba(10,143,153,0.32)" }}>
               Flagship
             </span>
           )}
-          <div style={{ width: 52, height: 52, borderRadius: 14, marginBottom: 24, background: `${item.color}14`, border: `1px solid ${item.color}40`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <item.icon size={22} style={{ color: item.color }} />
+          <div style={{ width: 52, height: 52, borderRadius: 14, marginBottom: 24, background: `${tone}12`, border: `1px solid ${tone}33`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <item.icon size={22} style={{ color: tone }} />
           </div>
-          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", margin: "0 0 6px" }}>{item.tag}</p>
-          <h3 style={{ fontSize: "1.35rem", fontWeight: 700, color: "#fff", margin: "0 0 4px", letterSpacing: "-0.01em" }}>{item.name}</h3>
-          <p style={{ fontSize: "1.05rem", fontWeight: 300, color: item.color, margin: "0 0 18px" }}>{item.capacity}</p>
-          <div style={{ height: 1, background: `linear-gradient(90deg, ${item.color}40, transparent)`, marginBottom: 18 }} />
-          <p style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, margin: "0 0 22px" }}>{item.desc}</p>
+          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(11,21,48,0.45)", margin: "0 0 6px" }}>{item.tag}</p>
+          <h3 style={{ fontSize: "1.35rem", fontWeight: 700, color: INK, margin: "0 0 4px", letterSpacing: "-0.01em" }}>{item.name}</h3>
+          <p style={{ fontSize: "1.05rem", fontWeight: 400, color: tone, margin: "0 0 18px" }}>{item.capacity}</p>
+          <div style={{ height: 1, background: `linear-gradient(90deg, ${tone}40, transparent)`, marginBottom: 18 }} />
+          <p style={{ fontSize: "0.9rem", color: INK_SOFT, lineHeight: 1.7, margin: "0 0 22px" }}>{item.desc}</p>
           <ul style={{ listStyle: "none", margin: 0, padding: 0, marginTop: "auto", display: "flex", flexDirection: "column", gap: 9 }}>
             {item.bullets.map(b => (
               <li key={b} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <CheckCircle2 size={14} style={{ color: item.color, flexShrink: 0 }} />
-                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.62)", fontWeight: 500 }}>{b}</span>
+                <CheckCircle2 size={14} style={{ color: tone, flexShrink: 0 }} />
+                <span style={{ fontSize: "0.85rem", color: "rgba(11,21,48,0.75)", fontWeight: 500 }}>{b}</span>
               </li>
             ))}
           </ul>
@@ -739,8 +750,7 @@ export default function EnergyStoragePageClient() {
       <EnergyFlow />
 
       {/* ── Product lineup ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#060d1f", padding: "100px 0 110px" }}>
-        <div style={{ position: "absolute", top: "20%", left: "3%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(48,231,237,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+      <section style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "110px 0 110px" }}>
         <div className="section-padding max-w-[1440px] mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -749,11 +759,11 @@ export default function EnergyStoragePageClient() {
             transition={{ duration: 0.7, ease: EASE }}
             style={{ marginBottom: 56 }}
           >
-            <Eyebrow>The Range</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: "0 0 16px" }}>
+            <Eyebrow light>The Range</Eyebrow>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: "0 0 16px" }}>
               From a single home to a whole grid.
             </h2>
-            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.42)", maxWidth: 500, lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 500, lineHeight: 1.7, margin: 0 }}>
               One storage platform, sized to fit — every system is monitored and managed through PCE&apos;s energy software.
             </p>
           </motion.div>
@@ -764,7 +774,7 @@ export default function EnergyStoragePageClient() {
       </section>
 
       {/* ── Use cases ── */}
-      <section style={{ background: "linear-gradient(180deg, #060d1f 0%, #091528 100%)", padding: "40px 0 110px" }}>
+      <section style={{ background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "20px 0 110px" }}>
         <div className="section-padding max-w-[1440px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -773,12 +783,12 @@ export default function EnergyStoragePageClient() {
             transition={{ duration: 0.7, ease: EASE }}
             style={{ marginBottom: 48 }}
           >
-            <Eyebrow>Applications</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: 0 }}>
+            <Eyebrow light>Applications</Eyebrow>
+            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: 0 }}>
               What PCE storage does for you.
             </h2>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 1, background: "rgba(255,255,255,0.06)", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 1, background: "rgba(11,21,48,0.08)", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(11,21,48,0.08)", boxShadow: "0 20px 50px rgba(11,21,48,0.06)" }}>
             {useCases.map((u, i) => (
               <motion.div
                 key={u.title}
@@ -787,11 +797,11 @@ export default function EnergyStoragePageClient() {
                 viewport={{ once: true, margin: "-6%" }}
                 transition={{ duration: 0.6, delay: i * 0.06 }}
                 className="group"
-                style={{ padding: "32px 28px", background: "#07112a" }}
+                style={{ padding: "32px 28px", background: "#fff" }}
               >
-                <u.icon size={22} style={{ color: CYAN, marginBottom: 18 }} />
-                <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#fff", margin: "0 0 8px" }}>{u.title}</h3>
-                <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.48)", lineHeight: 1.7, margin: 0 }}>{u.desc}</p>
+                <u.icon size={22} style={{ color: ACCENT, marginBottom: 18 }} />
+                <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: INK, margin: "0 0 8px" }}>{u.title}</h3>
+                <p style={{ fontSize: "0.88rem", color: INK_SOFT, lineHeight: 1.7, margin: 0 }}>{u.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -799,7 +809,7 @@ export default function EnergyStoragePageClient() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background: "#091528", padding: "40px 0 110px" }}>
+      <section style={{ background: LIGHT_BG, padding: "40px 0 110px" }}>
         <div className="section-padding max-w-[1440px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
