@@ -146,6 +146,103 @@ function PulseDot({ active, size = 34 }: { active?: boolean; size?: number }) {
   );
 }
 
+/* ─── Abstract décor ─────────────────────────────────────────── */
+type Blob = { color: string; size: string; pos: React.CSSProperties; variant: "a" | "b"; duration: number; delay?: number };
+
+// Soft colour fields that drift slowly along a section's edges (CSS-animated, transform only)
+function Aurora({ blobs }: { blobs: Blob[] }) {
+  return (
+    <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
+      {blobs.map((b, i) => (
+        <div
+          key={i}
+          className={`absolute rounded-full pce-drift-${b.variant}`}
+          style={{ ...b.pos, width: b.size, height: b.size, background: `radial-gradient(circle at center, ${b.color} 0%, transparent 68%)`, animationDuration: `${b.duration}s`, animationDelay: `${b.delay ?? 0}s` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const EDGES_LIGHT: Blob[] = [
+  { color: "rgba(0,88,179,0.30)",   size: "min(60vw, 820px)", pos: { left: "-24%", top: "4%" },     variant: "a", duration: 22 },
+  { color: "rgba(99,102,241,0.24)", size: "min(46vw, 620px)", pos: { left: "-16%", bottom: "-14%" }, variant: "b", duration: 26 },
+  { color: "rgba(48,231,237,0.40)", size: "min(56vw, 760px)", pos: { right: "-22%", top: "-8%" },   variant: "b", duration: 24 },
+  { color: "rgba(0,112,224,0.22)",  size: "min(42vw, 580px)", pos: { right: "-14%", bottom: "-12%" }, variant: "a", duration: 28, delay: -6 },
+];
+const EDGES_LIGHT_ALT: Blob[] = [
+  { color: "rgba(48,231,237,0.36)", size: "min(54vw, 740px)", pos: { left: "-22%", top: "-10%" },   variant: "b", duration: 25 },
+  { color: "rgba(0,88,179,0.26)",   size: "min(48vw, 660px)", pos: { left: "-18%", bottom: "-6%" }, variant: "a", duration: 29, delay: -8 },
+  { color: "rgba(99,102,241,0.26)", size: "min(58vw, 800px)", pos: { right: "-24%", top: "20%" },   variant: "a", duration: 23 },
+];
+const EDGES_PANEL: Blob[] = [
+  { color: "rgba(0,88,179,0.26)",   size: "min(50vw, 680px)", pos: { left: "-16%", top: "-40%" },  variant: "a", duration: 20 },
+  { color: "rgba(48,231,237,0.32)", size: "min(46vw, 640px)", pos: { right: "-14%", top: "-20%" }, variant: "b", duration: 24 },
+  { color: "rgba(99,102,241,0.14)", size: "min(36vw, 480px)", pos: { left: "40%", top: "-60%" },   variant: "b", duration: 30, delay: -10 },
+];
+const EDGES_DARK: Blob[] = [
+  { color: "rgba(0,88,179,0.45)",   size: "min(60vw, 820px)", pos: { left: "-26%", top: "-14%" },  variant: "a", duration: 24 },
+  { color: "rgba(48,231,237,0.22)", size: "min(52vw, 720px)", pos: { right: "-22%", top: "18%" },  variant: "b", duration: 27 },
+  { color: "rgba(99,102,241,0.24)", size: "min(44vw, 600px)", pos: { left: "-12%", bottom: "-20%" }, variant: "b", duration: 30, delay: -9 },
+];
+const CTA_BLOBS: Blob[] = [
+  { color: "rgba(0,112,224,0.85)",  size: "min(70vw, 900px)", pos: { left: "-20%", top: "-50%" },   variant: "a", duration: 16 },
+  { color: "rgba(48,231,237,0.55)", size: "min(56vw, 720px)", pos: { right: "-14%", bottom: "-60%" }, variant: "b", duration: 19 },
+  { color: "rgba(99,102,241,0.55)", size: "min(46vw, 600px)", pos: { right: "18%", top: "-55%" },   variant: "b", duration: 22, delay: -7 },
+];
+
+// Fine film grain — keeps large gradients from looking flat or banded
+const GRAIN = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")`;
+function Grain({ opacity = 0.05 }: { opacity?: number }) {
+  return <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ backgroundImage: GRAIN, opacity, mixBlendMode: "overlay" }} />;
+}
+
+function DotField({ color = "rgba(122,184,255,0.22)", mask = "radial-gradient(ellipse 70% 60% at 50% 50%, #000 20%, transparent 75%)" }: { color?: string; mask?: string }) {
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `radial-gradient(${color} 1px, transparent 1.6px)`, backgroundSize: "22px 22px", maskImage: mask, WebkitMaskImage: mask }} />
+  );
+}
+
+// Concentric rings that slowly orbit behind a subject, each carrying a glowing marker
+function OrbitRings({ dark }: { dark?: boolean }) {
+  const rings = [
+    { size: "64%",  cls: "pce-spin",     dur: 50,  dashed: false, dot: dark ? CYAN : ACCENT },
+    { size: "86%",  cls: "pce-spin-rev", dur: 80,  dashed: true,  dot: dark ? BLUE : TEAL },
+    { size: "108%", cls: "pce-spin",     dur: 110, dashed: false, dot: "#6366f1" },
+  ];
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none flex items-center justify-center">
+      {rings.map((r, i) => (
+        <div
+          key={r.size}
+          className={`absolute rounded-full ${r.cls}`}
+          style={{ width: r.size, aspectRatio: "1 / 1", border: `1px ${r.dashed ? "dashed" : "solid"} ${dark ? `rgba(255,255,255,${0.16 - i * 0.04})` : `rgba(0,88,179,${0.18 - i * 0.04})`}`, animationDuration: `${r.dur}s` }}
+        >
+          <span className="absolute rounded-full" style={{ top: -4, left: "50%", width: 8, height: 8, marginLeft: -4, background: r.dot, boxShadow: `0 0 16px ${r.dot}` }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Card wrapper with a soft light that follows the cursor
+function Spotlight({ children, color = "rgba(0,88,179,0.10)", radius = 24, className, style }: { children: React.ReactNode; color?: string; radius?: number; className?: string; style?: React.CSSProperties }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+  return (
+    <div ref={ref} onMouseMove={onMove} className={`group relative ${className ?? ""}`} style={{ borderRadius: radius, ...style }}>
+      <div aria-hidden className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ borderRadius: radius, background: `radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), ${color}, transparent 65%)` }} />
+      <div className="relative h-full">{children}</div>
+    </div>
+  );
+}
+
 /* ─── Product showcase (hotspots + floating stats) ───────────── */
 function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   return (
@@ -156,12 +253,13 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
       transition={{ duration: 0.8, delay: 0.25 + index * 0.12, ease: EASE }}
       style={{
         borderRadius: 20, padding: "22px 24px",
-        background: "rgba(255,255,255,0.94)",
-        backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(11,21,48,0.06)",
-        boxShadow: "0 20px 50px rgba(11,21,48,0.10)",
+        background: "rgba(255,255,255,0.66)",
+        backdropFilter: "blur(18px) saturate(140%)", WebkitBackdropFilter: "blur(18px) saturate(140%)",
+        border: "1px solid rgba(255,255,255,0.9)",
+        boxShadow: "0 20px 50px rgba(11,21,48,0.10), inset 0 1px 0 rgba(255,255,255,0.8)",
       }}
     >
+      <span style={{ display: "block", width: 28, height: 3, borderRadius: 2, marginBottom: 14, background: `linear-gradient(90deg, ${ACCENT}, ${TEAL})` }} />
       <p style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)", fontWeight: 300, color: INK, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 10px" }}>
         <CountUp to={stat.value} decimals={stat.decimals} prefix={stat.prefix} suffix={stat.suffix} />
       </p>
@@ -175,8 +273,9 @@ function ProductShowcase() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "110px 0 120px" }}>
-      <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)", width: 900, maxWidth: "100%", height: 600, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(0,88,179,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
+    <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "120px 0 140px" }}>
+      <Aurora blobs={EDGES_LIGHT} />
+      <Grain />
 
       <div className="section-padding max-w-[1680px] mx-auto relative z-10">
         <motion.div
@@ -203,6 +302,7 @@ function ProductShowcase() {
             transition={{ duration: 1, ease: EASE }}
             className="relative mx-auto w-full lg:w-[76%]"
           >
+            <OrbitRings />
             <motion.div
               animate={reduce ? undefined : { y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -278,7 +378,7 @@ function ProductShowcase() {
 
           {/* Floating stats — absolutely placed on desktop, grid below on smaller screens */}
           {stats.map((s, i) => (
-            <div key={s.label} className="hidden lg:block absolute" style={{ ...s.pos, width: "15%", minWidth: 200, zIndex: 25 }}>
+            <div key={s.label} className="hidden lg:block absolute pce-float" style={{ ...s.pos, width: "15%", minWidth: 200, zIndex: 25, animationDelay: `${i * -1.7}s` }}>
               <StatCard stat={s} index={i} />
             </div>
           ))}
@@ -303,20 +403,16 @@ function SiteScene() {
         <div className="relative overflow-hidden" style={{ borderRadius: 28, background: "#fff", boxShadow: "0 30px 80px rgba(11,21,48,0.10)" }}>
           <div
             className="relative"
-            style={{
-              background: [
-                "radial-gradient(ellipse 38% 70% at 4% 70%, rgba(0,88,179,0.20) 0%, transparent 70%)",
-                "radial-gradient(ellipse 34% 70% at 98% 85%, rgba(48,231,237,0.26) 0%, transparent 70%)",
-                "linear-gradient(180deg, #eef3fa 0%, #f6f9fd 100%)",
-              ].join(", "),
-            }}
+            style={{ background: "linear-gradient(180deg, #eef3fa 0%, #f6f9fd 100%)" }}
           >
+            <Aurora blobs={EDGES_PANEL} />
+            <Grain />
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-8%" }}
               transition={{ duration: 0.7, ease: EASE }}
-              className="section-padding max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+              className="section-padding max-w-[1440px] mx-auto relative z-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
               style={{ paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(44px, 6vw, 80px)" }}
             >
               <div>
@@ -474,8 +570,12 @@ function EnergyFlow() {
   ];
 
   return (
-    <section style={{ position: "relative", overflow: "hidden", background: "linear-gradient(180deg, #060d1f 0%, #081326 50%, #060d1f 100%)", padding: "110px 0 120px" }}>
-      <div style={{ position: "absolute", bottom: "10%", right: "5%", width: 420, height: 420, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,88,179,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
+    <section style={{ position: "relative", overflow: "hidden", background: "#050b1a", padding: "130px 0 150px" }}>
+      <Aurora blobs={EDGES_DARK} />
+      <DotField />
+      {/* Horizon glow rising from the bottom edge */}
+      <div aria-hidden className="absolute pointer-events-none pce-glow" style={{ left: "50%", bottom: "-38%", width: "130%", height: "70%", borderRadius: "50%", background: "radial-gradient(ellipse at center, rgba(0,88,179,0.55) 0%, rgba(48,231,237,0.14) 38%, transparent 68%)" }} />
+      <Grain opacity={0.08} />
 
       <div className="section-padding max-w-[1440px] mx-auto relative z-10">
         <motion.div
@@ -642,7 +742,6 @@ function HeroVideo() {
 
 /* ─── Product lineup ─────────────────────────────────────────── */
 function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) {
-  const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-6%" });
   const tone = item.color === CYAN ? TEAL : ACCENT;
@@ -650,46 +749,53 @@ function LineupCard({ item, index }: { item: typeof lineup[0]; index: number }) 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: EASE }}
+      transition={{ duration: 0.8, delay: index * 0.12, ease: EASE }}
+      className="h-full"
     >
       <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className="relative h-full overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1.5"
         style={{
-          height: "100%", borderRadius: 24, padding: 2,
-          background: item.featured || hovered
-            ? `linear-gradient(135deg, ${tone}66 0%, rgba(11,21,48,0.06) 100%)`
-            : "rgba(11,21,48,0.07)",
-          boxShadow: hovered ? "0 24px 60px rgba(11,21,48,0.14)" : "0 8px 28px rgba(11,21,48,0.06)",
-          transform: hovered ? "translateY(-6px)" : "translateY(0)",
-          transition: "transform 0.32s cubic-bezier(0.16,1,0.3,1), box-shadow 0.32s ease, background 0.32s ease",
+          borderRadius: 26, padding: 1.5,
+          background: item.featured ? "transparent" : "linear-gradient(160deg, rgba(255,255,255,0.95), rgba(11,21,48,0.08))",
+          boxShadow: item.featured ? "0 30px 70px rgba(0,88,179,0.18)" : "0 20px 50px rgba(11,21,48,0.08)",
         }}
       >
-        <div style={{ position: "relative", borderRadius: 22, padding: "32px 28px 36px", background: "#fff", height: "100%", display: "flex", flexDirection: "column" }}>
-          {item.featured && (
-            <span style={{ position: "absolute", top: 20, right: 20, padding: "4px 10px", borderRadius: 999, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: TEAL, background: "rgba(10,143,153,0.08)", border: "1px solid rgba(10,143,153,0.32)" }}>
-              Flagship
-            </span>
-          )}
-          <div style={{ width: 52, height: 52, borderRadius: 14, marginBottom: 24, background: `${tone}12`, border: `1px solid ${tone}33`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <item.icon size={22} style={{ color: tone }} />
+        {/* Rotating conic border — only the 1.5px rim shows around the card face */}
+        {item.featured && (
+          <div aria-hidden className="absolute pce-spin" style={{ inset: "-60%", background: `conic-gradient(from 0deg, ${ACCENT}, ${CYAN}, #6366f1, ${ACCENT})`, animationDuration: "7s" }} />
+        )}
+        <Spotlight
+          radius={24.5}
+          color={`${tone}1f`}
+          className="h-full"
+          style={{ background: item.featured ? "#ffffff" : "rgba(255,255,255,0.72)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+        >
+          <div style={{ padding: "34px 30px 36px", height: "100%", display: "flex", flexDirection: "column" }}>
+            {item.featured && (
+              <span style={{ position: "absolute", top: 22, right: 22, padding: "4px 10px", borderRadius: 999, fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#fff", background: `linear-gradient(135deg, ${ACCENT}, ${TEAL})` }}>
+                Flagship
+              </span>
+            )}
+            <div style={{ width: 54, height: 54, borderRadius: 16, marginBottom: 26, background: `linear-gradient(135deg, ${tone}, ${tone === TEAL ? CYAN : "#0a7fd1"})`, boxShadow: `0 12px 28px ${tone}40`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <item.icon size={23} style={{ color: "#fff" }} />
+            </div>
+            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(11,21,48,0.45)", margin: "0 0 6px" }}>{item.tag}</p>
+            <h3 style={{ fontSize: "1.4rem", fontWeight: 700, color: INK, margin: "0 0 4px", letterSpacing: "-0.01em" }}>{item.name}</h3>
+            <p style={{ fontSize: "1.1rem", fontWeight: 400, color: tone, margin: "0 0 18px" }}>{item.capacity}</p>
+            <div style={{ height: 1, background: `linear-gradient(90deg, ${tone}55, transparent)`, marginBottom: 18 }} />
+            <p style={{ fontSize: "0.9rem", color: INK_SOFT, lineHeight: 1.7, margin: "0 0 22px" }}>{item.desc}</p>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, marginTop: "auto", display: "flex", flexDirection: "column", gap: 9 }}>
+              {item.bullets.map(b => (
+                <li key={b} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <CheckCircle2 size={14} style={{ color: tone, flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.85rem", color: "rgba(11,21,48,0.75)", fontWeight: 500 }}>{b}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(11,21,48,0.45)", margin: "0 0 6px" }}>{item.tag}</p>
-          <h3 style={{ fontSize: "1.35rem", fontWeight: 700, color: INK, margin: "0 0 4px", letterSpacing: "-0.01em" }}>{item.name}</h3>
-          <p style={{ fontSize: "1.05rem", fontWeight: 400, color: tone, margin: "0 0 18px" }}>{item.capacity}</p>
-          <div style={{ height: 1, background: `linear-gradient(90deg, ${tone}40, transparent)`, marginBottom: 18 }} />
-          <p style={{ fontSize: "0.9rem", color: INK_SOFT, lineHeight: 1.7, margin: "0 0 22px" }}>{item.desc}</p>
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, marginTop: "auto", display: "flex", flexDirection: "column", gap: 9 }}>
-            {item.bullets.map(b => (
-              <li key={b} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <CheckCircle2 size={14} style={{ color: tone, flexShrink: 0 }} />
-                <span style={{ fontSize: "0.85rem", color: "rgba(11,21,48,0.75)", fontWeight: 500 }}>{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </Spotlight>
       </div>
     </motion.div>
   );
@@ -756,100 +862,124 @@ export default function EnergyStoragePageClient() {
       <SiteScene />
       <EnergyFlow />
 
-      {/* ── Product lineup ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "110px 0 110px" }}>
+      {/* ── Product lineup + applications share one continuous glowing field ── */}
+      <section style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "130px 0 130px" }}>
+        <Aurora blobs={EDGES_LIGHT_ALT} />
+        <Grain />
         <div className="section-padding max-w-[1440px] mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-8%" }}
             transition={{ duration: 0.7, ease: EASE }}
-            style={{ marginBottom: 56 }}
+            className="text-center"
+            style={{ marginBottom: 64 }}
           >
-            <Eyebrow light>The Range</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: "0 0 16px" }}>
-              From a single home to a whole grid.
+            <Eyebrow center light>The Range</Eyebrow>
+            <h2 style={{ fontSize: "clamp(2rem, 4.2vw, 3.3rem)", fontWeight: 600, color: INK, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 16px" }}>
+              From a single home<br /><GradientText light>to a whole grid.</GradientText>
             </h2>
-            <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 500, lineHeight: 1.7, margin: 0 }}>
+            <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 520, lineHeight: 1.7, margin: "0 auto" }}>
               One storage platform, sized to fit — every system is monitored and managed through PCE&apos;s energy software.
             </p>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {lineup.map((item, i) => <LineupCard key={item.name} item={item} index={i} />)}
           </div>
-        </div>
-      </section>
 
-      {/* ── Use cases ── */}
-      <section style={{ background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "20px 0 110px" }}>
-        <div className="section-padding max-w-[1440px] mx-auto">
+          {/* Applications */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-8%" }}
             transition={{ duration: 0.7, ease: EASE }}
-            style={{ marginBottom: 48 }}
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+            style={{ marginTop: 140, marginBottom: 48 }}
           >
-            <Eyebrow light>Applications</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 600, margin: 0 }}>
-              What PCE storage does for you.
-            </h2>
+            <div>
+              <Eyebrow light>Applications</Eyebrow>
+              <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.1rem)", fontWeight: 600, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 720, margin: 0 }}>
+                What PCE storage <GradientText light>does for you.</GradientText>
+              </h2>
+            </div>
+            <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 400, lineHeight: 1.7, margin: 0 }}>
+              Six ways a PCE system pays for itself — from keeping the lights on to earning from the grid.
+            </p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 1, background: "rgba(11,21,48,0.08)", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(11,21,48,0.08)", boxShadow: "0 20px 50px rgba(11,21,48,0.06)" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {useCases.map((u, i) => (
               <motion.div
                 key={u.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-6%" }}
-                transition={{ duration: 0.6, delay: i * 0.06 }}
-                className="group"
-                style={{ padding: "32px 28px", background: "#fff" }}
+                transition={{ duration: 0.7, delay: (i % 3) * 0.08, ease: EASE }}
+                className="h-full"
               >
-                <u.icon size={22} style={{ color: ACCENT, marginBottom: 18 }} />
-                <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: INK, margin: "0 0 8px" }}>{u.title}</h3>
-                <p style={{ fontSize: "0.88rem", color: INK_SOFT, lineHeight: 1.7, margin: 0 }}>{u.desc}</p>
+                <Spotlight
+                  radius={22}
+                  className="h-full transition-transform duration-300 ease-out hover:-translate-y-1"
+                  style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 16px 40px rgba(11,21,48,0.06)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
+                >
+                  <div style={{ padding: "30px 28px 32px" }}>
+                    <div className="flex items-start justify-between" style={{ marginBottom: 22 }}>
+                      <div style={{ width: 46, height: 46, borderRadius: 14, background: `linear-gradient(135deg, ${ACCENT}, ${TEAL})`, boxShadow: "0 10px 24px rgba(0,88,179,0.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <u.icon size={20} style={{ color: "#fff" }} />
+                      </div>
+                      <span className="bg-clip-text text-transparent" style={{ fontSize: "2.2rem", fontWeight: 200, lineHeight: 1, letterSpacing: "-0.03em", backgroundImage: "linear-gradient(135deg, rgba(0,88,179,0.35), rgba(10,143,153,0.18))" }}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: INK, margin: "0 0 8px" }}>{u.title}</h3>
+                    <p style={{ fontSize: "0.9rem", color: INK_SOFT, lineHeight: 1.7, margin: 0 }}>{u.desc}</p>
+                  </div>
+                </Spotlight>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ background: LIGHT_BG, padding: "40px 0 110px" }}>
-        <div className="section-padding max-w-[1440px] mx-auto">
+      {/* ── CTA: animated gradient field ── */}
+      <section style={{ background: LIGHT_BG, padding: "20px 0 110px" }}>
+        <div className="px-3 sm:px-4">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 32, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-8%" }}
-            transition={{ duration: 0.7, ease: EASE }}
+            transition={{ duration: 0.9, ease: EASE }}
             className="relative overflow-hidden text-center"
-            style={{ borderRadius: 28, padding: "clamp(48px, 7vw, 80px) clamp(20px, 5vw, 64px)" }}
+            style={{ borderRadius: 32, padding: "clamp(72px, 10vw, 140px) clamp(20px, 5vw, 64px)", background: "#04122e" }}
           >
-            <Image src="/product-storage-unit.png" alt="" fill className="object-cover" sizes="(max-width: 1440px) 100vw, 1300px" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(6,13,31,0.94) 0%, rgba(0,40,90,0.82) 100%)" }} />
+            <Aurora blobs={CTA_BLOBS} />
+            <DotField color="rgba(255,255,255,0.14)" mask="radial-gradient(ellipse 60% 70% at 50% 50%, #000 10%, transparent 70%)" />
+            <div aria-hidden className="absolute pointer-events-none hidden md:block" style={{ right: "-14%", top: "50%", width: "48%", aspectRatio: "1 / 1", transform: "translateY(-50%)" }}>
+              <OrbitRings dark />
+            </div>
+            <div aria-hidden className="absolute pointer-events-none hidden md:block" style={{ left: "-18%", top: "50%", width: "40%", aspectRatio: "1 / 1", transform: "translateY(-50%)" }}>
+              <OrbitRings dark />
+            </div>
+            <Grain opacity={0.1} />
             <div className="relative z-10">
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: CYAN, opacity: 0.8, marginBottom: 16 }}>
-                Let&apos;s Build Your System
-              </p>
-              <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.8rem)", fontWeight: 700, color: "#fff", lineHeight: 1.12, letterSpacing: "-0.02em", marginBottom: 16 }}>
-                Power that&apos;s ready when you are.
+              <Eyebrow center>Let&apos;s Build Your System</Eyebrow>
+              <h2 style={{ fontSize: "clamp(2rem, 4.4vw, 3.6rem)", fontWeight: 600, color: "#fff", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: 18 }}>
+                Power that&apos;s ready<br /><GradientText>when you are.</GradientText>
               </h2>
-              <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.6)", maxWidth: 480, margin: "0 auto 36px", lineHeight: 1.7 }}>
+              <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.68)", maxWidth: 500, margin: "0 auto 40px", lineHeight: 1.7 }}>
                 Talk to our energy team about sizing, financing and deployment for your home, business or grid project.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white text-sm"
-                  style={{ padding: "15px 36px", background: "linear-gradient(135deg, #0058B3, #0070e0)", boxShadow: "0 8px 32px rgba(0,88,179,0.50)", textDecoration: "none" }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm transition-transform duration-200 hover:-translate-y-0.5"
+                  style={{ padding: "16px 36px", background: "#fff", color: INK, boxShadow: "0 10px 34px rgba(48,231,237,0.35)", textDecoration: "none" }}
                 >
                   Request a Quote <ArrowRight size={15} />
                 </Link>
                 <Link
                   href="/investors"
-                  className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm"
-                  style={{ padding: "15px 36px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.88)", textDecoration: "none" }}
+                  className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm transition-colors duration-200 hover:bg-white/15"
+                  style={{ padding: "16px 36px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.28)", color: "rgba(255,255,255,0.92)", textDecoration: "none", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
                 >
                   Partner With Us
                 </Link>

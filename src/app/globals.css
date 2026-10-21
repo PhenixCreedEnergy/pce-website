@@ -174,3 +174,33 @@
 @media (prefers-reduced-motion: reduce) {
   .pce-flow-dash, .pce-wave { animation: none; }
 }
+
+/* Energy storage page — abstract décor: drifting edge glows, orbit rings, floating cards */
+@keyframes pce-drift-a {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(7%, -9%, 0) scale(1.14); }
+  100% { transform: translate3d(-5%, 6%, 0) scale(0.94); }
+}
+@keyframes pce-drift-b {
+  0%   { transform: translate3d(0, 0, 0) scale(1.05); }
+  50%  { transform: translate3d(-8%, 7%, 0) scale(0.92); }
+  100% { transform: translate3d(5%, -6%, 0) scale(1.12); }
+}
+.pce-drift-a { animation: pce-drift-a 22s ease-in-out infinite alternate; will-change: transform; }
+.pce-drift-b { animation: pce-drift-b 26s ease-in-out infinite alternate; will-change: transform; }
+@keyframes pce-spin { to { transform: rotate(360deg); } }
+.pce-spin { animation: pce-spin 60s linear infinite; }
+.pce-spin-rev { animation: pce-spin 90s linear infinite reverse; }
+@keyframes pce-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.pce-float { animation: pce-float 7s ease-in-out infinite; }
+@keyframes pce-glow {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+}
+.pce-glow { animation: pce-glow 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .pce-drift-a, .pce-drift-b, .pce-spin, .pce-spin-rev, .pce-float, .pce-glow { animation: none; }
+}
