@@ -30,17 +30,17 @@ const unitHotspots: Hotspot[] = [
 ];
 
 const sceneHotspots: (Hotspot & { label: string })[] = [
-  { id: "ems",     label: "Site Controller",  x: 11, y: 55, title: "Site Controller", desc: "One dashboard for the whole site — monitor generation, storage and load from the PCE platform, anywhere." },
-  { id: "solar",   label: "Solar Array",      x: 40, y: 72, title: "Solar Array",     desc: "Daytime solar is captured instead of curtailed, then shifted into the evening peak when it is worth the most." },
-  { id: "pcs",     label: "Power Conversion", x: 58, y: 57, title: "Power Conversion System", desc: "Bi-directional inverters move energy between DC batteries and the AC grid in milliseconds." },
-  { id: "battery", label: "Battery Storage",  x: 84, y: 63, title: "Battery Storage", desc: "Containerised 2.5 MWh blocks that stack into multi-megawatt-hour plants as demand grows." },
+  { id: "ems",     label: "Site Controller",  x: 11, y: 56, title: "Site Controller", desc: "One dashboard for the whole site — monitor generation, storage and load from the PCE platform, anywhere." },
+  { id: "solar",   label: "Solar Array",      x: 40, y: 76, title: "Solar Array",     desc: "Daytime solar is captured instead of curtailed, then shifted into the evening peak when it is worth the most." },
+  { id: "pcs",     label: "Power Conversion", x: 58, y: 58, title: "Power Conversion System", desc: "Bi-directional inverters move energy between DC batteries and the AC grid in milliseconds." },
+  { id: "battery", label: "Battery Storage",  x: 84, y: 65, title: "Battery Storage", desc: "Containerised 2.5 MWh blocks that stack into multi-megawatt-hour plants as demand grows." },
 ];
 
 const stats = [
-  { value: 2.5,  decimals: 1, suffix: " MWh", label: "Storage capacity per containerised unit", pos: { left: "0%",  top: "14%" } },
-  { value: 20,   decimals: 0, suffix: " MWh+", label: "Scalable plant size for grid operators", pos: { left: "3%",  bottom: "4%" } },
-  { value: 6000, decimals: 0, suffix: "+",     label: "Rated charge cycles over system life",   pos: { right: "0%", top: "6%" } },
-  { value: 20,   decimals: 0, prefix: "<", suffix: " ms", label: "Response time for grid support", pos: { right: "2%", bottom: "10%" } },
+  { value: 2.5,  decimals: 1, suffix: " MWh", label: "Storage capacity per containerised unit", pos: { left: "1%",  top: "10%" } },
+  { value: 20,   decimals: 0, suffix: " MWh+", label: "Scalable plant size for grid operators", pos: { left: "4%",  bottom: "6%" } },
+  { value: 6000, decimals: 0, suffix: "+",     label: "Rated charge cycles over system life",   pos: { right: "1%", top: "4%" } },
+  { value: 20,   decimals: 0, prefix: "<", suffix: " ms", label: "Response time for grid support", pos: { right: "3%", bottom: "12%" } },
 ];
 
 const lineup = [
@@ -178,7 +178,7 @@ function ProductShowcase() {
     <section id="products" className="scroll-mt-24" style={{ position: "relative", overflow: "hidden", background: `linear-gradient(180deg, #ffffff 0%, ${LIGHT_BG} 100%)`, padding: "110px 0 120px" }}>
       <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)", width: 900, maxWidth: "100%", height: 600, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(0,88,179,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
 
-      <div className="section-padding max-w-[1440px] mx-auto relative z-10">
+      <div className="section-padding max-w-[1680px] mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -201,7 +201,7 @@ function ProductShowcase() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 1, ease: EASE }}
-            className="relative mx-auto w-full lg:w-[62%]"
+            className="relative mx-auto w-full lg:w-[76%]"
           >
             <motion.div
               animate={reduce ? undefined : { y: [0, -10, 0] }}
@@ -210,7 +210,7 @@ function ProductShowcase() {
               style={{ aspectRatio: "3 / 2" }}
             >
               <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 28, border: "1px solid rgba(11,21,48,0.06)", boxShadow: "0 40px 90px rgba(11,21,48,0.18)" }}>
-                <Image src="/product-storage-unit.png" alt="PCE 2500 kWh containerised energy storage unit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 62vw" />
+                <Image src="/product-storage-unit.png" alt="PCE 2500 kWh containerised energy storage unit" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 76vw" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.45) 0%, transparent 40%)" }} />
               </div>
 
@@ -278,7 +278,7 @@ function ProductShowcase() {
 
           {/* Floating stats — absolutely placed on desktop, grid below on smaller screens */}
           {stats.map((s, i) => (
-            <div key={s.label} className="hidden lg:block absolute" style={{ ...s.pos, width: "17%", minWidth: 210, zIndex: 25 }}>
+            <div key={s.label} className="hidden lg:block absolute" style={{ ...s.pos, width: "15%", minWidth: 200, zIndex: 25 }}>
               <StatCard stat={s} index={i} />
             </div>
           ))}
@@ -297,98 +297,105 @@ function SiteScene() {
   const current = sceneHotspots.find(h => h.id === active)!;
 
   return (
-    <section style={{ position: "relative", background: LIGHT_BG, padding: "40px 0 120px" }}>
-      <div className="section-padding max-w-[1440px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-8%" }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
-          style={{ marginBottom: 48 }}
-        >
-          <div>
-            <Eyebrow light>One Connected System</Eyebrow>
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)", fontWeight: 700, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 620, margin: 0 }}>
-              Generation, storage and control — <GradientText light>working as one.</GradientText>
-            </h2>
+    <section style={{ position: "relative", background: LIGHT_BG, padding: "24px 0 120px" }}>
+      {/* Near full-bleed card: soft gradient header panel over a full-width image */}
+      <div className="px-3 sm:px-4">
+        <div className="relative overflow-hidden" style={{ borderRadius: 28, background: "#fff", boxShadow: "0 30px 80px rgba(11,21,48,0.10)" }}>
+          <div
+            className="relative"
+            style={{
+              background: [
+                "radial-gradient(ellipse 38% 70% at 4% 70%, rgba(0,88,179,0.20) 0%, transparent 70%)",
+                "radial-gradient(ellipse 34% 70% at 98% 85%, rgba(48,231,237,0.26) 0%, transparent 70%)",
+                "linear-gradient(180deg, #eef3fa 0%, #f6f9fd 100%)",
+              ].join(", "),
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8%" }}
+              transition={{ duration: 0.7, ease: EASE }}
+              className="section-padding max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+              style={{ paddingTop: "clamp(56px, 7vw, 96px)", paddingBottom: "clamp(44px, 6vw, 80px)" }}
+            >
+              <div>
+                <Eyebrow light>One Connected System</Eyebrow>
+                <h2 style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.1rem)", fontWeight: 600, color: INK, lineHeight: 1.12, letterSpacing: "-0.02em", maxWidth: 640, margin: 0 }}>
+                  Generation, storage and control — <GradientText light>working as one.</GradientText>
+                </h2>
+              </div>
+              <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
+                Every PCE storage site pairs batteries with power conversion and intelligent control, so clean energy is there exactly when it&apos;s needed.
+              </p>
+            </motion.div>
           </div>
-          <p style={{ fontSize: "1rem", color: INK_SOFT, maxWidth: 420, lineHeight: 1.7, margin: 0 }}>
-            Every PCE storage site pairs batteries with power conversion and intelligent control, so clean energy is there exactly when it&apos;s needed.
-          </p>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-8%" }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="relative w-full overflow-hidden"
-          style={{ aspectRatio: "3 / 2", borderRadius: 28, border: "1px solid rgba(11,21,48,0.06)", boxShadow: "0 40px 90px rgba(11,21,48,0.16)" }}
-        >
-          <Image src="/solar-hub.png" alt="PCE solar energy hub with battery storage containers" fill className="object-cover" sizes="(max-width: 1440px) 100vw, 1300px" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.55) 0%, rgba(6,13,31,0.05) 45%, rgba(6,13,31,0.25) 100%)" }} />
+          <div className="relative w-full" style={{ aspectRatio: "16 / 9" }}>
+            <Image src="/solar-hub.png" alt="PCE solar energy hub with battery storage containers" fill className="object-cover" sizes="100vw" />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.45) 0%, rgba(6,13,31,0.04) 40%, transparent 100%)" }} />
 
-          {sceneHotspots.map(h => {
-            const isActive = active === h.id;
-            return (
-              <button
-                key={h.id}
-                type="button"
-                onClick={() => setActive(h.id)}
-                aria-pressed={isActive}
-                className="absolute flex items-center gap-2 sm:gap-3 rounded-full"
-                style={{
-                  left: `${h.x}%`, top: `${h.y}%`, transform: "translate(-50%, -50%)",
-                  padding: "4px 4px 4px 4px",
-                  background: isActive ? "rgba(6,18,36,0.85)" : "rgba(6,18,36,0.55)",
-                  backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-                  border: `1px solid ${isActive ? "rgba(48,231,237,0.6)" : "rgba(255,255,255,0.22)"}`,
-                  boxShadow: isActive ? "0 0 24px rgba(48,231,237,0.3)" : "0 8px 24px rgba(0,0,0,0.3)",
-                  cursor: "pointer", transition: "background 0.25s, border-color 0.25s, box-shadow 0.25s",
-                }}
-              >
-                <span className="hidden sm:inline" style={{ paddingLeft: 14, fontSize: 14, fontWeight: 500, color: "#fff", whiteSpace: "nowrap" }}>{h.label}</span>
-                <PulseDot active={isActive} size={28} />
-              </button>
-            );
-          })}
+            {sceneHotspots.map(h => {
+              const isActive = active === h.id;
+              return (
+                <button
+                  key={h.id}
+                  type="button"
+                  onClick={() => setActive(h.id)}
+                  aria-pressed={isActive}
+                  className="absolute flex items-center gap-2 sm:gap-3 rounded-full"
+                  style={{
+                    left: `${h.x}%`, top: `${h.y}%`, transform: "translate(-50%, -50%)",
+                    padding: 4,
+                    background: isActive ? "rgba(6,18,36,0.85)" : "rgba(6,18,36,0.55)",
+                    backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+                    border: `1px solid ${isActive ? "rgba(48,231,237,0.6)" : "rgba(255,255,255,0.22)"}`,
+                    boxShadow: isActive ? "0 0 24px rgba(48,231,237,0.3)" : "0 8px 24px rgba(0,0,0,0.3)",
+                    cursor: "pointer", transition: "background 0.25s, border-color 0.25s, box-shadow 0.25s",
+                  }}
+                >
+                  <span className="hidden sm:inline" style={{ paddingLeft: 14, fontSize: 14, fontWeight: 500, color: "#fff", whiteSpace: "nowrap" }}>{h.label}</span>
+                  <PulseDot active={isActive} size={28} />
+                </button>
+              );
+            })}
 
-          {/* Detail card (desktop) */}
-          <div className="hidden md:block absolute" style={{ left: 24, bottom: 24, width: 340 }}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6, transition: { duration: 0.12 } }}
-                transition={{ duration: 0.35, ease: EASE }}
-                style={{ padding: "20px 22px", borderRadius: 18, background: "rgba(6,18,36,0.88)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", border: "1px solid rgba(48,231,237,0.22)" }}
-              >
-                <p style={{ fontSize: 15, fontWeight: 600, color: "#fff", margin: "0 0 8px" }}>{current.title}</p>
-                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
-              </motion.div>
-            </AnimatePresence>
+            {/* Detail card (desktop) */}
+            <div className="hidden md:block absolute" style={{ left: "clamp(24px, 4vw, 64px)", bottom: "clamp(24px, 4vw, 56px)", width: 360 }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6, transition: { duration: 0.12 } }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                  style={{ padding: "20px 22px", borderRadius: 18, background: "rgba(6,18,36,0.88)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", border: "1px solid rgba(48,231,237,0.22)" }}
+                >
+                  <p style={{ fontSize: 15, fontWeight: 600, color: "#fff", margin: "0 0 8px" }}>{current.title}</p>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
-        </motion.div>
+        </div>
+      </div>
 
-        {/* Detail card (mobile) */}
-        <div className="md:hidden" style={{ marginTop: 16 }}>
-          <div className="flex flex-wrap gap-2" style={{ marginBottom: 12 }}>
-            {sceneHotspots.map(h => (
-              <button key={h.id} type="button" onClick={() => setActive(h.id)}
-                style={{ padding: "7px 14px", borderRadius: 999, fontSize: 12.5, fontWeight: 500, cursor: "pointer",
-                  background: active === h.id ? "rgba(0,88,179,0.08)" : "#fff",
-                  border: `1px solid ${active === h.id ? "rgba(0,88,179,0.4)" : "rgba(11,21,48,0.10)"}`,
-                  color: active === h.id ? ACCENT : INK_SOFT }}>
-                {h.label}
-              </button>
-            ))}
-          </div>
-          <div style={{ padding: "18px 20px", borderRadius: 16, background: "#fff", border: "1px solid rgba(11,21,48,0.08)", boxShadow: "0 12px 30px rgba(11,21,48,0.06)" }}>
-            <p style={{ fontSize: 15, fontWeight: 600, color: INK, margin: "0 0 6px" }}>{current.title}</p>
-            <p style={{ fontSize: 13, color: INK_SOFT, lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
-          </div>
+      {/* Detail card (mobile) */}
+      <div className="md:hidden section-padding" style={{ marginTop: 16 }}>
+        <div className="flex flex-wrap gap-2" style={{ marginBottom: 12 }}>
+          {sceneHotspots.map(h => (
+            <button key={h.id} type="button" onClick={() => setActive(h.id)}
+              style={{ padding: "7px 14px", borderRadius: 999, fontSize: 12.5, fontWeight: 500, cursor: "pointer",
+                background: active === h.id ? "rgba(0,88,179,0.08)" : "#fff",
+                border: `1px solid ${active === h.id ? "rgba(0,88,179,0.4)" : "rgba(11,21,48,0.10)"}`,
+                color: active === h.id ? ACCENT : INK_SOFT }}>
+              {h.label}
+            </button>
+          ))}
+        </div>
+        <div style={{ padding: "18px 20px", borderRadius: 16, background: "#fff", border: "1px solid rgba(11,21,48,0.08)", boxShadow: "0 12px 30px rgba(11,21,48,0.06)" }}>
+          <p style={{ fontSize: 15, fontWeight: 600, color: INK, margin: "0 0 6px" }}>{current.title}</p>
+          <p style={{ fontSize: 13, color: INK_SOFT, lineHeight: 1.65, margin: 0 }}>{current.desc}</p>
         </div>
       </div>
     </section>
