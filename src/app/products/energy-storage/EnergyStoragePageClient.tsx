@@ -691,15 +691,14 @@ export default function EnergyStoragePageClient() {
         >
           <HeroVideo />
         </motion.div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(4,8,20,0.82) 0%, rgba(4,8,20,0.40) 50%, rgba(4,8,20,0) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,1) 0%, rgba(4,8,20,0.12) 35%, transparent 60%)" }} />
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }} />
-
         <div className="section-padding relative z-10 w-full max-w-full" style={{ paddingTop: "clamp(104px, 14vh, 140px)", paddingBottom: "clamp(48px, 9vh, 96px)" }}>
-          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: EASE }}>
+          {/* Video runs unshaded — the text sits on its own frosted panel instead */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: EASE }}
+            style={{ width: "fit-content", maxWidth: "min(720px, 100%)", padding: "clamp(22px, 3vw, 36px)", borderRadius: 24, background: "rgba(6,13,31,0.72)", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "0 24px 60px rgba(4,8,20,0.35)" }}
+          >
             <span className="inline-flex items-center gap-2 rounded-full" style={{ padding: "6px 14px", marginBottom: 20, fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: CYAN, background: "rgba(48,231,237,0.08)", border: "1px solid rgba(48,231,237,0.3)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}>
               <BatteryCharging size={14} /> Energy Storage Systems
             </span>
