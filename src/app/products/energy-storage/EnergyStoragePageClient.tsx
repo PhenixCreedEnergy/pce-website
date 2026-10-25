@@ -903,8 +903,8 @@ export default function EnergyStoragePageClient() {
         className="fixed top-0 left-0 right-0 pointer-events-none"
         style={{ height: 3, zIndex: 100, transformOrigin: "0% 50%", scaleX: progress, background: `linear-gradient(90deg, ${ACCENT}, ${CYAN}, #6366f1)`, boxShadow: `0 0 12px ${CYAN}` }}
       />
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden max-w-full" style={{ minHeight: "88vh", display: "flex", alignItems: "flex-end" }}>
+      {/* ── Hero ── matches the homepage hero: bare text bottom-left over the video */}
+      <section className="relative w-full overflow-hidden max-w-full bg-[#040814] min-h-[72vh] md:min-h-screen">
         <motion.div
           className="absolute inset-0"
           initial={{ scale: 1.08 }}
@@ -913,46 +913,54 @@ export default function EnergyStoragePageClient() {
         >
           <HeroVideo />
         </motion.div>
-        <div className="section-padding relative z-10 w-full max-w-full" style={{ paddingTop: "clamp(104px, 14vh, 140px)", paddingBottom: "clamp(48px, 9vh, 96px)" }}>
-          {/* Video runs unshaded — the text sits on its own frosted panel instead */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: EASE }}
-            style={{ width: "fit-content", maxWidth: "min(720px, 100%)", padding: "clamp(22px, 3vw, 36px)", borderRadius: 24, background: "rgba(6,13,31,0.72)", border: "1px solid rgba(255,255,255,0.10)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", boxShadow: "0 24px 60px rgba(4,8,20,0.35)" }}
-          >
-            <span className="inline-flex items-center gap-2 rounded-full" style={{ padding: "6px 14px", marginBottom: 20, fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: CYAN, background: "rgba(48,231,237,0.08)", border: "1px solid rgba(48,231,237,0.3)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}>
-              <BatteryCharging size={14} /> Energy Storage Systems
-            </span>
-            <h1
-              className="font-bold text-white leading-[1.08] mb-4"
-              style={{ fontSize: "clamp(1.95rem, 8vw, 3.9rem)", maxWidth: "min(680px, 100%)", overflowWrap: "break-word", textShadow: "0 3px 24px rgba(0,0,0,0.58)" }}
+
+        {/* Soft bottom-left scrim — the video is bright, so white text needs a little help */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to top, rgba(4,8,20,0.62) 0%, rgba(4,8,20,0.18) 38%, transparent 62%), linear-gradient(to right, rgba(4,8,20,0.38) 0%, transparent 55%)" }}
+        />
+
+        <div
+          className="absolute inset-0 z-20 flex items-end section-padding pt-24"
+          style={{ paddingBottom: "clamp(42px, 7vh, 72px)" }}
+        >
+          <div style={{ maxWidth: 620 }}>
+            <motion.h1
+              className="font-sans font-bold tracking-normal text-white"
+              style={{
+                fontSize: "clamp(2.05rem, 3.05vw, 3.65rem)",
+                lineHeight: 1.08,
+                marginBottom: "clamp(14px, 1.6vw, 20px)",
+                textShadow: "0 3px 24px rgba(0,0,0,0.58)",
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
             >
-              Grid-Scale Battery Storage<br />
-              <span className="bg-clip-text text-transparent italic" style={{ backgroundImage: `linear-gradient(135deg, ${CYAN} 0%, ${BLUE} 100%)` }}>
-                for a Reliable Africa
+              <span className="block">Grid-Scale Battery Storage</span>
+              <span className="block">
+                for a{" "}
+                <span className="bg-clip-text text-transparent italic" style={{ backgroundImage: "linear-gradient(135deg, #30E7ED 0%, #7ab8ff 100%)" }}>
+                  Reliable Africa.
+                </span>
               </span>
-            </h1>
-            <p style={{ fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", color: "rgba(255,255,255,0.82)", maxWidth: "min(560px, 100%)", lineHeight: 1.65, marginBottom: 28, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
-              Battery energy storage systems for homes, businesses and grid operators — capturing clean energy and delivering it whenever and wherever power is needed.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-white"
-                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", boxShadow: "0 4px 28px rgba(0,88,179,0.45)", textDecoration: "none", maxWidth: "100%" }}
-              >
-                Request a Quote <ArrowRight size={15} />
-              </Link>
-              <Link
-                href="#products"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-medium"
-                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)", textDecoration: "none", maxWidth: "100%" }}
-              >
-                Explore the System
-              </Link>
-            </div>
-          </motion.div>
+            </motion.h1>
+            <motion.p
+              style={{
+                fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)",
+                color: "rgba(255,255,255,0.82)",
+                maxWidth: 540,
+                lineHeight: 1.65,
+                textShadow: "0 2px 16px rgba(0,0,0,0.55)",
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.22, ease: EASE }}
+            >
+              Clean energy stored and delivered whenever power is needed.
+            </motion.p>
+          </div>
         </div>
       </section>
 
