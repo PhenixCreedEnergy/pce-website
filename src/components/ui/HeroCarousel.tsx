@@ -9,6 +9,8 @@ type Slide = {
   alt: string;
   objectPosition: string;
   video?: { webm: string; mp4: string };
+  /** Show the slide at full brightness, without the dark legibility overlay */
+  bare?: boolean;
 };
 
 const slides: Slide[] = [
@@ -24,10 +26,11 @@ const slides: Slide[] = [
   },
   {
     // Poster frame doubles as the still for reduced-motion users
-    src: "/video/energy-storage-ecosystem-poster.jpg",
-    alt: "Animation of the PCE energy network — grid, solar and battery storage supplying homes, offices and EV chargers",
+    src: "/video/solar-energy-scene-poster.jpg",
+    alt: "Animated solar energy scene — rooftop and carport solar, battery storage and the grid powering homes, offices and EV chargers",
     objectPosition: "center 50%",
-    video: { webm: "/video/energy-storage-ecosystem.webm", mp4: "/video/energy-storage-ecosystem.mp4" },
+    video: { webm: "/video/solar-energy-scene.webm", mp4: "/video/solar-energy-scene.mp4" },
+    bare: true,
   },
 ];
 
@@ -108,21 +111,27 @@ export function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Cinematic overlay — dual gradient for text legibility */}
-      <div
+      {/* Cinematic overlay — dual gradient for text legibility; fades out on bare slides */}
+      <motion.div
         className="absolute inset-0 pointer-events-none z-10"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.15) 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none z-10"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)",
-        }}
-      />
+        animate={{ opacity: slide.bare ? 0 : 1 }}
+        transition={{ duration: FADE_DURATION, ease: "easeInOut" }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.15) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%)",
+          }}
+        />
+      </motion.div>
 
       {/* Pagination dots */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
