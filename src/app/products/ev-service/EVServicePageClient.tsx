@@ -269,6 +269,30 @@ export default function EVServicePage() {
               <ServiceCard key={service.title} service={service} index={i} />
             ))}
           </div>
+
+          {/* Workshop video — PCE technicians servicing EVs */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-8%" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative overflow-hidden"
+            style={{ marginTop: 56, borderRadius: 22, border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 30px 80px rgba(0,0,0,0.45)", aspectRatio: "16 / 9", background: "#0a1428" }}
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/video/ev-maintenance-poster.jpg"
+              aria-label="PCE technicians servicing electric vehicles in a branded EV maintenance workshop"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+            >
+              <source src="/video/ev-maintenance.webm" type="video/webm" />
+              <source src="/video/ev-maintenance.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
         </div>
       </section>
 
