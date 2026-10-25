@@ -806,12 +806,12 @@ function HeroVideo() {
       loop
       playsInline
       preload="auto"
-      poster="/video/energy-storage-ecosystem-poster.jpg"
-      aria-label="Animation of the PCE energy network: grid power, solar and battery storage supplying homes, offices and EV chargers"
+      poster="/video/solar-energy-scene-poster.jpg"
+      aria-label="Animated solar energy scene: rooftop and carport solar, battery storage and the grid powering homes, offices and EV chargers"
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 50%" }}
     >
-      <source src="/video/energy-storage-ecosystem.webm" type="video/webm" />
-      <source src="/video/energy-storage-ecosystem.mp4" type="video/mp4" />
+      <source src="/video/solar-energy-scene.webm" type="video/webm" />
+      <source src="/video/solar-energy-scene.mp4" type="video/mp4" />
     </video>
   );
 }
@@ -913,13 +913,6 @@ export default function EnergyStoragePageClient() {
         >
           <HeroVideo />
         </motion.div>
-
-        {/* Soft bottom-left scrim — the video is bright, so white text needs a little help */}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(4,8,20,0.62) 0%, rgba(4,8,20,0.18) 38%, transparent 62%), linear-gradient(to right, rgba(4,8,20,0.38) 0%, transparent 55%)" }}
-        />
 
         <div
           className="absolute inset-0 z-20 flex items-end section-padding pt-24"
