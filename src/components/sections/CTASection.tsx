@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Zap, Globe2, Activity, Users } from "lucide-react";
 
 /* ─── Animated counter ──────────────────────────────────────── */
-function useCountUp(target: number, active: boolean, duration = 2200) {
+export function useCountUp(target: number, active: boolean, duration = 2200) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!active) return;

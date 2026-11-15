@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 /* ─── Data ───────────────────────────────────────────────────── */
-const cities = [
+export const cities = [
   { id: "casablanca",    name: "Casablanca",    country: "Morocco",      cx: 132, cy: 78,  r: 5,   stations: 48  },
   { id: "cairo",         name: "Cairo",         country: "Egypt",        cx: 332, cy: 72,  r: 6,   stations: 120 },
   { id: "abuja",         name: "Abuja",         country: "Nigeria",      cx: 190, cy: 218, r: 5.5, stations: 85  },
@@ -19,7 +19,7 @@ const cities = [
 ];
 
 // [fromId, toId, packet delay offset]
-const routes: [string, string, number][] = [
+export const routes: [string, string, number][] = [
   ["casablanca", "cairo",        0],
   ["casablanca", "lagos",        0.8],
   ["cairo",      "nairobi",      0.4],
@@ -32,14 +32,14 @@ const routes: [string, string, number][] = [
   ["johannesburg","lagos",       2.0],
 ];
 
-const statsCards = [
+export const statsCards = [
   { value: "2,500+", label: "Charging Stations", top: "8%",  left: "58%"  },
   { value: "18",     label: "Countries",          top: "34%", left: "60%"  },
   { value: "98%",    label: "Network Uptime",     top: "58%", left: "0%"   },
   { value: "350kW",  label: "Ultra-Fast Power",   top: "76%", left: "58%"  },
 ];
 
-const features = [
+export const features = [
   { icon: Zap,    title: "350kW Fast Charging",    desc: "Add 100 km of range in under 5 minutes at every SuperCharge node." },
   { icon: MapPin, title: "Live Availability",       desc: "Real-time station data — find open bays before you arrive." },
   { icon: Cpu,    title: "Smart Energy Routing",    desc: "AI dispatching balances load across the grid automatically." },
@@ -47,7 +47,7 @@ const features = [
 ];
 
 /* ─── Africa SVG path ────────────────────────────────────────── */
-const AFRICA_PATH = `
+export const AFRICA_PATH = `
   M 135,55 L 175,42 L 230,38 L 275,48 L 322,54 L 345,68
   L 352,88 L 362,118 L 372,145 L 378,168 L 390,188
   L 395,215 L 385,245 L 372,278 L 368,310 L 360,345
@@ -60,11 +60,11 @@ const AFRICA_PATH = `
 `;
 
 /* ─── Helpers ────────────────────────────────────────────────── */
-function getCity(id: string) {
+export function getCity(id: string) {
   return cities.find((c) => c.id === id)!;
 }
 
-function routePath(from: { cx: number; cy: number }, to: { cx: number; cy: number }) {
+export function routePath(from: { cx: number; cy: number }, to: { cx: number; cy: number }) {
   // Slight cubic curve for organic feel
   const mx = (from.cx + to.cx) / 2;
   const my = (from.cy + to.cy) / 2 - Math.abs(to.cx - from.cx) * 0.18;
