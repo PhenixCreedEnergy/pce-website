@@ -52,8 +52,6 @@ function useReveal<T extends HTMLElement>(margin = "-10%") {
 // dashboard: copy + features on the left, map panel with a stats rail on the right.
 export function NetworkCoverage() {
   const [ref, inView] = useReveal<HTMLElement>("-8%");
-  const maxStations = Math.max(...cities.map((c) => c.stations));
-  const ranked = [...cities].sort((a, b) => b.stations - a.stations);
 
   return (
     <section ref={ref} className="relative overflow-hidden" style={{ background: NAVY }}>
@@ -145,10 +143,9 @@ export function NetworkCoverage() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-[minmax(0,1fr)_220px]">
-              {/* Map */}
-              <div className="relative p-3 md:p-5">
-                <svg viewBox="0 0 500 560" className="w-full block" role="img" aria-label="Map of PCE charging hubs across Africa">
+            {/* Map */}
+            <div className="relative p-3 md:p-5">
+                <svg viewBox="0 0 500 560" className="w-full max-w-[520px] mx-auto block" role="img" aria-label="Map of PCE charging hubs across Africa">
                   <defs>
                     <filter id="cnGlow" x="-50%" y="-50%" width="200%" height="200%">
                       <feGaussianBlur stdDeviation="4" result="b" />
@@ -219,32 +216,6 @@ export function NetworkCoverage() {
                     );
                   })}
                 </svg>
-              </div>
-
-              {/* Stations by city */}
-              <div className="px-5 md:px-5 py-5 md:border-l" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                <p className="text-[11px] font-bold tracking-[0.14em] uppercase mb-4" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  Stations by city
-                </p>
-                <ul className="m-0 p-0 list-none grid grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-3.5">
-                  {ranked.map((c, i) => (
-                    <li key={c.id}>
-                      <div className="flex items-baseline justify-between gap-2 mb-1.5">
-                        <span className="text-white text-[13px] font-medium truncate">{c.name}</span>
-                        <span className="text-[12px] font-semibold tabular-nums" style={{ color: "#30E7ED" }}>{c.stations}</span>
-                      </div>
-                      <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.06)" }}>
-                        <motion.div className="h-full rounded-full"
-                          style={{ background: "linear-gradient(90deg, #0058B3, #30E7ED)" }}
-                          initial={{ width: 0 }}
-                          animate={inView ? { width: `${(c.stations / maxStations) * 100}%` } : {}}
-                          transition={{ duration: 1, delay: 0.6 + i * 0.07, ease: EASE }} />
-                      </div>
-                      <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>{c.country}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
 
             {/* Stats rail — 1px gaps over a tinted backdrop draw the dividers */}

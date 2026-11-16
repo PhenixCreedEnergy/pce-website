@@ -44,12 +44,12 @@ const members = [
     color: "#f472b6",
   },
   {
-    name: "Mr Issac",
+    name: "Mr Amos",
     role: "Lead Engineer",
     line: "Leading engineering, infrastructure deployment, maintenance, and technical excellence.",
     photo: null,
     facePos: "center 18%",
-    initials: "MI",
+    initials: "MA",
     color: "#34d399",
   },
   {
@@ -72,8 +72,8 @@ const members = [
   },
   {
     name: "Jessica Okere",
-    role: "Head of Marketing",
-    line: "Leading brand strategy, marketing campaigns, digital presence, and customer acquisition across Africa's EV market.",
+    role: "Executive Assistant",
+    line: "Supporting the executive team with scheduling, communications, coordination, and the day-to-day running of the office.",
     photo: "/team-jessica.jpg",
     facePos: "center 18%",
     initials: "JO",

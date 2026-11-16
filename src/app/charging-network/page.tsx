@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo";
 import { BuiltToLast, ChargingCTA, ChargingSpeeds, NetworkCoverage } from "./ChargingNetworkSections";
@@ -100,11 +100,6 @@ export default function ChargingNetworkPage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-10">
-          <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>Explore</span>
-          <ChevronDown size={16} style={{ color: "rgba(48,231,237,0.6)" }} className="animate-bounce" />
-        </div>
       </section>
 
       <NetworkCoverage />
