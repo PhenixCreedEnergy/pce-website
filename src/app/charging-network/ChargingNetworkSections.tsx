@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Zap, Clock, Shield, Wifi, Globe2, Activity, Users, Timer, MapPin } from "lucide-react";
+import { ArrowRight, Zap, Clock, Shield, Wifi, Layers, Plug, Timer, MapPin } from "lucide-react";
 import {
   AFRICA_PATH,
   cities,
@@ -138,8 +138,7 @@ export function NetworkCoverage() {
                 <span className="text-white text-sm font-semibold">Network map</span>
               </div>
               <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest" style={{ color: "#30E7ED" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#30E7ED] animate-pulse" />
-                LIVE
+                PLANNED
               </div>
             </div>
 
@@ -487,10 +486,10 @@ export function ChargingCTA() {
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(6,13,31,0.92) 0%, rgba(6,13,31,0.25) 55%, rgba(6,13,31,0.1) 100%)" }} />
             <div className="absolute inset-0 hidden lg:block" style={{ background: "linear-gradient(to right, rgba(6,13,31,1) 0%, rgba(6,13,31,0) 30%)" }} />
             <div className="absolute left-0 right-0 bottom-0 p-5 md:p-8 grid grid-cols-2 gap-3">
-              <CtaStat icon={Zap}      target={2500} suffix="+" label="Charging Stations" active={inView} />
-              <CtaStat icon={Globe2}   target={18}              label="Countries"         active={inView} />
-              <CtaStat icon={Activity} target={98}   suffix="%" label="Network Uptime"    active={inView} />
-              <CtaStat icon={Users}    text="1M+"               label="Sessions Served"   active={inView} />
+              <CtaStat icon={Zap}    target={350} suffix=" kW" label="Peak Charging Power" active={inView} />
+              <CtaStat icon={Layers} target={3}                label="Charging Tiers"      active={inView} />
+              <CtaStat icon={Timer}  text="~10 min"            label="SuperCharge Top-up"  active={inView} />
+              <CtaStat icon={Plug}   target={22}  suffix=" kW" label="AC Charging"         active={inView} />
             </div>
           </div>
         </motion.div>

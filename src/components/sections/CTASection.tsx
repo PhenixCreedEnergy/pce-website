@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Zap, Globe2, Activity, Users } from "lucide-react";
+import { ArrowRight, Zap, Layers, Timer, Plug } from "lucide-react";
 
 /* ─── Animated counter ──────────────────────────────────────── */
 export function useCountUp(target: number, active: boolean, duration = 2200) {
@@ -106,10 +106,10 @@ export function CTASection() {
   );
 
   const stats: StatProps[] = [
-    { icon: Zap,      numericValue: 2500, suffix: "+", label: "Charging Stations", active: inView, delay: 0.55 },
-    { icon: Globe2,   numericValue: 18,   suffix: "",  label: "Countries",         active: inView, delay: 0.65 },
-    { icon: Activity, numericValue: 98,   suffix: "%", label: "Network Uptime",    active: inView, delay: 0.75 },
-    { icon: Users,    value: "1M+",                    label: "Sessions Served",   active: inView, delay: 0.85 },
+    { icon: Zap,    numericValue: 350, suffix: " kW", label: "Peak Charging Power", active: inView, delay: 0.55 },
+    { icon: Layers, numericValue: 3,   suffix: "",    label: "Charging Tiers",      active: inView, delay: 0.65 },
+    { icon: Timer,  value: "~10 min",                 label: "SuperCharge Top-up",  active: inView, delay: 0.75 },
+    { icon: Plug,   numericValue: 22,  suffix: " kW", label: "AC Charging",         active: inView, delay: 0.85 },
   ];
 
   return (

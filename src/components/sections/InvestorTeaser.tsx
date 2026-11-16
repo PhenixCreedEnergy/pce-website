@@ -14,7 +14,7 @@ const pillars = [
   {
     icon: Globe2,
     title: "First-mover advantage",
-    desc: "Operating in 18 countries with exclusive government concessions",
+    desc: "Building early in Africa's fastest-growing EV markets",
   },
   {
     icon: ShieldCheck,

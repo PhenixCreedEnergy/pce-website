@@ -32,7 +32,7 @@ const FEATURES = [
   {
     icon: Wallet,
     title: "PCE Wallet",
-    desc: "One balance across 2,500+ stations. Auto-reload, instant receipts, no friction at the charger.",
+    desc: "One balance across every PCE station. Auto-reload, instant receipts, no friction at the charger.",
   },
   {
     icon: Zap,

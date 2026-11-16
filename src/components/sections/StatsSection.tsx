@@ -89,10 +89,10 @@ function GlassStatCard({ numericValue, value, suffix = "", label, description, a
 
 /* ─── Main section ──────────────────────────────────────────── */
 const stats: GlassStatProps[] = [
-  { numericValue: 2500, suffix: "+", label: "Charging Stations",  description: "Deployed across 18 African countries", active: false, delay: 0.1 },
-  { numericValue: 18,   suffix: "",  label: "Countries Served",   description: "Pan-African coverage expanding monthly", active: false, delay: 0.2 },
-  { numericValue: 98,   suffix: "%", label: "Network Uptime",     description: "Industry-leading reliability SLA", active: false, delay: 0.3 },
-  { numericValue: 1,    suffix: "M+",label: "Charging Sessions",  description: "Growing at 40% month-over-month", active: false, delay: 0.4 },
+  { numericValue: 350, suffix: " kW", label: "Peak Charging Power", description: "PCE SuperCharge DC ultra-fast chargers", active: false, delay: 0.1 },
+  { numericValue: 3,   suffix: "",    label: "Charging Tiers",      description: "Standard, Fast and SuperCharge", active: false, delay: 0.2 },
+  { value: "~10 min",                 label: "SuperCharge Top-up",  description: "Typical top-up at a 350 kW charger", active: false, delay: 0.3 },
+  { numericValue: 22,  suffix: " kW", label: "AC Charging",         description: "For hotels, offices and overnight parking", active: false, delay: 0.4 },
 ];
 
 const floatingFeatures = [

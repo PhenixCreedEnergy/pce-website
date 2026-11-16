@@ -33,9 +33,9 @@ export const routes: [string, string, number][] = [
 ];
 
 export const statsCards = [
-  { value: "2,500+", label: "Charging Stations", top: "8%",  left: "58%"  },
-  { value: "18",     label: "Countries",          top: "34%", left: "60%"  },
-  { value: "98%",    label: "Network Uptime",     top: "58%", left: "0%"   },
+  { value: "3",       label: "Charging Tiers",     top: "8%",  left: "58%"  },
+  { value: "~10 min", label: "SuperCharge Top-up", top: "34%", left: "60%"  },
+  { value: "22kW",    label: "AC Charging",        top: "58%", left: "0%"   },
   { value: "350kW",  label: "Ultra-Fast Power",   top: "76%", left: "58%"  },
 ];
 
@@ -43,7 +43,7 @@ export const features = [
   { icon: Zap,    title: "350kW Fast Charging",    desc: "Add 100 km of range in under 5 minutes at every SuperCharge node." },
   { icon: MapPin, title: "Live Availability",       desc: "Real-time station data — find open bays before you arrive." },
   { icon: Cpu,    title: "Smart Energy Routing",    desc: "AI dispatching balances load across the grid automatically." },
-  { icon: Globe2, title: "Pan-African Coverage",    desc: "18 countries, 2,500+ stations — and expanding every month." },
+  { icon: Globe2, title: "Pan-African Network",     desc: "A planned network of hubs on highways, airports, malls and city centres." },
 ];
 
 /* ─── Africa SVG path ────────────────────────────────────────── */

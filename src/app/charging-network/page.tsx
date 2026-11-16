@@ -12,9 +12,9 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 const liveStats = [
-  { value: "2,487", label: "Stations Online", shortLabel: "Online", dot: "#30E7ED" },
-  { value: "1,204", label: "Active Sessions",  shortLabel: "Active", dot: "#22d3ee" },
-  { value: "98.7%", label: "Network Uptime",   shortLabel: "Uptime", dot: "#30E7ED" },
+  { value: "22 kW",  label: "Standard",    shortLabel: "Standard", dot: "#30E7ED" },
+  { value: "150 kW", label: "Fast",        shortLabel: "Fast",     dot: "#22d3ee" },
+  { value: "350 kW", label: "SuperCharge", shortLabel: "Super",    dot: "#30E7ED" },
 ];
 
 export default function ChargingNetworkPage() {
@@ -42,7 +42,7 @@ export default function ChargingNetworkPage() {
           backgroundSize: "80px 80px",
         }} />
 
-        {/* Live network status ticker */}
+        {/* Charging tiers */}
         <div className="absolute left-0 right-0 z-10 section-padding hidden md:block" style={{ bottom: "clamp(42px, 7vh, 72px)" }}>
           <div className="flex justify-start md:justify-end">
             <div className="flex items-center justify-start md:justify-end gap-2 md:gap-3 py-1.5 flex-nowrap opacity-90 overflow-x-auto hide-scrollbar max-w-full">
@@ -52,16 +52,12 @@ export default function ChargingNetworkPage() {
                   className="flex items-center gap-1 md:gap-2.5 whitespace-nowrap px-2.5 py-1 md:px-4 md:py-2 rounded-2xl md:rounded-full"
                   style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(48,231,237,0.15)", backdropFilter: "blur(12px)" }}
                 >
-                  <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full animate-pulse flex-shrink-0" style={{ background: s.dot }} />
+                  <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full flex-shrink-0" style={{ background: s.dot }} />
                   <span className="text-white font-semibold text-[11px] md:text-sm">{s.value}</span>
                   <span className="text-gray-400 text-[11px] md:hidden">{s.shortLabel}</span>
                   <span className="text-gray-400 text-xs hidden md:inline">{s.label}</span>
                 </div>
               ))}
-              <div className="flex items-center gap-1 whitespace-nowrap text-[11px] md:text-xs" style={{ color: "#30E7ED" }}>
-                <span className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-[#30E7ED] animate-pulse flex-shrink-0" />
-                LIVE
-              </div>
             </div>
           </div>
         </div>
@@ -80,8 +76,8 @@ export default function ChargingNetworkPage() {
 
             <p className="leading-relaxed m-0"
               style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
-              2,500+ ultra-fast stations spanning 18 African countries — strategically
-              placed at highways, airports, malls, and urban hubs.
+              Ultra-fast charging hubs planned for highways, airports, malls,
+              and urban centres across Africa.
             </p>
 
           </div>
