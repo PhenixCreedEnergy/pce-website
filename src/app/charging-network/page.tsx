@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import { createPageMetadata } from "@/lib/seo";
 import { BuiltToLast, ChargingCTA, ChargingSpeeds, NetworkCoverage } from "./ChargingNetworkSections";
 
@@ -79,27 +78,20 @@ export default function ChargingNetworkPage() {
               </span>
             </h1>
 
-            <p className="leading-relaxed mb-7"
+            <p className="leading-relaxed m-0"
               style={{ color: "rgba(255,255,255,0.82)", fontSize: "clamp(0.95rem, 0.95vw, 1.05rem)", maxWidth: 540, textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}>
               2,500+ ultra-fast stations spanning 18 African countries — strategically
               placed at highways, airports, malls, and urban hubs.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5">
-              <Link href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200"
-                style={{ padding: "15px 30px", fontSize: 15, background: "#0058B3", color: "white", boxShadow: "0 4px 28px rgba(0,88,179,0.45)" }}>
-                Partner with us <ArrowRight size={15} />
-              </Link>
-              <Link href="/pce-app"
-                className="inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200"
-                style={{ padding: "15px 30px", fontSize: 15, background: "rgba(255,255,255,0.10)", backdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.24)", color: "rgba(255,255,255,0.90)" }}>
-                Find a Charger
-              </Link>
-            </div>
           </div>
         </div>
 
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-10">
+          <span className="text-xs tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>Explore</span>
+          <ChevronDown size={16} style={{ color: "rgba(48,231,237,0.6)" }} className="animate-bounce" />
+        </div>
       </section>
 
       <NetworkCoverage />
