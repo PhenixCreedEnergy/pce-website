@@ -8,7 +8,6 @@ const columns = [
       { label: "Charging Network", href: "/charging-network" },
       { label: "PCE App",          href: "/pce-app" },
       { label: "Energy Storage",   href: "/products/energy-storage" },
-      { label: "Solar Calculator", href: "/solar-calculator" },
       { label: "EV Power Banks" },
     ],
   },
@@ -33,6 +32,7 @@ const columns = [
     links: [
       { label: "Get in Touch",    href: "/contact" },
       { label: "Partnerships",    href: "/contact" },
+      { label: "Solar Calculator", href: "/solar-calculator" },
       { label: "Fleet Solutions", href: "/contact" },
       { label: "Support",         href: "/contact" },
     ],

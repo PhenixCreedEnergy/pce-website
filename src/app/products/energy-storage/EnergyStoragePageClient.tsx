@@ -1083,6 +1083,13 @@ export default function EnergyStoragePageClient() {
                 >
                   Partner With Us
                 </Link>
+                <Link
+                  href="/solar-calculator"
+                  className="inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm transition-colors duration-200 hover:bg-white/15"
+                  style={{ padding: "16px 36px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.28)", color: "rgba(255,255,255,0.92)", textDecoration: "none", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)" }}
+                >
+                  <Sun size={15} /> Size Your Solar System
+                </Link>
               </div>
             </div>
           </motion.div>
