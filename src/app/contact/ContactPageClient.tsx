@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
@@ -166,6 +167,33 @@ export default function ContactPage() {
                     </button>
                   </form>
                 )}
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.12}>
+          <div className="mt-8 md:mt-10 overflow-hidden rounded-lg border border-pce-border bg-white shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+              <div className="relative aspect-[1028/1280] bg-pce-gray-light">
+                <Image
+                  src="/project-sea-mall.jpg"
+                  alt="Sea Mall by Lagos Off Plan Property, powered by Phoenix Creed Energy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 500px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-deep-blue">Property partnership</p>
+                <h2 className="mt-3 text-2xl font-bold text-pce-dark sm:text-3xl">Sea Mall, powered by PCE</h2>
+                <p className="mt-4 text-sm leading-6 text-pce-gray sm:text-base sm:leading-7">
+                  Lagos Off Plan Property&apos;s Sea Mall is powered by Phoenix Creed Energy.
+                </p>
+                <p className="mt-3 text-sm leading-6 text-pce-gray sm:text-base sm:leading-7">
+                  Developing or managing a property? Choose <span className="font-semibold text-pce-dark">Property partnership</span> in the form above, or email{" "}
+                  <a href="mailto:info@pceenergies.com" className="font-semibold text-deep-blue hover:underline">info@pceenergies.com</a>.
+                </p>
               </div>
             </div>
           </div>
