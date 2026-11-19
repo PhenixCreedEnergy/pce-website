@@ -79,6 +79,24 @@ const members = [
     initials: "JO",
     color: "#f9a8d4",
   },
+  {
+    name: "Evelyn Emotinuaye",
+    role: "Business Development Manager",
+    line: "Building client relationships and growing Phoenix Creed Energy's partnerships, sales pipeline and market reach.",
+    photo: "/team-evelyn.jpg",
+    facePos: "center 30%",
+    initials: "EE",
+    color: "#38bdf8",
+  },
+  {
+    name: "Iheanacho Excel Ndioma",
+    role: "Business Development Manager",
+    line: "Driving new business, nurturing client accounts and expanding Phoenix Creed Energy's footprint across new markets.",
+    photo: "/team-excel.jpg",
+    facePos: "center 35%",
+    initials: "IN",
+    color: "#c084fc",
+  },
 ];
 
 const PAGE_SIZE = 3;
