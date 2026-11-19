@@ -44,12 +44,12 @@ const members = [
     color: "#f472b6",
   },
   {
-    name: "Mr Amos",
+    name: "Onyeka Amos Okeke",
     role: "Lead Engineer",
     line: "Leading engineering, infrastructure deployment, maintenance, and technical excellence.",
-    photo: null,
-    facePos: "center 18%",
-    initials: "MA",
+    photo: "/team-amos.jpg",
+    facePos: "center 30%",
+    initials: "OO",
     color: "#34d399",
   },
   {

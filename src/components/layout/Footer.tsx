@@ -8,6 +8,7 @@ const columns = [
       { label: "Charging Network", href: "/charging-network" },
       { label: "PCE App",          href: "/pce-app" },
       { label: "Energy Storage",   href: "/products/energy-storage" },
+      { label: "Solar Calculator", href: "/solar-calculator" },
       { label: "EV Power Banks" },
     ],
   },

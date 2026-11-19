@@ -38,6 +38,7 @@ const PRODUCTS: ProductItem[] = [
   { label: "PCE App",              href: "/pce-app",               description: "Manage charging, payments, navigation and energy usage",         image: "/product-ev-app.png" },
   { label: "EV Service & Maintenance", href: "/products/ev-service", description: "Diagnostics, repairs & scheduled EV servicing.", image: "/product-ev-service.jpg" },
   { label: "Energy Storage Units", href: "/products/energy-storage", description: "Grid-scale battery systems for homes, businesses and operators",  image: "/product-storage-unit.png" },
+  { label: "Solar Calculator",     href: "/solar-calculator",      description: "Size the panels, inverter and batteries you need",               image: "/solar-hub.png" },
   { label: "EV Power Banks",       description: "Portable emergency charging solutions for EV drivers",           image: "/product-power-bank.png",   badge: "Coming Soon", disabled: true },
 ];
 
@@ -95,7 +96,7 @@ function ProductsMegaMenu({ onClose, onEnter, onLeave }: {
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", margin: "0 0 24px" }}>
             Products
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}>
             {PRODUCTS.map(product => <ProductCard key={product.label} product={product} onClose={onClose} />)}
           </div>
         </div>
@@ -368,6 +369,7 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     { label: "PCE App",                  href: "/pce-app" },
     { label: "EV Service & Maintenance", href: "/products/ev-service" },
     { label: "Energy Storage Units",     href: "/products/energy-storage" },
+    { label: "Solar Calculator",         href: "/solar-calculator" },
     { label: "EV Power Banks",           badge: "Coming Soon", disabled: true },
   ];
   const mobileCompany = [
@@ -381,7 +383,7 @@ function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   const navLinks: { label: string; href?: string; sub?: typeof mobileProducts; subKey?: string; active?: boolean }[] = [
     { label: "Home",      href: "/",          active: pathname === "/" },
-    { label: "Products",  subKey: "Products", sub: mobileProducts, active: ["/charging-network", "/pce-app", "/products"].some(p => pathname.startsWith(p)) },
+    { label: "Products",  subKey: "Products", sub: mobileProducts, active: ["/charging-network", "/pce-app", "/products", "/solar-calculator"].some(p => pathname.startsWith(p)) },
     { label: "Investors", href: "/investors", active: pathname.startsWith("/investors") },
     { label: "Company",   subKey: "Company",  sub: mobileCompany,  active: pathname.startsWith("/about") },
     { label: "Contact",   href: "/contact",   active: pathname === "/contact" },
@@ -534,7 +536,7 @@ export function Navbar() {
 
   const isActive = (item: NavItem) => {
     if (item.href) return pathname === item.href;
-    if (item.products) return ["/charging-network", "/pce-app", "/products"].some(p => pathname.startsWith(p));
+    if (item.products) return ["/charging-network", "/pce-app", "/products", "/solar-calculator"].some(p => pathname.startsWith(p));
     if (item.dropdown) return item.dropdown.some(d => d.href !== "/contact" && pathname.startsWith(d.href));
     return false;
   };
