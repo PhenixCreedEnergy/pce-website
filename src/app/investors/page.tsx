@@ -5,7 +5,7 @@ import InvestorsPageClient from "./InvestorsPageClient";
 export const metadata: Metadata = createPageMetadata({
   title: "Investor Relations",
   description:
-    "Review Phoenix Creed Energy's investor story, Africa EV market opportunity, expansion roadmap, early-stage metrics, and infrastructure strategy.",
+    "Review Phoenix Creed Energy's investor story, Africa EV market opportunity, expansion roadmap, key metrics, and infrastructure strategy.",
   path: "/investors",
 });
 

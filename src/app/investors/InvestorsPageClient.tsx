@@ -22,7 +22,7 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
 
 /* ─── Data ──────────────────────────────────────────────────── */
 const keyMetrics = [
-  { value: "2026",  label: "Year Founded",         sub: "Lagos, Nigeria" },
+  { value: "Lagos", label: "Headquarters",         sub: "Nigeria" },
   { value: "$0",    label: "Operating Revenue",     sub: "Pre-revenue stage" },
   { value: "0",     label: "Active Markets",        sub: "Deployment commencing" },
   { value: "$0",    label: "Revenue / Station",     sub: "Operations not yet commenced" },
@@ -62,7 +62,7 @@ const marketData = [
 ];
 
 const roadmapItems = [
-  { year: "2026", event: "Founded in Lagos, Nigeria. Infrastructure planning and technology development begins.", done: true },
+  { year: "2026", event: "Headquartered in Lagos, Nigeria. Infrastructure planning and technology development.", done: true },
   { year: "Q3 2026", event: "Strategic partnerships and site acquisition across West Africa", done: false },
   { year: "Q4 2026", event: "Pilot station deployment — Lagos, Accra, Nairobi", done: false },
   { year: "2027", event: "Network expansion. PCE App beta launch. Seed revenue generation", done: false },
@@ -73,10 +73,10 @@ const roadmapItems = [
 const whyPCE = [
   { icon: TrendingUp,  title: "42% CAGR",           desc: "Projected African EV market growth through 2035 — the largest energy transition in history." },
   { icon: Globe2,      title: "Pan-African Vision",  desc: "Strategic infrastructure deployment planned across multiple African markets with government engagement underway." },
-  { icon: ShieldCheck, title: "Early-Stage Entry",   desc: "Positioned at the ground floor of Africa's EV revolution — infrastructure first, before the demand curve peaks." },
+  { icon: ShieldCheck, title: "Early Market Entry",  desc: "Positioned at the ground floor of Africa's EV revolution — infrastructure first, before the demand curve peaks." },
   { icon: Leaf,        title: "Net-Zero by Design",  desc: "100% renewable-powered network architecture, built for carbon credit eligibility from day one." },
   { icon: Users,       title: "Operator Model",      desc: "Platform designed for independent operators and fleet partnerships — a recurring revenue model for scale." },
-  { icon: MapPin,      title: "First-Mover Moat",    desc: "Founding now positions PCE ahead of competition before dominant players establish a foothold in Africa." },
+  { icon: MapPin,      title: "First-Mover Moat",    desc: "Moving now positions PCE ahead of competition before dominant players establish a foothold in Africa." },
 ];
 
 const revenueStreams = [
@@ -163,8 +163,8 @@ export default function InvestorsPage() {
                 Building Africa&apos;s EV Infrastructure Foundation
               </h2>
               <p className="text-pce-gray leading-relaxed mb-6">
-                Phoenix Creed Energy was founded in 2026 and is currently focused on infrastructure deployment,
-                technology development, strategic partnerships, and network expansion across Africa.
+                Phoenix Creed Energy is focused on infrastructure deployment, technology development,
+                strategic partnerships, and network expansion across Africa.
               </p>
               <div className="space-y-4 mb-8">
                 {revenueStreams.map(r => (
@@ -359,7 +359,7 @@ export default function InvestorsPage() {
               Roadmap
             </div>
             <h2 className="text-2xl md:text-5xl font-bold text-white mb-3 md:mb-4">Expansion roadmap</h2>
-            <p className="text-base md:text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From founding to a pan-African network.</p>
+            <p className="text-base md:text-lg" style={{ color: "rgba(255,255,255,0.55)" }}>From Lagos to a pan-African network.</p>
           </Reveal>
 
           <div className="relative max-w-2xl mx-auto">
@@ -395,7 +395,7 @@ export default function InvestorsPage() {
             style={{ background: "#0058B3", boxShadow: "0 8px 32px rgba(0,88,179,0.25)" }}>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Speak with our IR team</h2>
-              <p className="text-blue-200">Access our data room, pitch deck, and early-stage disclosures.</p>
+              <p className="text-blue-200">Access our data room, pitch deck, and investor disclosures.</p>
               <p className="text-blue-300 text-sm mt-2">ir@phoenixcreedenergy.com · Lagos, Nigeria</p>
             </div>
             <Link href="/contact"
